@@ -4,7 +4,7 @@ import 'package:recipes_app/models/recipe.dart';
 class RecipesListView extends StatelessWidget {
   List<Recipe> recipesList;
   RecipesListView(this.recipesList);
-
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return ListView.separated(

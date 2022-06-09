@@ -3,6 +3,7 @@ import 'package:recipes_app/list_views/recipe_list_view.dart';
 import 'package:recipes_app/models/recipe.dart';
 
 class HomeScreen extends StatelessWidget {
+  static String routeName = '/home';
   const HomeScreen({Key? key}) : super(key: key);
 
   @override

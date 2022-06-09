@@ -33,19 +33,27 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
-  final screens = [HomeScreen(), DownloadScreen(), LikeScreen()];
+  final screens = [const HomeScreen(), DownloadScreen(), LikeScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('boulanger'),
+          title: const Text('boulanger'),
           actions: [
             IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {},
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                setState(() {
+                  const TextField(
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        hintText: 'Search for a recipe'),
+                  );
+                });
+              },
             ),
             IconButton(
-              icon: Icon(Icons.account_circle),
+              icon: const Icon(Icons.account_circle),
               onPressed: () {},
             )
           ],
@@ -53,9 +61,10 @@ class _MainScreenState extends State<MainScreen> {
         body: screens[selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.download), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "")
+            const BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.download), label: ""),
+            const BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "")
           ],
           currentIndex: selectedIndex,
           onTap: (index) {
