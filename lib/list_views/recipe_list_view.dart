@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/models/recipe.dart';
 
+import '../screens/recipes_screens.dart';
+
 class RecipesListView extends StatelessWidget {
   List<Recipe> recipesList;
   RecipesListView(this.recipesList);
-  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       //scrollDirection: Axis.horizontal,
       itemBuilder: (ctx, i) {
         return ListTile(
-          leading: Image.network(
-            recipesList[i].imageUrl,
+          leading: CircleAvatar(
+            radius: 25,
+            backgroundImage: NetworkImage(
+              recipesList[i].imageUrl,
+            ),
           ),
           title: Text(recipesList[i].name),
+          onTap: () {
+            RecipesScreens.goToRecipeDetails(context, recipesList[i]);
+          },
         );
       },
       separatorBuilder: (ctx, i) {
