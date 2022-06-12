@@ -18,7 +18,7 @@ class RecipesListView extends StatelessWidget {
               recipesList[i].imageUrl,
             ),
           ),
-          title: Text(recipesList[i].name),
+          title: Text(recipesList[i].recipeName),
           onTap: () {
             RecipesScreens.goToRecipeDetails(context, recipesList[i]);
           },

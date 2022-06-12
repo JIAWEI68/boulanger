@@ -1,7 +1,13 @@
 class Recipe {
   String imageUrl;
-  String name;
+  String recipeName;
   String description;
+  bool vegetarian;
+  String difficulty;
+  String madeBy;
+  String steps;
+  int calories;
 
-  Recipe(this.imageUrl, this.name, this.description);
+  Recipe(this.imageUrl, this.recipeName, this.description, this.vegetarian,
+      this.difficulty, this.madeBy, this.steps, this.calories);
 }
