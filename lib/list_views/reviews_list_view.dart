@@ -18,8 +18,16 @@ class _ReviewsListViewState extends State<ReviewsListView> {
       itemBuilder: (ctx, i) {
         return ListTile(
           leading: const CircleAvatar(
-            radius: 25,
-            child: Icon(Icons.account_circle),
+            radius: 27,
+            backgroundColor: Colors.black,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 25,
+              child: Icon(
+                Icons.person,
+                color: Colors.black,
+              ),
+            ),
           ),
           title: Text(reviewsList.getReviews()[i].username),
           subtitle: Text(reviewsList.getReviews()[i].description),
