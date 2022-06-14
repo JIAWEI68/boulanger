@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:recipes_app/models/recipe.dart';
+import 'package:recipes_app/screens/reviews_screen.dart';
 
 class RecipesScreens extends StatelessWidget {
   final String routeName = '/recipes';
@@ -54,7 +55,9 @@ class RecipesScreens extends StatelessWidget {
                       primary: Colors.white,
                       shape: const StadiumBorder(),
                       side: const BorderSide(color: Colors.black)),
-                  onPressed: () {},
+                  onPressed: () {
+                    showReviews(BuildContext, context);
+                  },
                 ),
                 ElevatedButton(
                   child: const Text(
@@ -110,5 +113,8 @@ class RecipesScreens extends StatelessWidget {
     );
   }
 
-  void showCalories(BuildContext context, Recipe recipeToDisplay) {}
+  void showReviews(BuildContext, context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const ReviewsScreen()));
+  }
 }
