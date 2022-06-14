@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:recipes_app/lists/reviews_list.dart';
 
 class AddReviewsScreen extends StatefulWidget {
   static String routeName = '/add-reviews';
@@ -16,23 +18,35 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
 
   String? description;
 
-  void addReview() {
+  void addReview(AllReviews reviewsList) {
     bool isValid = form.currentState!.validate();
     if (isValid) {
       form.currentState!.save();
       print(username);
       print(description);
-      FocusScope.of(context).unfocus();
+      reviewsList.addReviews(username, description);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Reviews added sucessfully!'),
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Please add a username or description'),
+      ));
     }
+    FocusScope.of(context).unfocus();
+    form.currentState!.reset();
   }
 
   @override
   Widget build(BuildContext context) {
+    AllReviews reviewsList = Provider.of<AllReviews>(context);
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: addReview,
+            onPressed: () {
+              addReview(reviewsList);
+            },
             icon: Icon(Icons.add),
           )
         ],
