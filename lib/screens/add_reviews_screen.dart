@@ -26,15 +26,11 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
       print(description);
       reviewsList.addReviews(username, description);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Reviews added sucessfully!'),
+        content: Text('Reviews added successfully!'),
       ));
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Please add a username or description'),
-      ));
+      form.currentState!.reset();
     }
     FocusScope.of(context).unfocus();
-    form.currentState!.reset();
   }
 
   @override
