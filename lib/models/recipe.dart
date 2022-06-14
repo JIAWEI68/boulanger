@@ -1,6 +1,13 @@
 class Recipe {
-  final String imageUrl;
-   final String name;
+  String imageUrl;
+  String recipeName;
+  String description;
+  bool vegetarian;
+  String difficulty;
+  String madeBy;
+  String steps;
+  int calories;
 
-   const Recipe(this.imageUrl, this.name);
+  Recipe(this.imageUrl, this.recipeName, this.description, this.vegetarian,
+      this.difficulty, this.madeBy, this.steps, this.calories);
 }
