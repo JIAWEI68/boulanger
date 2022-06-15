@@ -8,28 +8,23 @@ class RecipesListView extends StatelessWidget {
   RecipesListView(this.recipesList);
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      //scrollDirection: Axis.horizontal,
+    return GridView.builder(
       itemBuilder: (ctx, i) {
-        return ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: NetworkImage(
+        return GridTile(
+          child: GestureDetector(
+            onTap: () {
+              RecipesScreens.goToRecipeDetails(context, recipesList[i]);
+            },
+            child: Image.network(
               recipesList[i].imageUrl,
+              fit: BoxFit.cover,
             ),
           ),
-          title: Text(recipesList[i].recipeName),
-          onTap: () {
-            RecipesScreens.goToRecipeDetails(context, recipesList[i]);
-          },
-        );
-      },
-      separatorBuilder: (ctx, i) {
-        return Divider(
-          height: 5,
         );
       },
       itemCount: recipesList.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, crossAxisSpacing: 4.0, mainAxisSpacing: 4.0),
     );
   }
 }
