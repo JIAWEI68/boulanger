@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:recipes_app/screens/download_screen.dart';
 import 'package:recipes_app/screens/home_screen.dart';
 import 'package:recipes_app/screens/like_screen.dart';
+import 'package:recipes_app/screens/splash_screen.dart';
 
+import 'lists/download_list.dart';
 import 'lists/reviews_list.dart';
 import 'screens/add_reviews_screen.dart';
 
@@ -19,13 +21,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AllReviews>(
           create: (ctx) => AllReviews(),
         ),
+        ChangeNotifierProvider<DownloadList>(
+          create: (ctx) => DownloadList(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: MainScreen(),
+          home: const SplashScreen(),
           routes: {
             DownloadScreen.routeName: (_) {
               return DownloadScreen();
@@ -47,8 +52,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int selectedIndex = 0;
-  final screens = [const HomeScreen(), DownloadScreen(), LikeScreen()];
+  int selectedIndex = 1;
+  final screens = [DownloadScreen(), HomeScreen(), LikeScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,18 +73,19 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.account_circle),
+              icon: const Icon(Icons.person),
               onPressed: () {},
             )
           ],
         ),
         body: screens[selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
-          items: [
-            const BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-            const BottomNavigationBarItem(
-                icon: Icon(Icons.download), label: ""),
-            const BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "")
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.download), label: ""),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
+            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "")
           ],
           currentIndex: selectedIndex,
           onTap: (index) {

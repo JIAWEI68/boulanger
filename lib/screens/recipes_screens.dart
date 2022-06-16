@@ -1,9 +1,13 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:provider/provider.dart';
 import 'package:recipes_app/models/recipe.dart';
 import 'package:recipes_app/screens/reviews_screen.dart';
+
+import '../lists/download_list.dart';
 
 class RecipesScreens extends StatelessWidget {
   final String routeName = '/recipes';
@@ -12,13 +16,45 @@ class RecipesScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DownloadList downloadedList = Provider.of<DownloadList>(context);
     var calories = recipeToDisplay.calories.toString();
     return Scaffold(
         appBar: AppBar(
           actions: [
             IconButton(
               icon: const Icon(Icons.share),
-              onPressed: () {},
+              onPressed: () {
+                showCupertinoModalPopup<void>(
+                  context: context,
+                  builder: (BuildContext context) => CupertinoActionSheet(
+                    actions: <CupertinoActionSheetAction>[
+                      CupertinoActionSheetAction(
+                        /// This parameter indicates the action would be a default
+                        /// default behavior, turns the action's text to bold text.
+                        isDefaultAction: true,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Share'),
+                      ),
+                      CupertinoActionSheetAction(
+                        onPressed: () {},
+                        child: const Text('Download'),
+                      ),
+                      CupertinoActionSheetAction(
+                        /// This parameter indicates the action would perform
+                        /// a destructive action such as delete or exit and turns
+                        /// the action's text color to red.
+                        isDestructiveAction: true,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Close'),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -35,7 +71,11 @@ class RecipesScreens extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(recipeToDisplay.recipeName),
+                Text(recipeToDisplay.recipeName,
+                    style: const TextStyle(
+                        fontSize: 35,
+                        fontFamily: "Adobe Devanagari",
+                        color: Color.fromRGBO(114, 92, 92, 10))),
                 IconButton(
                   icon: const Icon(Icons.favorite),
                   onPressed: () {},
@@ -48,7 +88,8 @@ class RecipesScreens extends StatelessWidget {
                 ElevatedButton(
                   child: const Text(
                     "Reviews",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(
+                        color: Colors.black, fontFamily: "Segoe", fontSize: 20),
                   ),
                   style: ElevatedButton.styleFrom(
                       fixedSize: const Size(190, 42),
@@ -62,7 +103,8 @@ class RecipesScreens extends StatelessWidget {
                 ElevatedButton(
                   child: const Text(
                     "Calories",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(
+                        color: Colors.black, fontFamily: "Segoe", fontSize: 20),
                   ),
                   style: ElevatedButton.styleFrom(
                       fixedSize: const Size(190, 42),
@@ -73,7 +115,7 @@ class RecipesScreens extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: Text("Calories"),
+                        title: const Text("Calories"),
                         content: Text(calories + "KCAL"),
                       ),
                     );
@@ -118,3 +160,5 @@ class RecipesScreens extends StatelessWidget {
         MaterialPageRoute(builder: (context) => const ReviewsScreen()));
   }
 }
+
+void downloadItem(BuildContext context) {}

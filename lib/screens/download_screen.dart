@@ -4,6 +4,10 @@ class DownloadScreen extends StatelessWidget {
   static String routeName = '/download';
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Row(
+        children: [Text("Download")],
+      ),
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recipes_app/list_views/recipe_list_view.dart';
 import 'package:recipes_app/models/recipe.dart';
+
+import '../list_views/recipes_grid_view.dart';
 
 class HomeScreen extends StatelessWidget {
   static String routeName = '/home';
@@ -33,7 +34,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
         Container(
           height: 606,
-          child: RecipesListView(myRecipes),
+          child: RecipesGridView(myRecipes),
         )
       ]),
     );
