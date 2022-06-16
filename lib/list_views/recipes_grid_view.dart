@@ -27,7 +27,7 @@ class RecipesGridView extends StatelessWidget {
       itemCount: recipesList.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: (133 / 123),
-          crossAxisCount: 2,
+          crossAxisCount: 3,
           crossAxisSpacing: 15.0,
           mainAxisSpacing: 3.0),
     );

@@ -6,8 +6,17 @@ class Recipe {
   String difficulty;
   String madeBy;
   String steps;
+  String ingredients;
   int calories;
 
-  Recipe(this.imageUrl, this.recipeName, this.description, this.vegetarian,
-      this.difficulty, this.madeBy, this.steps, this.calories);
+  Recipe(
+      this.imageUrl,
+      this.recipeName,
+      this.description,
+      this.vegetarian,
+      this.difficulty,
+      this.madeBy,
+      this.steps,
+      this.ingredients,
+      this.calories);
 }

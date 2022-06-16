@@ -4,20 +4,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
-import 'package:recipes_app/models/recipe.dart';
+import 'package:recipes_app/models/download.dart';
 import 'package:recipes_app/screens/reviews_screen.dart';
 
 import '../lists/download_list.dart';
 
-class RecipesScreens extends StatelessWidget {
-  final String routeName = '/recipes';
-  const RecipesScreens({Key? key, required this.recipeToDisplay});
-  final Recipe recipeToDisplay;
+class DownloadedRecipeScreens extends StatelessWidget {
+  final String routeName = '/downloadRecipes';
+  const DownloadedRecipeScreens(
+      {Key? key, required this.downloadedRecipesDisplay});
+  final Download downloadedRecipesDisplay;
 
   @override
   Widget build(BuildContext context) {
     DownloadList downloadedList = Provider.of<DownloadList>(context);
-    var calories = recipeToDisplay.calories.toString();
+    var calories = downloadedRecipesDisplay.calories.toString();
     return Scaffold(
         appBar: AppBar(
           actions: [
@@ -38,19 +39,7 @@ class RecipesScreens extends StatelessWidget {
                         child: const Text('Share'),
                       ),
                       CupertinoActionSheetAction(
-                        onPressed: () {
-                          downloadedList.downloadItem(
-                              recipeToDisplay.imageUrl,
-                              recipeToDisplay.recipeName,
-                              recipeToDisplay.description,
-                              recipeToDisplay.vegetarian,
-                              recipeToDisplay.difficulty,
-                              recipeToDisplay.madeBy,
-                              recipeToDisplay.steps,
-                              recipeToDisplay.ingredients,
-                              recipeToDisplay.calories);
-                          print(downloadedList);
-                        },
+                        onPressed: () {},
                         child: const Text('Download'),
                       ),
                       CupertinoActionSheetAction(
@@ -75,7 +64,7 @@ class RecipesScreens extends StatelessWidget {
             Container(
                 child: GFAvatar(
               backgroundImage: NetworkImage(
-                recipeToDisplay.imageUrl,
+                downloadedRecipesDisplay.imageUrl,
               ),
               shape: GFAvatarShape.square,
               radius: 200,
@@ -83,7 +72,7 @@ class RecipesScreens extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(recipeToDisplay.recipeName,
+                Text(downloadedRecipesDisplay.recipeName,
                     style: const TextStyle(
                         fontSize: 35,
                         fontFamily: "Adobe Devanagari",
@@ -140,14 +129,14 @@ class RecipesScreens extends StatelessWidget {
                 children: [
                   Container(
                     child: Text(
-                      "Difficulty: " + recipeToDisplay.difficulty,
+                      "Difficulty: " + downloadedRecipesDisplay.difficulty,
                       textAlign: TextAlign.left,
                     ),
                   ),
                   FittedBox(
                     fit: BoxFit.cover,
                     child: Text(
-                      "Made By: " + recipeToDisplay.madeBy,
+                      "Made By: " + downloadedRecipesDisplay.madeBy,
                       textAlign: TextAlign.left,
                     ),
                   ),
@@ -158,12 +147,13 @@ class RecipesScreens extends StatelessWidget {
         ));
   }
 
-  static void goToRecipeDetails(BuildContext context, Recipe recipeToDisplay) {
+  static void goToRecipeDetails(
+      BuildContext context, Download downloadedRecipeDisplay) {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) =>
-              RecipesScreens(recipeToDisplay: recipeToDisplay)),
+          builder: (context) => DownloadedRecipeScreens(
+              downloadedRecipesDisplay: downloadedRecipeDisplay)),
     );
   }
 
