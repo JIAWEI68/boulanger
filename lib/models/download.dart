@@ -10,13 +10,13 @@ class Download {
   int calories;
 
   Download(
-      {required this.imageUrl,
-      required this.recipeName,
-      required this.description,
-      required this.vegetarian,
-      required this.difficulty,
-      required this.madeBy,
-      required this.steps,
-      required this.ingredients,
-      required this.calories});
+      this.imageUrl,
+      this.recipeName,
+      this.description,
+      this.vegetarian,
+      this.difficulty,
+      this.madeBy,
+      this.steps,
+      this.ingredients,
+      this.calories);
 }

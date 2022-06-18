@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipes_app/lists/recipe_list.dart';
 import 'package:recipes_app/screens/download_screen.dart';
 import 'package:recipes_app/screens/home_screen.dart';
 import 'package:recipes_app/screens/like_screen.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<DownloadList>(
           create: (ctx) => DownloadList(),
         ),
+        ChangeNotifierProvider<RecipeList>(create: (ctx) => RecipeList())
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:recipes_app/lists/recipe_list.dart';
 import 'package:recipes_app/models/recipe.dart';
 
 import '../list_views/recipes_grid_view.dart';
@@ -9,6 +11,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RecipeList recipeList = Provider.of<RecipeList>(context);
     List<Recipe> myRecipes = [
       Recipe(
           "https://www.recipetineats.com/wp-content/uploads/2019/12/Christmas-Cake-decorated-with-fondant-marzipan-and-cherries.jpg",
@@ -36,7 +39,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
         Container(
           height: 606,
-          child: RecipesGridView(myRecipes),
+          child: RecipesGridView(),
         )
       ]),
     );

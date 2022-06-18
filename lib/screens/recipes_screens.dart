@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ class RecipesScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var seen = Set<String>();
     DownloadList downloadedList = Provider.of<DownloadList>(context);
     var calories = recipeToDisplay.calories.toString();
     return Scaffold(
@@ -39,17 +41,19 @@ class RecipesScreens extends StatelessWidget {
                       ),
                       CupertinoActionSheetAction(
                         onPressed: () {
-                          downloadedList.downloadItem(
-                              recipeToDisplay.imageUrl,
-                              recipeToDisplay.recipeName,
-                              recipeToDisplay.description,
-                              recipeToDisplay.vegetarian,
-                              recipeToDisplay.difficulty,
-                              recipeToDisplay.madeBy,
-                              recipeToDisplay.steps,
-                              recipeToDisplay.ingredients,
-                              recipeToDisplay.calories);
-                          print(downloadedList);
+                          if (downloadedList.getDownloadList().every(
+                              (element) =>
+                                  element.recipeName !=
+                                  recipeToDisplay.recipeName)) {
+                            downloadedList.downloadItem(recipeToDisplay);
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (context) => const AlertDialog(
+                                      content: Text(
+                                          "Item is already downloaded. Please check your download page"),
+                                    ));
+                          }
                         },
                         child: const Text('Download'),
                       ),

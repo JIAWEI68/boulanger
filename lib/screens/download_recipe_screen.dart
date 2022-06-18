@@ -4,16 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
-import 'package:recipes_app/models/download.dart';
 import 'package:recipes_app/screens/reviews_screen.dart';
 
 import '../lists/download_list.dart';
+import '../models/recipe.dart';
 
 class DownloadedRecipeScreens extends StatelessWidget {
   final String routeName = '/downloadRecipes';
   const DownloadedRecipeScreens(
       {Key? key, required this.downloadedRecipesDisplay});
-  final Download downloadedRecipesDisplay;
+  final Recipe downloadedRecipesDisplay;
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +148,7 @@ class DownloadedRecipeScreens extends StatelessWidget {
   }
 
   static void goToRecipeDetails(
-      BuildContext context, Download downloadedRecipeDisplay) {
+      BuildContext context, Recipe downloadedRecipeDisplay) {
     Navigator.push(
       context,
       MaterialPageRoute(

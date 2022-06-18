@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:recipes_app/models/recipe.dart';
+import 'package:provider/provider.dart';
+import 'package:recipes_app/lists/recipe_list.dart';
 
 import '../screens/recipes_screens.dart';
 
 class RecipesGridView extends StatelessWidget {
-  List<Recipe> recipesList;
-  RecipesGridView(this.recipesList, {Key? key}) : super(key: key);
+  const RecipesGridView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    RecipeList recipeList = Provider.of<RecipeList>(context);
     return GridView.builder(
       itemBuilder: (ctx, i) {
         return ClipRRect(
@@ -15,19 +16,20 @@ class RecipesGridView extends StatelessWidget {
             child: GridTile(
               child: GestureDetector(
                 onTap: () {
-                  RecipesScreens.goToRecipeDetails(context, recipesList[i]);
+                  RecipesScreens.goToRecipeDetails(
+                      context, recipeList.getAllRecipe()[i]);
                 },
                 child: Image.network(
-                  recipesList[i].imageUrl,
+                  recipeList.getAllRecipe()[i].imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
             ));
       },
-      itemCount: recipesList.length,
+      itemCount: recipeList.getAllRecipe().length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: (133 / 123),
-          crossAxisCount: 3,
+          crossAxisCount: 2,
           crossAxisSpacing: 15.0,
           mainAxisSpacing: 3.0),
     );

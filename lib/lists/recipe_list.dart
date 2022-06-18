@@ -25,4 +25,8 @@ class RecipeList with ChangeNotifier {
         "",
         550)
   ];
+
+  List<Recipe> getAllRecipe() {
+    return myRecipes;
+  }
 }
