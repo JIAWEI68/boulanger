@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
@@ -9,18 +6,15 @@ import 'package:recipes_app/lists/favourite_list.dart';
 import 'package:recipes_app/models/recipe.dart';
 import 'package:recipes_app/screens/reviews_screen.dart';
 
-import '../lists/download_list.dart';
-
-class RecipesScreens extends StatelessWidget {
-  final String routeName = '/recipes';
-  const RecipesScreens({Key? key, required this.recipeToDisplay});
-  final Recipe recipeToDisplay;
+class FavouriteRecipeScreen extends StatelessWidget {
+  final Recipe favouritedRecipe;
+  const FavouriteRecipeScreen({Key? key, required this.favouritedRecipe})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     FavouriteList favouriteList = Provider.of<FavouriteList>(context);
-    DownloadList downloadedList = Provider.of<DownloadList>(context);
-    var calories = recipeToDisplay.calories.toString();
+    var calories = favouritedRecipe.calories.toString();
     return Scaffold(
         appBar: AppBar(
           actions: [
@@ -41,21 +35,7 @@ class RecipesScreens extends StatelessWidget {
                         child: const Text('Share'),
                       ),
                       CupertinoActionSheetAction(
-                        onPressed: () {
-                          if (downloadedList.getDownloadList().every(
-                              (element) =>
-                                  element.recipeName !=
-                                  recipeToDisplay.recipeName)) {
-                            downloadedList.downloadItem(recipeToDisplay);
-                          } else {
-                            showDialog(
-                                context: context,
-                                builder: (context) => const AlertDialog(
-                                      content: Text(
-                                          "Item is already downloaded. Please check your download page"),
-                                    ));
-                          }
-                        },
+                        onPressed: () {},
                         child: const Text('Download'),
                       ),
                       CupertinoActionSheetAction(
@@ -80,7 +60,7 @@ class RecipesScreens extends StatelessWidget {
             Container(
                 child: GFAvatar(
               backgroundImage: NetworkImage(
-                recipeToDisplay.imageUrl,
+                favouritedRecipe.imageUrl,
               ),
               shape: GFAvatarShape.square,
               radius: 200,
@@ -88,19 +68,14 @@ class RecipesScreens extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(recipeToDisplay.recipeName,
+                Text(favouritedRecipe.recipeName,
                     style: const TextStyle(
                         fontSize: 35,
                         fontFamily: "Adobe Devanagari",
                         color: Color.fromRGBO(114, 92, 92, 10))),
                 IconButton(
                   icon: const Icon(Icons.favorite),
-                  onPressed: () {
-                    if (favouriteList.getFavourtieList().every((element) =>
-                        element.recipeName != recipeToDisplay.recipeName)) {
-                      favouriteList.addToFavourite(recipeToDisplay);
-                    }
-                  },
+                  onPressed: () {},
                 )
               ],
             ),
@@ -150,14 +125,14 @@ class RecipesScreens extends StatelessWidget {
                 children: [
                   Container(
                     child: Text(
-                      "Difficulty: " + recipeToDisplay.difficulty,
+                      "Difficulty: " + favouritedRecipe.difficulty,
                       textAlign: TextAlign.left,
                     ),
                   ),
                   FittedBox(
                     fit: BoxFit.cover,
                     child: Text(
-                      "Made By: " + recipeToDisplay.madeBy,
+                      "Made By: " + favouritedRecipe.madeBy,
                       textAlign: TextAlign.left,
                     ),
                   ),
@@ -168,12 +143,12 @@ class RecipesScreens extends StatelessWidget {
         ));
   }
 
-  static void goToRecipeDetails(BuildContext context, Recipe recipeToDisplay) {
+  static void goToRecipeDetails(BuildContext context, Recipe favouritedRecipe) {
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) =>
-              RecipesScreens(recipeToDisplay: recipeToDisplay)),
+              FavouriteRecipeScreen(favouritedRecipe: favouritedRecipe)),
     );
   }
 
