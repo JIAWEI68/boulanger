@@ -11,4 +11,9 @@ class FavouriteList with ChangeNotifier {
     favourtieList.insert(0, recipe);
     notifyListeners();
   }
+
+  void removeFavourite(Recipe recipe) {
+    favourtieList.remove(recipe);
+    notifyListeners();
+  }
 }

@@ -39,8 +39,11 @@ class DownloadedRecipeScreens extends StatelessWidget {
                         child: const Text('Share'),
                       ),
                       CupertinoActionSheetAction(
-                        onPressed: () {},
-                        child: const Text('Download'),
+                        onPressed: () {
+                          downloadedList
+                              .deleteDownloadedItem(downloadedRecipesDisplay);
+                        },
+                        child: const Text(' Delete Download'),
                       ),
                       CupertinoActionSheetAction(
                         /// This parameter indicates the action would perform

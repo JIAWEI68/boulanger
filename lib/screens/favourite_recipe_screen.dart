@@ -74,8 +74,13 @@ class FavouriteRecipeScreen extends StatelessWidget {
                         fontFamily: "Adobe Devanagari",
                         color: Color.fromRGBO(114, 92, 92, 10))),
                 IconButton(
-                  icon: const Icon(Icons.favorite),
-                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    favouriteList.removeFavourite(favouritedRecipe);
+                  },
                 )
               ],
             ),

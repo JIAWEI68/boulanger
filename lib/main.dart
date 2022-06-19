@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/favourite_list.dart';
 import 'package:recipes_app/lists/recipe_list.dart';
 import 'package:recipes_app/screens/download_screen.dart';
+import 'package:recipes_app/screens/favourite_screen.dart';
 import 'package:recipes_app/screens/home_screen.dart';
-import 'package:recipes_app/screens/like_screen.dart';
 import 'package:recipes_app/screens/splash_screen.dart';
 
 import 'lists/download_list.dart';

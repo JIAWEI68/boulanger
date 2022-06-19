@@ -30,4 +30,9 @@ class DownloadList with ChangeNotifier {
             recipe.calories));
     notifyListeners();
   }
+
+  void deleteDownloadedItem(Recipe recipe) {
+    downloadList.remove(recipe);
+    notifyListeners();
+  }
 }
