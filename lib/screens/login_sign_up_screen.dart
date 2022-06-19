@@ -9,7 +9,7 @@ class LoginAndSignUpScreen extends StatelessWidget {
       appBar: AppBar(),
       body: Container(
         child: Column(
-          children: [ElevatedButton(onPressed: () {}, child: Text("Login"))],
+          children: [Icon(Icons.account_circle), ElevatedButton(onPressed: () {}, child: const Text("Sign Up"), ), ElevatedButton(child: Text("Login"), onPressed: (){},)],
         ),
       ),
     );
