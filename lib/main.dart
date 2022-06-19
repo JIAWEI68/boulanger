@@ -62,42 +62,58 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('boulanger'),
+          backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
+          title: const Text(
+            'boulanger',
+            style: TextStyle(color: Colors.blueGrey),
+          ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.search),
+              icon: const Icon(
+                Icons.search,
+                color: Colors.blueGrey,
+              ),
               onPressed: () {
                 setState(() {
                   const TextField(
                     decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Colors.blueGrey,
+                        ),
                         hintText: 'Search for a recipe'),
                   );
                 });
               },
             ),
             IconButton(
-              icon: const Icon(Icons.person),
+              icon: const Icon(
+                Icons.person,
+                color: Colors.blueGrey,
+              ),
               onPressed: () {},
             )
           ],
         ),
         body: screens[selectedIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.download), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "")
-          ],
-          currentIndex: selectedIndex,
-          onTap: (index) {
-            setState(() {
-              selectedIndex = index;
-              //screens[selectedIndex];
-            });
-          },
-        ));
+        bottomNavigationBar: Theme(
+            data: Theme.of(context)
+                .copyWith(canvasColor: const Color.fromRGBO(254, 238, 210, 10)),
+            child: BottomNavigationBar(
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: const [
+                BottomNavigationBarItem(icon: Icon(Icons.download), label: ""),
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
+                BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "")
+              ],
+              currentIndex: selectedIndex,
+              onTap: (index) {
+                setState(() {
+                  selectedIndex = index;
+                  //screens[selectedIndex];
+                });
+              },
+            )));
   }
 }
