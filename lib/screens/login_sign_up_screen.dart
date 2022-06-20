@@ -7,14 +7,38 @@ class LoginAndSignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.blueGrey),
+        backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
+      ),
       body: Container(
+        alignment: Alignment.center,
         child: Column(
-          children: [Icon(Icons.account_circle), ElevatedButton(onPressed: () {}, child: const Text("Sign Up"), ), ElevatedButton(child: Text("Login"), onPressed: (){},)],
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.account_circle,
+              size: 100,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text("Sign Up"),
+            ),
+            ElevatedButton(
+              child: const Text("Login"),
+              onPressed: () {
+                goToLogin(context);
+              },
+            )
+          ],
         ),
       ),
     );
   }
-  void goToLogin(BuildContext context){
-    Navigator.push(context, MaterialPageRoute(builder: (context) =>   const LoginScreen()));
+
+  void goToLogin(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 }

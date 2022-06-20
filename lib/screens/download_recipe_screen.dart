@@ -21,6 +21,7 @@ class DownloadedRecipeScreens extends StatelessWidget {
     var calories = downloadedRecipesDisplay.calories.toString();
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.blueGrey),
           backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
           actions: [
             IconButton(

@@ -17,10 +17,14 @@ class FavouriteRecipeScreen extends StatelessWidget {
     var calories = favouritedRecipe.calories.toString();
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.blueGrey),
           backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
           actions: [
             IconButton(
-              icon: const Icon(Icons.share, color: Colors.blueGrey,),
+              icon: const Icon(
+                Icons.share,
+                color: Colors.blueGrey,
+              ),
               onPressed: () {
                 showCupertinoModalPopup<void>(
                   context: context,

@@ -5,12 +5,10 @@ import 'package:recipes_app/lists/recipe_list.dart';
 import 'package:recipes_app/screens/download_screen.dart';
 import 'package:recipes_app/screens/favourite_screen.dart';
 import 'package:recipes_app/screens/home_screen.dart';
-import 'package:recipes_app/screens/login_sign_up_screen.dart';
-import 'package:recipes_app/screens/splash_screen.dart';
 
-import 'lists/download_list.dart';
-import 'lists/reviews_list.dart';
-import 'screens/add_reviews_screen.dart';
+import '../lists/download_list.dart';
+import '../lists/reviews_list.dart';
+import 'add_reviews_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,7 +33,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: const Color.fromRGBO(254, 238, 210, 10),
           ),
-          home: const SplashScreen(),
+          home: LoginMainScreen(),
           routes: {
             DownloadScreen.routeName: (_) {
               return DownloadScreen();
@@ -51,12 +49,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainScreen extends StatefulWidget {
+class LoginMainScreen extends StatefulWidget {
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<LoginMainScreen> createState() => _LoginMainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _LoginMainScreenState extends State<LoginMainScreen> {
   int selectedIndex = 1;
   final screens = [DownloadScreen(), HomeScreen(), LikeScreen()];
   @override
@@ -94,10 +92,10 @@ class _MainScreenState extends State<MainScreen> {
                 color: Colors.blueGrey,
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => LoginAndSignUpScreen()));
+                //Navigator.push(
+                //context,
+                //MaterialPageRoute(
+                //builder: (context) => ()));
               },
             )
           ],

@@ -38,6 +38,8 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
     AllReviews reviewsList = Provider.of<AllReviews>(context);
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.blueGrey),
+        backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
         actions: [
           IconButton(
             onPressed: () {

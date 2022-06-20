@@ -23,10 +23,14 @@ class RecipesScreens extends StatelessWidget {
     var calories = recipeToDisplay.calories.toString();
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.blueGrey),
           backgroundColor: Color.fromRGBO(254, 238, 210, 10),
           actions: [
             IconButton(
-              icon: const Icon(Icons.share, color: Colors.blueGrey,),
+              icon: const Icon(
+                Icons.share,
+                color: Colors.blueGrey,
+              ),
               onPressed: () {
                 showCupertinoModalPopup<void>(
                   context: context,

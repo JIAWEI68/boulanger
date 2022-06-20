@@ -13,7 +13,12 @@ class ReviewsScreen extends StatelessWidget {
     AllReviews reviewsList = Provider.of<AllReviews>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Reviews"),
+        iconTheme: IconThemeData(color: Colors.blueGrey),
+        backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
+        title: Text(
+          "Reviews",
+          style: TextStyle(color: Colors.blueGrey),
+        ),
       ),
       body: Container(
         alignment: Alignment.center,
