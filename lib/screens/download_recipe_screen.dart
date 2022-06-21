@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
+import 'package:recipes_app/main.dart';
 import 'package:recipes_app/screens/reviews_screen.dart';
 
 import '../lists/download_list.dart';
@@ -44,6 +45,10 @@ class DownloadedRecipeScreens extends StatelessWidget {
                         onPressed: () {
                           downloadedList
                               .deleteDownloadedItem(downloadedRecipesDisplay);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainScreen()));
                         },
                         child: const Text(' Delete Download'),
                       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipes_app/list_views/reviews_list_view.dart';
 import 'package:recipes_app/screens/add_reviews_screen.dart';
 
-import '../list_views/reviews_list_view.dart';
 import '../lists/reviews_list.dart';
 
 class ReviewsScreen extends StatelessWidget {
@@ -13,9 +13,9 @@ class ReviewsScreen extends StatelessWidget {
     AllReviews reviewsList = Provider.of<AllReviews>(context);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.blueGrey),
+        iconTheme: const IconThemeData(color: Colors.blueGrey),
         backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
-        title: Text(
+        title: const Text(
           "Reviews",
           style: TextStyle(color: Colors.blueGrey),
         ),

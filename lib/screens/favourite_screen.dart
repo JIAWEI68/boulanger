@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipes_app/list_views/favourite_grid_view.dart';
+import 'package:recipes_app/grid_views/favourite_grid_view.dart';
 
 class LikeScreen extends StatelessWidget {
   static String routeName = 'like';

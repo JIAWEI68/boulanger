@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipes_app/grid_views/download_grid_view.dart';
 import 'package:recipes_app/lists/download_list.dart';
-
-import '../list_views/download_grid_view.dart';
 
 class DownloadScreen extends StatelessWidget {
   static String routeName = '/download';

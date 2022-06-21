@@ -153,11 +153,9 @@ class RecipesScreens extends StatelessWidget {
             Row(children: [
               Column(
                 children: [
-                  Container(
-                    child: Text(
-                      "Difficulty: " + recipeToDisplay.difficulty,
-                      textAlign: TextAlign.left,
-                    ),
+                  Text(
+                    "Difficulty: " + recipeToDisplay.difficulty,
+                    textAlign: TextAlign.left,
                   ),
                   FittedBox(
                     fit: BoxFit.cover,

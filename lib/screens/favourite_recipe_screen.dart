@@ -85,6 +85,7 @@ class FavouriteRecipeScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     favouriteList.removeFavourite(favouritedRecipe);
+                    Navigator.pop(context);
                   },
                 )
               ],

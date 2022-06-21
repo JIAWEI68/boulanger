@@ -25,6 +25,7 @@ class RecipeList with ChangeNotifier {
         "",
         550)
   ];
+  String searchString = "";
 
   List<Recipe> getAllRecipe() {
     return myRecipes;
