@@ -12,16 +12,37 @@ import 'package:recipes_app/screens/reviews_screen.dart';
 
 import '../lists/download_list.dart';
 
-class RecipesScreens extends StatelessWidget {
-  final String routeName = '/recipes';
-  const RecipesScreens({Key? key, required this.recipeToDisplay});
+class RecipesScreens extends StatefulWidget {
+  const RecipesScreens({Key? key, required this.recipeToDisplay})
+      : super(key: key);
   final Recipe recipeToDisplay;
 
   @override
+  State<RecipesScreens> createState() => _RecipesScreensState();
+
+  static void goToRecipeDetails(BuildContext context, Recipe recipeToDisplay) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              RecipesScreens(recipeToDisplay: recipeToDisplay)),
+    );
+  }
+}
+
+class _RecipesScreensState extends State<RecipesScreens> {
+  final String routeName = '/recipes';
+
+  @override
   Widget build(BuildContext context) {
+    int selectedIndex = 0;
+    final texts = [
+      widget.recipeToDisplay.steps,
+      widget.recipeToDisplay.ingredients
+    ];
     FavouriteList favouriteList = Provider.of<FavouriteList>(context);
     DownloadList downloadedList = Provider.of<DownloadList>(context);
-    var calories = recipeToDisplay.calories.toString();
+    var calories = widget.recipeToDisplay.calories.toString();
     return Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.blueGrey),
@@ -51,17 +72,17 @@ class RecipesScreens extends StatelessWidget {
                           if (downloadedList.getDownloadList().every(
                               (element) =>
                                   element.recipeName !=
-                                  recipeToDisplay.recipeName)) {
+                                  widget.recipeToDisplay.recipeName)) {
                             downloadedList.downloadItem(
-                                recipeToDisplay.imageUrl,
-                                recipeToDisplay.recipeName,
-                                recipeToDisplay.description,
-                                recipeToDisplay.vegetarian,
-                                recipeToDisplay.difficulty,
-                                recipeToDisplay.madeBy,
-                                recipeToDisplay.steps,
-                                recipeToDisplay.ingredients,
-                                recipeToDisplay.calories);
+                                widget.recipeToDisplay.imageUrl,
+                                widget.recipeToDisplay.recipeName,
+                                widget.recipeToDisplay.description,
+                                widget.recipeToDisplay.vegetarian,
+                                widget.recipeToDisplay.difficulty,
+                                widget.recipeToDisplay.madeBy,
+                                widget.recipeToDisplay.steps,
+                                widget.recipeToDisplay.ingredients,
+                                widget.recipeToDisplay.calories);
                           } else {
                             showDialog(
                                 context: context,
@@ -96,7 +117,7 @@ class RecipesScreens extends StatelessWidget {
               Container(
                   child: GFAvatar(
                 backgroundImage: NetworkImage(
-                  recipeToDisplay.imageUrl,
+                  widget.recipeToDisplay.imageUrl,
                 ),
                 shape: GFAvatarShape.square,
                 radius: 200,
@@ -104,7 +125,7 @@ class RecipesScreens extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(recipeToDisplay.recipeName,
+                  Text(widget.recipeToDisplay.recipeName,
                       style: const TextStyle(
                           fontSize: 35,
                           fontFamily: "Adobe Devanagari",
@@ -113,8 +134,9 @@ class RecipesScreens extends StatelessWidget {
                     icon: const Icon(Icons.favorite),
                     onPressed: () {
                       if (favouriteList.getFavourtieList().every((element) =>
-                          element.recipeName != recipeToDisplay.recipeName)) {
-                        favouriteList.addToFavourite(recipeToDisplay);
+                          element.recipeName !=
+                          widget.recipeToDisplay.recipeName)) {
+                        favouriteList.addToFavourite(widget.recipeToDisplay);
                       }
                     },
                   )
@@ -172,7 +194,7 @@ class RecipesScreens extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            "Difficulty: " + recipeToDisplay.difficulty,
+                            "Difficulty: " + widget.recipeToDisplay.difficulty,
                             textAlign: TextAlign.left,
                             style: TextStyle(fontSize: 20, fontFamily: "Segoe"),
                           ),
@@ -183,7 +205,7 @@ class RecipesScreens extends StatelessWidget {
                           FittedBox(
                             fit: BoxFit.cover,
                             child: Text(
-                              "Made By: " + recipeToDisplay.madeBy,
+                              "Made By: " + widget.recipeToDisplay.madeBy,
                               textAlign: TextAlign.left,
                               style:
                                   TextStyle(fontSize: 20, fontFamily: "Segoe"),
@@ -192,15 +214,44 @@ class RecipesScreens extends StatelessWidget {
                         ],
                       ),
                       AutoSizeText(
-                        recipeToDisplay.description,
+                        widget.recipeToDisplay.description,
                         style: const TextStyle(fontSize: 20),
                         overflow: TextOverflow.fade,
                         softWrap: true,
                         maxLines: 8,
                       ),
-                      Card(
-                        child: SingleChildScrollView(),
-                      )
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text("Steps"),
+                                          content: SingleChildScrollView(
+                                            child: Text(
+                                              widget.recipeToDisplay.steps,
+                                            ),
+                                          ),
+                                        ));
+                              },
+                              child: Text("Steps")),
+                          ElevatedButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text("Ingredients"),
+                                          content: SingleChildScrollView(
+                                            child: Text(widget
+                                                .recipeToDisplay.ingredients),
+                                          ),
+                                        ));
+                              },
+                              child: Text("Ingredients"))
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -210,17 +261,12 @@ class RecipesScreens extends StatelessWidget {
         ));
   }
 
-  static void goToRecipeDetails(BuildContext context, Recipe recipeToDisplay) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) =>
-              RecipesScreens(recipeToDisplay: recipeToDisplay)),
-    );
-  }
-
   void showReviews(BuildContext, context) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const ReviewsScreen()));
+  }
+
+  void onPressed(index) {
+    int selectedIndex = index;
   }
 }

@@ -119,7 +119,6 @@ class _MainScreenState extends State<MainScreen> {
               onTap: (index) {
                 setState(() {
                   selectedIndex = index;
-                  //screens[selectedIndex];
                 });
               },
             )));
