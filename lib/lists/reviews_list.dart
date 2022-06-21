@@ -15,4 +15,9 @@ class AllReviews with ChangeNotifier {
     );
     notifyListeners();
   }
+
+  void removeReviews(i) {
+    reviewsList.removeAt(i);
+    notifyListeners();
+  }
 }

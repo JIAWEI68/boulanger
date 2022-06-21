@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,16 @@ class RecipesScreens extends StatelessWidget {
                               (element) =>
                                   element.recipeName !=
                                   recipeToDisplay.recipeName)) {
-                            downloadedList.downloadItem(recipeToDisplay);
+                            downloadedList.downloadItem(
+                                recipeToDisplay.imageUrl,
+                                recipeToDisplay.recipeName,
+                                recipeToDisplay.description,
+                                recipeToDisplay.vegetarian,
+                                recipeToDisplay.difficulty,
+                                recipeToDisplay.madeBy,
+                                recipeToDisplay.steps,
+                                recipeToDisplay.ingredients,
+                                recipeToDisplay.calories);
                           } else {
                             showDialog(
                                 context: context,
@@ -80,94 +90,123 @@ class RecipesScreens extends StatelessWidget {
             ),
           ],
         ),
-        body: Column(
-          children: [
-            Container(
-                child: GFAvatar(
-              backgroundImage: NetworkImage(
-                recipeToDisplay.imageUrl,
-              ),
-              shape: GFAvatarShape.square,
-              radius: 200,
-            )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(recipeToDisplay.recipeName,
-                    style: const TextStyle(
-                        fontSize: 35,
-                        fontFamily: "Adobe Devanagari",
-                        color: Color.fromRGBO(114, 92, 92, 10))),
-                IconButton(
-                  icon: const Icon(Icons.favorite),
-                  onPressed: () {
-                    if (favouriteList.getFavourtieList().every((element) =>
-                        element.recipeName != recipeToDisplay.recipeName)) {
-                      favouriteList.addToFavourite(recipeToDisplay);
-                    }
-                  },
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  child: const Text(
-                    "Reviews",
-                    style: TextStyle(
-                        color: Colors.black, fontFamily: "Segoe", fontSize: 20),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(190, 42),
-                      primary: Colors.white,
-                      shape: const StadiumBorder(),
-                      side: const BorderSide(color: Colors.black)),
-                  onPressed: () {
-                    showReviews(BuildContext, context);
-                  },
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                  child: GFAvatar(
+                backgroundImage: NetworkImage(
+                  recipeToDisplay.imageUrl,
                 ),
-                ElevatedButton(
-                  child: const Text(
-                    "Calories",
-                    style: TextStyle(
-                        color: Colors.black, fontFamily: "Segoe", fontSize: 20),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(190, 42),
-                      primary: Colors.white,
-                      shape: const StadiumBorder(),
-                      side: const BorderSide(color: Colors.black)),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text("Calories"),
-                        content: Text(calories + "KCAL"),
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
-            Row(children: [
-              Column(
+                shape: GFAvatarShape.square,
+                radius: 200,
+              )),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Difficulty: " + recipeToDisplay.difficulty,
-                    textAlign: TextAlign.left,
-                  ),
-                  FittedBox(
-                    fit: BoxFit.cover,
-                    child: Text(
-                      "Made By: " + recipeToDisplay.madeBy,
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
+                  Text(recipeToDisplay.recipeName,
+                      style: const TextStyle(
+                          fontSize: 35,
+                          fontFamily: "Adobe Devanagari",
+                          color: Color.fromRGBO(114, 92, 92, 10))),
+                  IconButton(
+                    icon: const Icon(Icons.favorite),
+                    onPressed: () {
+                      if (favouriteList.getFavourtieList().every((element) =>
+                          element.recipeName != recipeToDisplay.recipeName)) {
+                        favouriteList.addToFavourite(recipeToDisplay);
+                      }
+                    },
+                  )
                 ],
               ),
-            ]),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    child: const Text(
+                      "Reviews",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Segoe",
+                          fontSize: 20),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(190, 42),
+                        primary: Colors.white,
+                        shape: const StadiumBorder(),
+                        side: const BorderSide(color: Colors.black)),
+                    onPressed: () {
+                      showReviews(BuildContext, context);
+                    },
+                  ),
+                  ElevatedButton(
+                    child: const Text(
+                      "Calories",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "Segoe",
+                          fontSize: 20),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(190, 42),
+                        primary: Colors.white,
+                        shape: const StadiumBorder(),
+                        side: const BorderSide(color: Colors.black)),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text("Calories"),
+                          content: Text(calories + "KCAL"),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
+              Row(children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Difficulty: " + recipeToDisplay.difficulty,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(fontSize: 20, fontFamily: "Segoe"),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          FittedBox(
+                            fit: BoxFit.cover,
+                            child: Text(
+                              "Made By: " + recipeToDisplay.madeBy,
+                              textAlign: TextAlign.left,
+                              style:
+                                  TextStyle(fontSize: 20, fontFamily: "Segoe"),
+                            ),
+                          ),
+                        ],
+                      ),
+                      AutoSizeText(
+                        recipeToDisplay.description,
+                        style: const TextStyle(fontSize: 20),
+                        overflow: TextOverflow.fade,
+                        softWrap: true,
+                        maxLines: 8,
+                      ),
+                      Card(
+                        child: SingleChildScrollView(),
+                      )
+                    ],
+                  ),
+                ),
+              ]),
+            ],
+          ),
         ));
   }
 

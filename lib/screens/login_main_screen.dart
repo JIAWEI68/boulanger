@@ -5,6 +5,7 @@ import 'package:recipes_app/lists/recipe_list.dart';
 import 'package:recipes_app/screens/download_screen.dart';
 import 'package:recipes_app/screens/favourite_screen.dart';
 import 'package:recipes_app/screens/home_screen.dart';
+import 'package:recipes_app/screens/settings_screen.dart';
 
 import '../lists/download_list.dart';
 import '../lists/reviews_list.dart';
@@ -92,10 +93,10 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
                 color: Colors.blueGrey,
               ),
               onPressed: () {
-                //Navigator.push(
-                //context,
-                //MaterialPageRoute(
-                //builder: (context) => ()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingsScreen()));
               },
             )
           ],

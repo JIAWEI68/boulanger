@@ -31,6 +31,12 @@ class _ReviewsListViewState extends State<ReviewsListView> {
           ),
           title: Text(reviewsList.getReviews()[i].username),
           subtitle: Text(reviewsList.getReviews()[i].description),
+          trailing: IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              reviewsList.removeReviews(i);
+            },
+          ),
         );
       },
       itemCount: reviewsList.getReviews().length,

@@ -15,19 +15,21 @@ class DownloadList with ChangeNotifier {
     return downloadList;
   }
 
-  void downloadItem(Recipe recipe) {
+  void downloadItem(imageUrl, recipeName, description, vegetarian, difficulty,
+      madeBy, steps, ingredients, calories) {
     downloadList.insert(
         0,
         Recipe(
-            recipe.imageUrl,
-            recipe.recipeName,
-            recipe.description,
-            recipe.vegetarian,
-            recipe.difficulty,
-            recipe.madeBy,
-            recipe.steps,
-            recipe.ingredients,
-            recipe.calories));
+          imageUrl: imageUrl,
+          recipeName: recipeName,
+          description: description,
+          vegetarian: vegetarian,
+          difficulty: difficulty,
+          madeBy: madeBy,
+          steps: steps,
+          ingredients: ingredients,
+          calories: calories,
+        ));
     notifyListeners();
   }
 

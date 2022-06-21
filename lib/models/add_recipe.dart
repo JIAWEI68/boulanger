@@ -1,4 +1,4 @@
-class Recipe {
+class AddRecipe {
   String imageUrl;
   String recipeName;
   String description;
@@ -9,7 +9,7 @@ class Recipe {
   String ingredients;
   int calories;
 
-  Recipe(
+  AddRecipe(
       {required this.imageUrl,
       required this.recipeName,
       required this.description,
