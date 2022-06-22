@@ -20,21 +20,24 @@ class _DownloadScreenState extends State<DownloadScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: TextField(
                 onChanged: (value) {
                   setState(() {
                     downloadedList.searchString = value.toLowerCase();
                   });
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     labelText: "Search", suffixIcon: Icon(Icons.search)),
               ),
             ),
-            Container(
-              height: 537,
-              width: 350,
-              child: DownloadGridView(),
+            const Padding(
+              padding: EdgeInsets.only(top: 10.0),
+              child: SizedBox(
+                height: 537.0009,
+                width: 350,
+                child: DownloadGridView(),
+              ),
             ),
           ],
         ));

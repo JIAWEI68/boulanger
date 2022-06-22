@@ -94,6 +94,11 @@ flutter:
           - asset: fonts/segoepr.ttf
            #       - asset: fonts/TrajanPro_Bold.ttf
             weight: 700
+     - family: Maiandra
+       fonts:
+         - asset: fonts/MaiandraGDRegular.ttf
+           weight: 700
+
 
   #
   # For details regarding fonts from package dependencies,

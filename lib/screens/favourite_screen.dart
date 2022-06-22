@@ -30,10 +30,13 @@ class _LikeScreenState extends State<LikeScreen> {
                   labelText: "Search", suffixIcon: Icon(Icons.search)),
             ),
           ),
-          const SizedBox(
-            height: 537,
-            width: 350,
-            child: FavouriteGridView(),
+          Padding(
+            padding: EdgeInsets.only(top: 10.0),
+            child: SizedBox(
+              height: 537.0009,
+              width: 350,
+              child: FavouriteGridView(),
+            ),
           )
         ],
       ),

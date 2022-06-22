@@ -45,8 +45,8 @@ class _RecipesScreensState extends State<RecipesScreens> {
     var calories = widget.recipeToDisplay.calories.toString();
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.blueGrey),
-          backgroundColor: Color.fromRGBO(254, 238, 210, 10),
+          iconTheme: const IconThemeData(color: Colors.blueGrey),
+          backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
           actions: [
             IconButton(
               icon: const Icon(
@@ -196,7 +196,8 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           Text(
                             "Difficulty: " + widget.recipeToDisplay.difficulty,
                             textAlign: TextAlign.left,
-                            style: TextStyle(fontSize: 20, fontFamily: "Segoe"),
+                            style: const TextStyle(
+                                fontSize: 20, fontFamily: "Segoe"),
                           ),
                         ],
                       ),
@@ -207,8 +208,8 @@ class _RecipesScreensState extends State<RecipesScreens> {
                             child: Text(
                               "Made By: " + widget.recipeToDisplay.madeBy,
                               textAlign: TextAlign.left,
-                              style:
-                                  TextStyle(fontSize: 20, fontFamily: "Segoe"),
+                              style: const TextStyle(
+                                  fontSize: 20, fontFamily: "Segoe"),
                             ),
                           ),
                         ],
@@ -224,11 +225,16 @@ class _RecipesScreensState extends State<RecipesScreens> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  fixedSize: Size(120, 32),
+                                  shape: StadiumBorder(),
+                                  primary: Colors.white,
+                                  side: BorderSide(color: Colors.black)),
                               onPressed: () {
                                 showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                          title: Text("Steps"),
+                                          title: const Text("Steps"),
                                           content: SingleChildScrollView(
                                             child: Text(
                                               widget.recipeToDisplay.steps,
@@ -236,20 +242,41 @@ class _RecipesScreensState extends State<RecipesScreens> {
                                           ),
                                         ));
                               },
-                              child: Text("Steps")),
+                              child: const Text(
+                                "Steps",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "Maiandra",
+                                    fontSize: 20),
+                              )),
                           ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  fixedSize: Size(120, 32),
+                                  primary: Colors.white,
+                                  shape: const StadiumBorder(),
+                                  side: const BorderSide(color: Colors.black)),
                               onPressed: () {
                                 showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                          title: Text("Ingredients"),
+                                          title: const Text(
+                                            "Ingredients",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
                                           content: SingleChildScrollView(
                                             child: Text(widget
                                                 .recipeToDisplay.ingredients),
                                           ),
                                         ));
                               },
-                              child: Text("Ingredients"))
+                              child: const Text(
+                                "Ingredients",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "Maiandra",
+                                ),
+                              ))
                         ],
                       ),
                     ],

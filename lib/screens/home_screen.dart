@@ -21,11 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 10,
-            ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: TextField(
                 onChanged: (value) {
                   setState(() {
@@ -36,11 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     labelText: "Search", suffixIcon: Icon(Icons.search)),
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(),
-              height: 537,
-              width: 350,
-              child: RecipesGridView(),
+            Padding(
+              padding: EdgeInsets.only(top: 10.0),
+              child: Container(
+                padding: EdgeInsets.only(),
+                height: 537.0009,
+                width: 350,
+                child: RecipesGridView(),
+              ),
             )
           ]),
     );
