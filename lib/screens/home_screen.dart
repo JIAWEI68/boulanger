@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
@@ -37,7 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
+              padding: EdgeInsets.only(),
               height: 537,
+              width: 350,
               child: RecipesGridView(),
             )
           ]),

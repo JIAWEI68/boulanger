@@ -73,24 +73,6 @@ class _MainScreenState extends State<MainScreen> {
           actions: [
             IconButton(
               icon: const Icon(
-                Icons.search,
-                color: Colors.blueGrey,
-              ),
-              onPressed: () {
-                setState(() {
-                  const TextField(
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.blueGrey,
-                        ),
-                        hintText: 'Search for a recipe'),
-                  );
-                });
-              },
-            ),
-            IconButton(
-              icon: const Icon(
                 Icons.person,
                 color: Colors.blueGrey,
               ),

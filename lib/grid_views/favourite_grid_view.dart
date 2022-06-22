@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/favourite_list.dart';
+import 'package:recipes_app/models/recipe.dart';
 import 'package:recipes_app/screens/favourite_recipe_screen.dart';
 
 class FavouriteGridView extends StatefulWidget {
@@ -13,7 +14,12 @@ class FavouriteGridView extends StatefulWidget {
 class _FavouriteGridViewState extends State<FavouriteGridView> {
   @override
   Widget build(BuildContext context) {
-    FavouriteList favouriteList = Provider.of<FavouriteList>(context);
+    String searchString = Provider.of<FavouriteList>(context).searchString;
+    List<Recipe> favouriteList = Provider.of<FavouriteList>(context)
+        .getFavourtieList()
+        .where((element) =>
+            element.recipeName.toLowerCase().contains(searchString))
+        .toList();
     return GridView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
@@ -24,16 +30,16 @@ class _FavouriteGridViewState extends State<FavouriteGridView> {
                 child: GestureDetector(
                   onTap: () {
                     FavouriteRecipeScreen.goToRecipeDetails(
-                        context, favouriteList.getFavourtieList()[i]);
+                        context, favouriteList[i]);
                   },
                   child: Image.network(
-                    favouriteList.getFavourtieList()[i].imageUrl,
+                    favouriteList[i].imageUrl,
                     fit: BoxFit.cover,
                   ),
                 ),
               ));
         },
-        itemCount: favouriteList.getFavourtieList().length,
+        itemCount: favouriteList.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: (133 / 123),
             crossAxisCount: 2,

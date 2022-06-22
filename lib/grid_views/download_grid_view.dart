@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/download_list.dart';
+import 'package:recipes_app/models/recipe.dart';
 
 import '../screens/download_recipe_screen.dart';
 
@@ -14,7 +15,12 @@ class DownloadGridView extends StatefulWidget {
 class _DownloadGridViewState extends State<DownloadGridView> {
   @override
   Widget build(BuildContext context) {
-    DownloadList downloadedList = Provider.of<DownloadList>(context);
+    String searchString = Provider.of<DownloadList>(context).searchString;
+    List<Recipe> downloadedList = Provider.of<DownloadList>(context)
+        .getDownloadList()
+        .where((element) =>
+            element.recipeName.toLowerCase().contains(searchString))
+        .toList();
     return GridView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
@@ -25,16 +31,16 @@ class _DownloadGridViewState extends State<DownloadGridView> {
               child: GestureDetector(
                 onTap: () {
                   DownloadedRecipeScreens.goToRecipeDetails(
-                      context, downloadedList.getDownloadList()[i]);
+                      context, downloadedList[i]);
                 },
                 child: Image.network(
-                  downloadedList.getDownloadList()[i].imageUrl,
+                  downloadedList[i].imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
             ));
       },
-      itemCount: downloadedList.getDownloadList().length,
+      itemCount: downloadedList.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: (133 / 123),
           crossAxisCount: 2,

@@ -3,7 +3,6 @@ import 'package:recipes_app/models/reviews.dart';
 
 class AllReviews with ChangeNotifier {
   List<Reviews> reviewsList = [];
-
   List<Reviews> getReviews() {
     return reviewsList;
   }

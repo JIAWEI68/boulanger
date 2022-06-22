@@ -7,9 +7,9 @@ import 'package:recipes_app/screens/favourite_screen.dart';
 import 'package:recipes_app/screens/home_screen.dart';
 import 'package:recipes_app/screens/settings_screen.dart';
 
-import '../lists/download_list.dart';
-import '../lists/reviews_list.dart';
-import 'add_reviews_screen.dart';
+import 'lists/download_list.dart';
+import 'lists/reviews_list.dart';
+import 'screens/add_reviews_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,6 +61,7 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
@@ -69,24 +70,6 @@ class _LoginMainScreenState extends State<LoginMainScreen> {
             style: TextStyle(color: Colors.blueGrey),
           ),
           actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.search,
-                color: Colors.blueGrey,
-              ),
-              onPressed: () {
-                setState(() {
-                  const TextField(
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.blueGrey,
-                        ),
-                        hintText: 'Search for a recipe'),
-                  );
-                });
-              },
-            ),
             IconButton(
               icon: const Icon(
                 Icons.person,

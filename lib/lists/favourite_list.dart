@@ -16,4 +16,6 @@ class FavouriteList with ChangeNotifier {
     favourtieList.remove(recipe);
     notifyListeners();
   }
+
+  String searchString = "";
 }

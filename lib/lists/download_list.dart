@@ -37,4 +37,6 @@ class DownloadList with ChangeNotifier {
     downloadList.remove(recipe);
     notifyListeners();
   }
+
+  String searchString = "";
 }

@@ -32,6 +32,19 @@ class RecipeList with ChangeNotifier {
         steps:
             "STEP 1 Heat oven to 350°F. Grease and flour 2 (9-inch) round baking pans. Set aside. STEP 2 Combine flour, baking powder and 1/2 teaspoon salt in bowl. Set aside. STEP 3 Beat 1 1/2 cups sugar and 3/4 cup butter in another bowl at medium speed, scraping bowl occasionally, until creamy. Add eggs, 1 at a time, beating well after each addition. Add 1 tablespoon vanilla; mix well. Add flour mixture alternately with milk, beating at low speed after each addition just until mixed. STEP 4 Divide batter evenly between prepared pans. Bake 30-35 minutes or until toothpick inserted near center comes out clean. Place onto cooling racks; cool 10 minutes. Loosen cake by running knife around inside edge of pans. Carefully remove cake from pans; cool completelySTEP 5Beat 3/4 cup butter in bowl at medium speed until creamy. Gradually add powdered sugar and 1/8 teaspoon salt alternately with whipping cream and 1 teaspoon vanilla, scraping bowl often, until well mixed.STEP 6 Place 1 cake layer on serving plate, bottom-side up; frost top. Place remaining cake layer over frosting, bottom-side down; frost top and sides of cake. Decorate as desired.",
         ingredients: "",
+        calories: 550),
+    Recipe(
+        imageUrl:
+            "https://natashaskitchen.com/wp-content/uploads/2021/02/Red-Velvet-Cake-4.jpg",
+        recipeName: "Red Velvet Cake",
+        description:
+            "This easy-to-prepare yellow cake recipe with buttercream frosting will be welcome at any birthday celebration. It's the perfect cake to eat with ice cream",
+        vegetarian: false,
+        difficulty: "Medium",
+        madeBy: "Land O Lakes",
+        steps:
+            "STEP 1 Heat oven to 350°F. Grease and flour 2 (9-inch) round baking pans. Set aside. STEP 2 Combine flour, baking powder and 1/2 teaspoon salt in bowl. Set aside. STEP 3 Beat 1 1/2 cups sugar and 3/4 cup butter in another bowl at medium speed, scraping bowl occasionally, until creamy. Add eggs, 1 at a time, beating well after each addition. Add 1 tablespoon vanilla; mix well. Add flour mixture alternately with milk, beating at low speed after each addition just until mixed. STEP 4 Divide batter evenly between prepared pans. Bake 30-35 minutes or until toothpick inserted near center comes out clean. Place onto cooling racks; cool 10 minutes. Loosen cake by running knife around inside edge of pans. Carefully remove cake from pans; cool completelySTEP 5Beat 3/4 cup butter in bowl at medium speed until creamy. Gradually add powdered sugar and 1/8 teaspoon salt alternately with whipping cream and 1 teaspoon vanilla, scraping bowl often, until well mixed.STEP 6 Place 1 cake layer on serving plate, bottom-side up; frost top. Place remaining cake layer over frosting, bottom-side down; frost top and sides of cake. Decorate as desired.",
+        ingredients: "",
         calories: 550)
   ];
   String searchString = "";
