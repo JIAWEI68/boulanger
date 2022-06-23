@@ -83,6 +83,10 @@ class _RecipesScreensState extends State<RecipesScreens> {
                                 widget.recipeToDisplay.steps,
                                 widget.recipeToDisplay.ingredients,
                                 widget.recipeToDisplay.calories);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('Download successfully!'),
+                            ));
                           } else {
                             showDialog(
                                 context: context,
@@ -114,14 +118,13 @@ class _RecipesScreensState extends State<RecipesScreens> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                  child: GFAvatar(
+              GFAvatar(
                 backgroundImage: NetworkImage(
                   widget.recipeToDisplay.imageUrl,
                 ),
                 shape: GFAvatarShape.square,
                 radius: 200,
-              )),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -137,6 +140,11 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           element.recipeName !=
                           widget.recipeToDisplay.recipeName)) {
                         favouriteList.addToFavourite(widget.recipeToDisplay);
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text('Added to favourites successfully!'),
+                        ));
+                        Navigator.pop(context);
                       }
                     },
                   )
@@ -251,7 +259,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                               )),
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  fixedSize: Size(120, 32),
+                                  fixedSize: const Size(120, 32),
                                   primary: Colors.white,
                                   shape: const StadiumBorder(),
                                   side: const BorderSide(color: Colors.black)),

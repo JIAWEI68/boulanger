@@ -15,24 +15,60 @@ class LoginAndSignUpScreen extends StatelessWidget {
       body: Container(
         alignment: Alignment.center,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.account_circle,
-              size: 100,
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: Container(
+                  alignment: Alignment.topCenter,
+                  child: Image.asset("images/profile_icon.png")),
             ),
-            ElevatedButton(
-              onPressed: () {
-                goToRegister(context);
-              },
-              child: const Text("Sign Up"),
+            Padding(
+              padding: const EdgeInsets.only(top: 90.0),
+              child: SizedBox(
+                height: 62,
+                width: 260,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      fixedSize: Size(173, 68),
+                      side: BorderSide(color: Colors.black),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                  onPressed: () {
+                    goToRegister(context);
+                  },
+                  child: const Text(
+                    "Sign Up",
+                    style: TextStyle(
+                        color: Colors.black, fontSize: 23, fontFamily: "Segoe"),
+                  ),
+                ),
+              ),
             ),
-            ElevatedButton(
-              child: const Text("Login"),
-              onPressed: () {
-                goToLogin(context);
-              },
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: SizedBox(
+                height: 62,
+                width: 260,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      fixedSize: Size(173, 68),
+                      side: BorderSide(color: Colors.black),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(
+                        color: Colors.black, fontSize: 23, fontFamily: "Segoe"),
+                  ),
+                  onPressed: () {
+                    goToLogin(context);
+                  },
+                ),
+              ),
             )
           ],
         ),

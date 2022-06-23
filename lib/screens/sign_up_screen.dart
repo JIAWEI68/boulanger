@@ -40,128 +40,161 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
+          alignment: Alignment.center,
           child: Form(
             key: form,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.account_circle,
-                  size: 150,
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Image.asset("images/profile_icon.png"),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 15.0,
                   ),
-                  child: TextFormField(
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        hintText: 'Username',
-                        hintStyle: TextStyle(fontSize: 16),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        filled: true),
-                    validator: (value) {
-                      if (value == "") {
-                        return "Please enter a username";
-                      } else {
-                        return null;
-                      }
-                    },
+                  child: SizedBox(
+                    width: 320,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'Username',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true),
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please enter a username";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 15.0),
-                  child: TextFormField(
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        hintText: 'First Name',
-                        hintStyle: TextStyle(fontSize: 16),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        filled: true),
-                    validator: (value) {
-                      if (value == "") {
-                        return "Please enter a first name";
-                      } else {
-                        return null;
-                      }
-                    },
+                  child: SizedBox(
+                    width: 320,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'First Name',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true),
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please enter a first name";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 15.0),
-                  child: TextFormField(
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        hintText: 'Last Name',
-                        hintStyle: TextStyle(fontSize: 16),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        filled: true),
-                    validator: (value) {
-                      if (value == "") {
-                        return "Please enter a last name";
-                      } else {
-                        return null;
-                      }
-                    },
+                  child: SizedBox(
+                    width: 320,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'Last Name',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true),
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please enter a last name";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 15.0),
-                  child: TextFormField(
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        hintText: 'Email',
-                        hintStyle: TextStyle(fontSize: 16),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        filled: true),
-                    validator: (value) {
-                      if (value == "") {
-                        return "Please enter a email";
-                      } else {
-                        return null;
-                      }
-                    },
+                  child: SizedBox(
+                    width: 320,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'Email',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true),
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please enter a email";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 15.0),
-                  child: TextFormField(
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        hintText: 'Password',
-                        hintStyle: TextStyle(fontSize: 16),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        filled: true),
-                    validator: (value) {
-                      if (value == "") {
-                        return "Please enter a password";
-                      } else {
-                        return null;
-                      }
-                    },
+                  child: SizedBox(
+                    width: 320,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'Password',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true),
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please enter a password";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 50.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      register();
-                    },
-                    child: Text("Register"),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          fixedSize: Size(173, 68),
+                          side: BorderSide(color: Colors.black),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15))),
+                      onPressed: () {
+                        register();
+                      },
+                      child: Text(
+                        "Register",
+                        style: TextStyle(
+                          color: Color.fromRGBO(251, 170, 28, 10),
+                          fontSize: 23,
+                        ),
+                      ),
+                    ),
                   ),
                 )
               ],

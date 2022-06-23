@@ -44,6 +44,6 @@ class _FavouriteGridViewState extends State<FavouriteGridView> {
             childAspectRatio: (133 / 123),
             crossAxisCount: 2,
             crossAxisSpacing: 15.0,
-            mainAxisSpacing: 3.0));
+            mainAxisSpacing: 10.0));
   }
 }

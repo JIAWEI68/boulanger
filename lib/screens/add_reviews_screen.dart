@@ -4,7 +4,6 @@ import 'package:recipes_app/lists/reviews_list.dart';
 
 class AddReviewsScreen extends StatefulWidget {
   static String routeName = '/add-reviews';
-
   AddReviewsScreen({Key? key}) : super(key: key);
 
   @override
@@ -24,7 +23,10 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
       form.currentState!.save();
       print(username);
       print(description);
-      reviewsList.addReviews(username, description);
+      reviewsList.addReviews(
+        username,
+        description,
+      );
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Reviews added successfully!'),
       ));

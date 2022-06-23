@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recipes_app/main.dart';
 import 'package:recipes_app/screens/add_recipe_screen.dart';
+import 'package:recipes_app/screens/faq_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -54,7 +56,10 @@ class SettingsScreen extends StatelessWidget {
               child: Directionality(
                 textDirection: TextDirection.rtl,
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => FAQScreen()));
+                  },
                   icon: Icon(Icons.chevron_left,
                       color: Color.fromRGBO(251, 170, 28, 10)),
                   label: Text(
@@ -74,7 +79,10 @@ class SettingsScreen extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddRecipesScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddRecipesScreen()));
                   },
                   icon: Icon(Icons.chevron_left,
                       color: Color.fromRGBO(251, 170, 28, 10)),
@@ -88,7 +96,17 @@ class SettingsScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           side: BorderSide(color: Colors.black))),
                 ),
-              ))
+              )),
+          Padding(
+            padding: EdgeInsets.only(top: 30.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MainScreen()));
+              },
+              child: Text("Log Out"),
+            ),
+          )
         ],
       ),
     );
