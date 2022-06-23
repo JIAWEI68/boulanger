@@ -98,13 +98,23 @@ class SettingsScreen extends StatelessWidget {
                 ),
               )),
           Padding(
-            padding: EdgeInsets.only(top: 30.0),
+            padding: EdgeInsets.only(top: 40.0),
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  fixedSize: Size(153, 48),
+                  side: BorderSide(color: Colors.black),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15))),
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MainScreen()));
               },
-              child: Text("Log Out"),
+              child: Text(
+                "Log Out",
+                style: TextStyle(
+                    color: Colors.black, fontSize: 18, fontFamily: "Segoe"),
+              ),
             ),
           )
         ],
