@@ -14,7 +14,8 @@ class FavouriteRecipeScreen extends StatefulWidget {
 
   @override
   State<FavouriteRecipeScreen> createState() => _FavouriteRecipeScreenState();
-
+  //go to the recipe page with all the details
+  //gets the data of the list through the item
   static void goToRecipeDetails(BuildContext context, Recipe favouritedRecipe) {
     Navigator.push(
       context,
@@ -26,13 +27,17 @@ class FavouriteRecipeScreen extends StatefulWidget {
 }
 
 class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
+  Color iconColor = Colors.red;
   @override
   Widget build(BuildContext context) {
     FavouriteList favouriteList = Provider.of<FavouriteList>(context);
+    //change the calories to a string to allow the calories to be in a text
     var calories = widget.favouritedRecipe.calories.toString();
     return Scaffold(
         appBar: AppBar(
+          //change the icons in the appbar into a different color
           iconTheme: IconThemeData(color: Colors.blueGrey),
+          //changes the appbar color into a custom color
           backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
           actions: [
             IconButton(
@@ -41,6 +46,7 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
                 color: Colors.blueGrey,
               ),
               onPressed: () {
+                //call a custom action bar that pops out when pressed
                 showCupertinoModalPopup<void>(
                   context: context,
                   builder: (BuildContext context) => CupertinoActionSheet(
@@ -59,9 +65,7 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
                         child: const Text('Download'),
                       ),
                       CupertinoActionSheetAction(
-                        /// This parameter indicates the action would perform
-                        /// a destructive action such as delete or exit and turns
-                        /// the action's text color to red.
+                        //this parameter indicates the action whether it is destructive for example close or delete.
                         isDestructiveAction: true,
                         onPressed: () {
                           Navigator.pop(context);
@@ -87,6 +91,7 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
                 radius: 200,
               )),
               Row(
+                //ensure that the text will be on the left of the screen
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(widget.favouritedRecipe.recipeName,
@@ -95,18 +100,23 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
                           fontFamily: "Adobe Devanagari",
                           color: Color.fromRGBO(114, 92, 92, 10))),
                   IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.favorite,
-                      color: Colors.red,
+                      color: iconColor,
                     ),
                     onPressed: () {
+                      //remove the items in the favourite list when this icon button is pressed
                       favouriteList.removeFavourite(widget.favouritedRecipe);
-                      Navigator.pop(context);
+                      setState(() {
+                        //the color of the icon will change when the button is pressed
+                        iconColor = Colors.black;
+                      });
                     },
                   )
                 ],
               ),
               Row(
+                //set the elevated button to be spaced apart
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
@@ -123,7 +133,13 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
                         shape: const StadiumBorder(),
                         side: const BorderSide(color: Colors.black)),
                     onPressed: () {
-                      showReviews(BuildContext, context);
+                      //goes to the reviews page
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReviewsScreen(
+                                    recipeName: widget.favouritedRecipe,
+                                  )));
                     },
                   ),
                   ElevatedButton(
@@ -151,6 +167,7 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
                   )
                 ],
               ),
+              //ensure that the text is on the left of the screen
               Row(children: [
                 Expanded(
                   child: Column(
@@ -168,6 +185,7 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
                           ),
                         ],
                       ),
+                      //ensure that the text is on the left of the screen
                       Row(
                         children: [
                           FittedBox(
@@ -181,18 +199,22 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
                           ),
                         ],
                       ),
-                      AutoSizeText(
-                        widget.favouritedRecipe.description,
-                        style: const TextStyle(fontSize: 20),
-                        overflow: TextOverflow.fade,
-                        softWrap: true,
-                        maxLines: 8,
+                      //ensure that the text does not have a renderflex error and fits the screen
+                      Card(
+                        child: AutoSizeText(
+                          widget.favouritedRecipe.description,
+                          style: const TextStyle(fontSize: 20),
+                          overflow: TextOverflow.fade,
+                          softWrap: true,
+                          maxLines: 8,
+                        ),
                       ),
                     ],
                   ),
                 ),
               ]),
               Row(
+                //shows the steps and ingredients of the recipe with 2 buttons side by sidew
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
@@ -227,6 +249,7 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
                           shape: const StadiumBorder(),
                           side: const BorderSide(color: Colors.black)),
                       onPressed: () {
+                        //show the alert dialog with the ingredients of the recipe
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
@@ -252,10 +275,5 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
             ],
           ),
         ));
-  }
-
-  void showReviews(BuildContext, context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const ReviewsScreen()));
   }
 }

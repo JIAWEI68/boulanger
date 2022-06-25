@@ -9,6 +9,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.blueGrey),
         backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
@@ -35,6 +36,7 @@ class SettingsScreen extends StatelessWidget {
           Padding(
               padding: EdgeInsets.only(top: 15.0),
               child: Directionality(
+                //set so that the icon for the elevatedbutton.icon is set to the right
                 textDirection: TextDirection.rtl,
                 child: ElevatedButton.icon(
                   onPressed: () {},
@@ -57,6 +59,7 @@ class SettingsScreen extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 child: ElevatedButton.icon(
                   onPressed: () {
+                    //this makes it so that when the button is pressed it goes to the FAQScreen
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => FAQScreen()));
                   },
@@ -76,6 +79,8 @@ class SettingsScreen extends StatelessWidget {
           Padding(
               padding: EdgeInsets.only(top: 0.2),
               child: Directionality(
+                //this is universal for all the elevatedButton.icon for this screen
+                //this is to ensure that the icons are at the right side of the elevated button
                 textDirection: TextDirection.rtl,
                 child: ElevatedButton.icon(
                   onPressed: () {

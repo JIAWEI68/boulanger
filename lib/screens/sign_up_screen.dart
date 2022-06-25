@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../login_main_screen.dart';
+import '../login_main.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -15,6 +15,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String? username;
   String? password;
   void register() {
+    //this is to check if the text field has been all filled up
     bool isValid = form.currentState!.validate();
     if (isValid) {
       form.currentState!.save();
@@ -33,7 +34,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.blueGrey),
         backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
@@ -67,6 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           filled: true),
+                      //check if the value in the text field is empty
                       validator: (value) {
                         if (value == "") {
                           return "Please enter a username";
@@ -91,6 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           filled: true),
+                      //this method is the same for all the text field as it checks whether the text field is empty
                       validator: (value) {
                         if (value == "") {
                           return "Please enter a first name";
@@ -156,6 +158,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: TextFormField(
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
+                      obscureText: true,
                       decoration: InputDecoration(
                           hintText: 'Password',
                           hintStyle: TextStyle(fontSize: 16),
@@ -177,6 +180,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   padding: EdgeInsets.only(top: 50.0),
                   child: Container(
                     alignment: Alignment.center,
+                    //a button to check the text field if it is empty when pressed
+                    //if not empty, it will go to the login main screen
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           primary: Colors.white,

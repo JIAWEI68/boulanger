@@ -10,6 +10,8 @@ class AddRecipesScreen extends StatefulWidget {
   State<AddRecipesScreen> createState() => _AddRecipesScreenState();
 }
 
+//add recipe screen is similar to the add reviews screen
+//so the functions are similar just that instead of adding into the reviews list it is added into the main recipe list and shows in the home screen
 class _AddRecipesScreenState extends State<AddRecipesScreen> {
   var form = GlobalKey<FormState>();
 
@@ -37,6 +39,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Recipes added successfully!'),
       ));
+      Navigator.pop(context);
       form.currentState!.reset();
     }
     FocusScope.of(context).unfocus();

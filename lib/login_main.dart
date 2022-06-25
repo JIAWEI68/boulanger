@@ -9,12 +9,12 @@ import 'package:recipes_app/screens/settings_screen.dart';
 
 import 'lists/download_list.dart';
 import 'lists/reviews_list.dart';
-import 'screens/add_reviews_screen.dart';
 
 void main() {
   runApp(MyApp());
 }
 
+//everything here is similar to main.dart as it is to be the screen after users login
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -42,15 +42,13 @@ class MyApp extends StatelessWidget {
             LikeScreen.routeName: (_) {
               return LikeScreen();
             },
-            AddReviewsScreen.routeName: (_) {
-              return AddReviewsScreen();
-            }
           }),
     );
   }
 }
 
 class LoginMainScreen extends StatefulWidget {
+  static String routeName = "/loginMain";
   @override
   State<LoginMainScreen> createState() => _LoginMainScreenState();
 }

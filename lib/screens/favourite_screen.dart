@@ -10,6 +10,7 @@ class LikeScreen extends StatefulWidget {
   State<LikeScreen> createState() => _LikeScreenState();
 }
 
+//similar to the home screen but instead with a change of variable names
 class _LikeScreenState extends State<LikeScreen> {
   @override
   Widget build(BuildContext context) {

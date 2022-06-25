@@ -18,6 +18,9 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
   String? description;
 
   void addReview(AllReviews reviewsList) {
+    //to check whether the textfield is empty or not
+    //when the text field is not empty, the values from all the text fields will be added into the reviews list
+    //which will be shown in the list view and the reviews screen
     bool isValid = form.currentState!.validate();
     if (isValid) {
       form.currentState!.save();
@@ -66,6 +69,9 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
                     return null;
                   }
                 },
+                //the text field data will be set into  the param string username
+                //this will then be added into the reviews list
+                //this is the same for the other text field
                 onSaved: (value) {
                   username = value as String;
                 },

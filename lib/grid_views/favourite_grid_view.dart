@@ -41,7 +41,7 @@ class _FavouriteGridViewState extends State<FavouriteGridView> {
         },
         itemCount: favouriteList.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: (133 / 123),
+            childAspectRatio: (123 / 113),
             crossAxisCount: 2,
             crossAxisSpacing: 15.0,
             mainAxisSpacing: 10.0));

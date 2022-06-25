@@ -11,10 +11,12 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
+//this is the screen when the app just launches showing a short time of a screen
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    //this is to set the time the screen shows when the app is launched
     Timer(
         const Duration(seconds: 2),
         () => Navigator.pushReplacement(

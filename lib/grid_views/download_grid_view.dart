@@ -42,7 +42,7 @@ class _DownloadGridViewState extends State<DownloadGridView> {
       },
       itemCount: downloadedList.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: (133 / 123),
+          childAspectRatio: (123 / 113),
           crossAxisCount: 2,
           crossAxisSpacing: 15.0,
           mainAxisSpacing: 3.0),

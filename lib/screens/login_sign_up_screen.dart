@@ -4,7 +4,7 @@ import 'package:recipes_app/screens/sign_up_screen.dart';
 
 class LoginAndSignUpScreen extends StatelessWidget {
   const LoginAndSignUpScreen({Key? key}) : super(key: key);
-
+//this screen is to ask users to login or sign up
   @override
   Widget build(BuildContext context) {
     return Scaffold(

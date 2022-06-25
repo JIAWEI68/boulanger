@@ -31,8 +31,8 @@ class RecipesScreens extends StatefulWidget {
 }
 
 class _RecipesScreensState extends State<RecipesScreens> {
+  Color iconColor = Colors.black;
   final String routeName = '/recipes';
-
   @override
   Widget build(BuildContext context) {
     int selectedIndex = 0;
@@ -42,6 +42,12 @@ class _RecipesScreensState extends State<RecipesScreens> {
     ];
     FavouriteList favouriteList = Provider.of<FavouriteList>(context);
     DownloadList downloadedList = Provider.of<DownloadList>(context);
+    if (favouriteList.getFavourtieList().every(
+        (element) => element.recipeName != widget.recipeToDisplay.recipeName)) {
+      iconColor = Colors.black;
+    } else {
+      iconColor = Colors.red;
+    }
     var calories = widget.recipeToDisplay.calories.toString();
     return Scaffold(
         appBar: AppBar(
@@ -69,10 +75,12 @@ class _RecipesScreensState extends State<RecipesScreens> {
                       ),
                       CupertinoActionSheetAction(
                         onPressed: () {
+                          //checks if the download list has the same name inside the list
                           if (downloadedList.getDownloadList().every(
                               (element) =>
                                   element.recipeName !=
                                   widget.recipeToDisplay.recipeName)) {
+                            //add the recipe into the list based on the items name, and the parameters
                             downloadedList.downloadItem(
                                 widget.recipeToDisplay.imageUrl,
                                 widget.recipeToDisplay.recipeName,
@@ -86,7 +94,9 @@ class _RecipesScreensState extends State<RecipesScreens> {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
                               content: Text('Download successfully!'),
+                              duration: Duration(milliseconds: 10),
                             ));
+                            Navigator.pop(context);
                           } else {
                             showDialog(
                                 context: context,
@@ -99,9 +109,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                         child: const Text('Download'),
                       ),
                       CupertinoActionSheetAction(
-                        /// This parameter indicates the action would perform
-                        /// a destructive action such as delete or exit and turns
-                        /// the action's text color to red.
+                        //this parameter indicates the action whether it is destructive for example close or delete.
                         isDestructiveAction: true,
                         onPressed: () {
                           Navigator.pop(context);
@@ -134,17 +142,23 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           fontFamily: "Adobe Devanagari",
                           color: Color.fromRGBO(114, 92, 92, 10))),
                   IconButton(
-                    icon: const Icon(Icons.favorite),
+                    icon: Icon(
+                      Icons.favorite,
+                      color: iconColor,
+                    ),
                     onPressed: () {
+                      //check if there is duplicate item in the list
                       if (favouriteList.getFavourtieList().every((element) =>
                           element.recipeName !=
                           widget.recipeToDisplay.recipeName)) {
+                        setState(() {
+                          iconColor = Colors.red;
+                        });
                         favouriteList.addToFavourite(widget.recipeToDisplay);
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text('Added to favourites successfully!'),
                         ));
-                        Navigator.pop(context);
                       }
                     },
                   )
@@ -167,7 +181,12 @@ class _RecipesScreensState extends State<RecipesScreens> {
                         shape: const StadiumBorder(),
                         side: const BorderSide(color: Colors.black)),
                     onPressed: () {
-                      showReviews(BuildContext, context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReviewsScreen(
+                                    recipeName: widget.recipeToDisplay,
+                                  )));
                     },
                   ),
                   ElevatedButton(
@@ -222,12 +241,14 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           ),
                         ],
                       ),
-                      AutoSizeText(
-                        widget.recipeToDisplay.description,
-                        style: const TextStyle(fontSize: 20),
-                        overflow: TextOverflow.fade,
-                        softWrap: true,
-                        maxLines: 8,
+                      Card(
+                        child: AutoSizeText(
+                          widget.recipeToDisplay.description,
+                          style: const TextStyle(fontSize: 20),
+                          overflow: TextOverflow.fade,
+                          softWrap: true,
+                          maxLines: 8,
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -294,11 +315,6 @@ class _RecipesScreensState extends State<RecipesScreens> {
             ],
           ),
         ));
-  }
-
-  void showReviews(BuildContext, context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const ReviewsScreen()));
   }
 
   void onPressed(index) {

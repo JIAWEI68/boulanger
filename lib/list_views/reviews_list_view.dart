@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipes_app/models/recipe.dart';
 
 import '../lists/reviews_list.dart';
 
 class ReviewsListView extends StatefulWidget {
-  const ReviewsListView({Key? key}) : super(key: key);
+  final Recipe recipeName;
+  const ReviewsListView({Key? key, required this.recipeName}) : super(key: key);
 
   @override
   State<ReviewsListView> createState() => _ReviewsListViewState();

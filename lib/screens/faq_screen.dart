@@ -16,6 +16,7 @@ class FAQScreen extends StatelessWidget {
               '''Most Asked Questions:''',
               style: TextStyle(fontSize: 50),
             ),
+            //this is to make the text show the string exactly as how it shows
             Text(
               '''How do I Download Recipes?
 Press the share button and there will be a pop up asking if you want to share or download from there you can download the recipe

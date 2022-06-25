@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
-import 'package:recipes_app/main.dart';
 import 'package:recipes_app/screens/reviews_screen.dart';
 
 import '../lists/download_list.dart';
@@ -36,16 +35,19 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
 
   @override
   Widget build(BuildContext context) {
+    //call the downloaded list
     DownloadList downloadedList = Provider.of<DownloadList>(context);
+    //change the value of the calories to string
     var calories = widget.downloadedRecipesDisplay.calories.toString();
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.blueGrey),
+          iconTheme: const IconThemeData(color: Colors.blueGrey),
           backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
           actions: [
             IconButton(
               icon: const Icon(Icons.share),
               onPressed: () {
+                //show an action sheet like an iphone action shit
                 showCupertinoModalPopup<void>(
                   context: context,
                   builder: (BuildContext context) => CupertinoActionSheet(
@@ -55,25 +57,23 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
                         /// default behavior, turns the action's text to bold text.
                         isDefaultAction: true,
                         onPressed: () {
+                          //go back to the previous screen
                           Navigator.pop(context);
                         },
                         child: const Text('Share'),
                       ),
                       CupertinoActionSheetAction(
+                        isDestructiveAction: true,
                         onPressed: () {
+                          //delete the item in the download list based on the model
                           downloadedList.deleteDownloadedItem(
                               widget.downloadedRecipesDisplay);
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MainScreen()));
+                          Navigator.pop(context);
                         },
                         child: const Text(' Delete Download'),
                       ),
                       CupertinoActionSheetAction(
-                        /// This parameter indicates the action would perform
-                        /// a destructive action such as delete or exit and turns
-                        /// the action's text color to red.
+                        //this parameter indicates the action whether it is destructive for example close or delete.
                         isDestructiveAction: true,
                         onPressed: () {
                           Navigator.pop(context);
@@ -93,12 +93,14 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
               Container(
                   child: GFAvatar(
                 backgroundImage: NetworkImage(
+                  //ensure that the image of the recipes is universal and the same for every recipe
                   widget.downloadedRecipesDisplay.imageUrl,
                 ),
                 shape: GFAvatarShape.square,
                 radius: 200,
               )),
               Row(
+                //this is to make it so that there is space between the items in the row
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(widget.downloadedRecipesDisplay.recipeName,
@@ -115,6 +117,7 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  //this button is to show the reviews
                   ElevatedButton(
                     child: const Text(
                       "Reviews",
@@ -129,7 +132,13 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
                         shape: const StadiumBorder(),
                         side: const BorderSide(color: Colors.black)),
                     onPressed: () {
-                      showReviews(BuildContext, context);
+                      //this method is to go to the reviews screen when the button is pressed
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReviewsScreen(
+                                    recipeName: widget.downloadedRecipesDisplay,
+                                  )));
                     },
                   ),
                   ElevatedButton(
@@ -146,6 +155,7 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
                         shape: const StadiumBorder(),
                         side: const BorderSide(color: Colors.black)),
                     onPressed: () {
+                      //when the button is pressed it shows a dialog with the calories of the recipe
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -161,6 +171,7 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
                 Expanded(
                   child: Column(
                     children: [
+                      //ensure that the difficulty is on the left side
                       Row(
                         children: [
                           Container(
@@ -187,22 +198,27 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
                           ),
                         ],
                       ),
-                      AutoSizeText(
-                        widget.downloadedRecipesDisplay.description,
-                        style: const TextStyle(fontSize: 20),
-                        overflow: TextOverflow.fade,
-                        softWrap: true,
-                        maxLines: 8,
+                      //ensure that the text do not cause a render flex error and the text fits the screen with the line break
+                      Card(
+                        child: AutoSizeText(
+                          widget.downloadedRecipesDisplay.description,
+                          style: const TextStyle(fontSize: 20),
+                          overflow: TextOverflow.fade,
+                          softWrap: true,
+                          maxLines: 8,
+                        ),
                       ),
                     ],
                   ),
                 ),
               ]),
               Row(
+                //button when pressed to show the steps in an alert dialog
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
+                          //change the shape of the elevated button and th color together with the border color
                           fixedSize: Size(120, 32),
                           shape: StadiumBorder(),
                           primary: Colors.white,
@@ -213,6 +229,7 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
                             builder: (context) => AlertDialog(
                                   title: const Text("Steps"),
                                   content: SingleChildScrollView(
+                                    //ensure that the text fits the alert dialog and is scrollable
                                     child: Text(
                                       widget.downloadedRecipesDisplay.steps,
                                     ),
@@ -240,6 +257,7 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
                                     "Ingredients",
                                     style: TextStyle(color: Colors.black),
                                   ),
+                                  //ensure that the text fits the dialog and is scrollable
                                   content: SingleChildScrollView(
                                     child: Text(widget
                                         .downloadedRecipesDisplay.ingredients),
@@ -249,6 +267,7 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
                       child: const Text(
                         "Ingredients",
                         style: TextStyle(
+                          //set a color and font type for the text
                           color: Colors.black,
                           fontFamily: "Maiandra",
                         ),
@@ -258,10 +277,5 @@ class _DownloadedRecipeScreensState extends State<DownloadedRecipeScreens> {
             ],
           ),
         ));
-  }
-
-  void showReviews(BuildContext, context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const ReviewsScreen()));
   }
 }

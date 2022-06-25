@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/list_views/reviews_list_view.dart';
+import 'package:recipes_app/models/recipe.dart';
 import 'package:recipes_app/screens/add_reviews_screen.dart';
 
 import '../lists/reviews_list.dart';
 
 class ReviewsScreen extends StatelessWidget {
-  const ReviewsScreen({Key? key}) : super(key: key);
+  final Recipe recipeName;
+  const ReviewsScreen({Key? key, required this.recipeName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,12 @@ class ReviewsScreen extends StatelessWidget {
       ),
       body: Container(
         alignment: Alignment.center,
+        //to set that when the reviews list is empty, itll show an image
+        //when there is something in the list, itll show the items in the list
         child: reviewsList.getReviews().isNotEmpty
-            ? const ReviewsListView()
+            ? ReviewsListView(
+                recipeName: recipeName,
+              )
             : Column(
                 children: [
                   const SizedBox(

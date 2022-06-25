@@ -21,20 +21,23 @@ class _DownloadScreenState extends State<DownloadScreen> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.0),
+              //create a text field to allow search
               child: TextField(
                 onChanged: (value) {
                   setState(() {
+                    //to set the search string in the download list to the value of the text field
+                    //set a text field where it gets the value and sets it to searchString which is in downloadedList
                     downloadedList.searchString = value.toLowerCase();
                   });
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     labelText: "Search", suffixIcon: Icon(Icons.search)),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Container(
-                height: 537,
+                height: 537.0009,
                 width: 350,
                 child: DownloadGridView(),
               ),
