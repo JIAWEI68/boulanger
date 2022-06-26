@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/download_list.dart';
 import 'package:recipes_app/models/recipe.dart';
+import 'package:recipes_app/screens/recipes_screens.dart';
 
 import '../screens/download_recipe_screen.dart';
 
@@ -30,7 +31,7 @@ class _DownloadGridViewState extends State<DownloadGridView> {
             child: GridTile(
               child: GestureDetector(
                 onTap: () {
-                  DownloadedRecipeScreens.goToRecipeDetails(
+                  RecipesScreens.goToRecipeDetails(
                       context, downloadedList[i]);
                 },
                 child: Image.network(

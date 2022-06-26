@@ -31,6 +31,7 @@ class RecipesScreens extends StatefulWidget {
 }
 
 class _RecipesScreensState extends State<RecipesScreens> {
+  String downloadText = "Download";
   Color iconColor = Colors.black;
   final String routeName = '/recipes';
   @override
@@ -47,6 +48,15 @@ class _RecipesScreensState extends State<RecipesScreens> {
       iconColor = Colors.black;
     } else {
       iconColor = Colors.red;
+    }
+    if(downloadedList.getDownloadList().every(
+            (element) =>
+        element.recipeName !=
+            widget.recipeToDisplay.recipeName)){
+      downloadText = "Download";
+    }
+    else {
+      downloadText = "Delete Download";
     }
     var calories = widget.recipeToDisplay.calories.toString();
     return Scaffold(
@@ -98,15 +108,13 @@ class _RecipesScreensState extends State<RecipesScreens> {
                             ));
                             Navigator.pop(context);
                           } else {
-                            showDialog(
-                                context: context,
-                                builder: (context) => const AlertDialog(
-                                      content: Text(
-                                          "Item is already downloaded. Please check your download page"),
-                                    ));
+                           downloadedList.deleteDownloadedItem(widget.recipeToDisplay);
+                           setState(() {
+                             downloadText = "Delete Download";
+                           });
                           }
                         },
-                        child: const Text('Download'),
+                        child: Text(downloadText),
                       ),
                       CupertinoActionSheetAction(
                         //this parameter indicates the action whether it is destructive for example close or delete.
@@ -159,6 +167,12 @@ class _RecipesScreensState extends State<RecipesScreens> {
                             .showSnackBar(const SnackBar(
                           content: Text('Added to favourites successfully!'),
                         ));
+                      }
+                      else{
+                        favouriteList.removeFavourite(widget.recipeToDisplay);
+                        setState(() {
+                          iconColor = Colors.black;
+                        });
                       }
                     },
                   )
