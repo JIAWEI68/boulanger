@@ -138,7 +138,7 @@ class _FavouriteRecipeScreenState extends State<FavouriteRecipeScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ReviewsScreen(
-                                    recipeName: widget.favouritedRecipe,
+                                    recipeName: widget.favouritedRecipe.recipeName,
                                   )));
                     },
                   ),

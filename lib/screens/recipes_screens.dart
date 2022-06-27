@@ -199,7 +199,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ReviewsScreen(
-                                    recipeName: widget.recipeToDisplay,
+                                    recipeName: widget.recipeToDisplay.recipeName,
                                   )));
                     },
                   ),

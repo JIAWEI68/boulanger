@@ -1,17 +1,23 @@
-  import 'package:flutter/material.dart';
+
+
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/reviews_list.dart';
+import 'package:recipes_app/models/reviews.dart';
 
-class AddReviewsScreen extends StatefulWidget {
-  static String routeName = '/add-reviews';
+class EditReviewsScreen extends StatefulWidget {
+  Reviews reviewsUsername;
   String recipeName;
-  AddReviewsScreen({Key? key, required this.recipeName}) : super(key: key);
-
+  static String routeName = '/add-reviews';
+  EditReviewsScreen({Key? key, required this.reviewsUsername, required this.recipeName}) : super(key: key);
+  static void goToEditScreen(BuildContext context, Reviews reviews, String recipeName){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EditReviewsScreen(reviewsUsername: reviews, recipeName: recipeName,)));
+  }
   @override
-  State<AddReviewsScreen> createState() => _AddReviewsScreenState();
+  State<EditReviewsScreen> createState() => _EditReviewsScreenState();
 }
 
-class _AddReviewsScreenState extends State<AddReviewsScreen> {
+class _EditReviewsScreenState extends State<EditReviewsScreen> {
   var form = GlobalKey<FormState>();
 
   String? username;
@@ -27,10 +33,8 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
       form.currentState!.save();
       print(username);
       print(description);
-      reviewsList.addReviews(
-        widget.recipeName,
-        username,
-        description,
+      reviewsList.editReviews(
+        Reviews(recipeName : widget.recipeName, username: username!, description: description!)
       );
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Reviews added successfully!'),
@@ -64,6 +68,7 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
           child: Column(
             children: [
               TextFormField(
+                initialValue: widget.reviewsUsername.username,
                 decoration: InputDecoration(label: Text('Username')),
                 validator: (value) {
                   if (value == "") {
@@ -76,7 +81,7 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
                 //this will then be added into the reviews list
                 //this is the same for the other text field
                 onSaved: (value) {
-                  username = value as String;
+                  username = widget.reviewsUsername.username;
                 },
               ),
               TextFormField(
@@ -89,7 +94,7 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
                   }
                 },
                 onSaved: (value) {
-                  description = value;
+                  description = value as String;
                 },
               )
             ],
