@@ -30,29 +30,30 @@ class ReviewsScreen extends StatelessWidget {
         child: reviewsList.isNotEmpty
             ? ListView.separated(
           itemBuilder: (ctx, i) {
-            return ListTile(
-              leading: const CircleAvatar(
-                radius: 27,
-                backgroundColor: Colors.black,
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 25,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.black,
+            return Dismissible(
+              background: Container(color: Colors.red, child: Icon(Icons.delete),),
+              key: UniqueKey(),
+              onDismissed: (direction){
+                reviewsListProvider.removeReviews(i);
+              },
+              child: ListTile(
+                leading: const CircleAvatar(
+                  radius: 27,
+                  backgroundColor: Colors.black,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 25,
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-              onTap: (){
-                EditReviewsScreen.goToEditScreen(context, reviewsList[i], recipeName);
-              },
-              title: Text(reviewsList[i].username),
-              subtitle: Text(reviewsList[i].description),
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  reviewsListProvider.removeReviews(i);
+                onTap: (){
+                  EditReviewsScreen.goToEditScreen(context, reviewsList[i], recipeName);
                 },
+                title: Text(reviewsList[i].username),
+                subtitle: Text(reviewsList[i].description),
               ),
             );
           },

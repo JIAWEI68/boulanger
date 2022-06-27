@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/favourite_list.dart';
 import 'package:recipes_app/models/recipe.dart';
 import 'package:recipes_app/screens/favourite_recipe_screen.dart';
+import 'package:recipes_app/screens/recipes_screens.dart';
 
 class FavouriteGridView extends StatefulWidget {
   const FavouriteGridView({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class _FavouriteGridViewState extends State<FavouriteGridView> {
               child: GridTile(
                 child: GestureDetector(
                   onTap: () {
-                    FavouriteRecipeScreen.goToRecipeDetails(
+                    RecipesScreens.goToRecipeDetails(
                         context, favouriteList[i]);
                   },
                   child: Image.network(

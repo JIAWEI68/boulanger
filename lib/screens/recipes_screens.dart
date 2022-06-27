@@ -34,8 +34,10 @@ class _RecipesScreensState extends State<RecipesScreens> {
   String downloadText = "Download";
   Color iconColor = Colors.black;
   final String routeName = '/recipes';
+  bool chosen = false;
   @override
   Widget build(BuildContext context) {
+    String card = widget.recipeToDisplay.steps;
     int selectedIndex = 0;
     final texts = [
       widget.recipeToDisplay.steps,
@@ -58,6 +60,11 @@ class _RecipesScreensState extends State<RecipesScreens> {
     else {
       downloadText = "Delete Download";
     }
+    if(chosen)
+      card = widget.recipeToDisplay.ingredients;
+    if(!chosen)
+      card = widget.recipeToDisplay.steps;
+
     var calories = widget.recipeToDisplay.calories.toString();
     return Scaffold(
         appBar: AppBar(
@@ -264,62 +271,55 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           maxLines: 8,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      Column(
                         children: [
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  fixedSize: Size(120, 32),
-                                  shape: StadiumBorder(),
-                                  primary: Colors.white,
-                                  side: BorderSide(color: Colors.black)),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                          title: const Text("Steps"),
-                                          content: SingleChildScrollView(
-                                            child: Text(
-                                              widget.recipeToDisplay.steps,
-                                            ),
-                                          ),
-                                        ));
-                              },
-                              child: const Text(
-                                "Steps",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "Maiandra",
-                                    fontSize: 20),
-                              )),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  fixedSize: const Size(120, 32),
-                                  primary: Colors.white,
-                                  shape: const StadiumBorder(),
-                                  side: const BorderSide(color: Colors.black)),
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                          title: const Text(
-                                            "Ingredients",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                          content: SingleChildScrollView(
-                                            child: Text(widget
-                                                .recipeToDisplay.ingredients),
-                                          ),
-                                        ));
-                              },
-                              child: const Text(
-                                "Ingredients",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: "Maiandra",
-                                ),
-                              ))
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      fixedSize: Size(120, 32),
+                                      shape: StadiumBorder(),
+                                      primary: Colors.white,
+                                      side: BorderSide(color: Colors.black)),
+                                  onPressed: () {
+                                    setState(() {
+                                      chosen = false;
+                                    });
+                                  },
+                                  child: const Text(
+                                    "Steps",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: "Maiandra",
+                                        fontSize: 20),
+                                  )),
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(120, 32),
+                                      primary: Colors.white,
+                                      shape: const StadiumBorder(),
+                                      side: const BorderSide(color: Colors.black)),
+                                  onPressed: () {
+                                    setState(() {
+                                      chosen = true;
+                                    });
+                                  },
+                                  child: const Text(
+                                    "Ingredients",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: "Maiandra",
+                                    ),
+                                  ))
+                            ],
+                          ),
+                            SizedBox(
+                              width: double.infinity,
+                              child: Card(
+                                child: Text(card),
+                              ),
+                            ),
                         ],
                       ),
                     ],
