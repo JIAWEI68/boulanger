@@ -51,7 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   activeColor: Color.fromRGBO(251, 170, 28, 10),
                   inactiveThumbColor: Color.fromRGBO(251, 170, 28, 10),
                   value: recipeList.checkVegetarian,
-                  onChanged: (value) {
+                  onChanged: (bool value) {
                     setState(() {
                       recipeList.checkVegetarian = value;
                     });

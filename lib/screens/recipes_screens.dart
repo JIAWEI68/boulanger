@@ -110,11 +110,19 @@ class _RecipesScreensState extends State<RecipesScreens> {
                             ));
                             Navigator.pop(context);
                           } else {
-                            downloadedList
-                                .deleteDownloadedItem(widget.recipeToDisplay);
+                            Navigator.pop(context);
+                              setState(() {
+                                downloadedList
+                                    .deleteDownloadedItem(widget.recipeToDisplay);
+                              });
                             setState(() {
                               downloadText = "Delete Download";
                             });
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('Item Successfully deleted'),
+                              duration: Duration(milliseconds: 10),
+                            ));
                           }
                         },
                         child: Text(downloadText),
@@ -260,11 +268,11 @@ class _RecipesScreensState extends State<RecipesScreens> {
                         ],
                       ),
                       SizedBox(
-                        height: 130,
+                        height: 140,
                         child: Card(
                           child: AutoSizeText(
                             widget.recipeToDisplay.description,
-                            style: const TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 25),
                             overflow: TextOverflow.fade,
                             softWrap: true,
                             maxLines: 8,
@@ -318,7 +326,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           SizedBox(
                             width: double.infinity,
                             child: Card(
-                              child: Text(card),
+                              child: Text(card, style: TextStyle(fontSize: 20),),
                             ),
                           ),
                         ],

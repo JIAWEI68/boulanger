@@ -24,7 +24,7 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
 
   String? description;
 
-  void addReview(AllReviews reviewsList) {
+  void editReviews(AllReviews reviewsList) {
     //to check whether the textfield is empty or not
     //when the text field is not empty, the values from all the text fields will be added into the reviews list
     //which will be shown in the list view and the reviews screen
@@ -52,14 +52,6 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.blueGrey),
         backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
-        actions: [
-          IconButton(
-            onPressed: () {
-              addReview(reviewsList);
-            },
-            icon: Icon(Icons.add),
-          )
-        ],
       ),
       body: Container(
         padding: EdgeInsets.all(10),
@@ -96,7 +88,21 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
                 onSaved: (value) {
                   description = value as String;
                 },
-              )
+              ),
+              Padding(padding: EdgeInsets.only(top: 15.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      side: BorderSide(color: Colors.black),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))
+                  ),
+                  child: Text("Edit Reviews",style: TextStyle(
+                      color: Colors.black, fontSize: 15,)),
+                  onPressed: (){
+                    editReviews(reviewsList);
+                  },
+                ),)
             ],
           ),
         ),

@@ -17,7 +17,6 @@ class AllReviews with ChangeNotifier {
   }
 
   void removeReviews(i) {
-    print('wtf is going on $i');
     reviewsList.removeAt(i);
     notifyListeners();
   }

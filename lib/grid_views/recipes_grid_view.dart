@@ -5,8 +5,14 @@ import 'package:recipes_app/models/recipe.dart';
 
 import '../screens/recipes_screens.dart';
 
-class RecipesGridView extends StatelessWidget {
+class RecipesGridView extends StatefulWidget {
   const RecipesGridView({Key? key}) : super(key: key);
+
+  @override
+  State<RecipesGridView> createState() => _RecipesGridViewState();
+}
+
+class _RecipesGridViewState extends State<RecipesGridView> {
   @override
   Widget build(BuildContext context) {
     //call the search string inside the recipe list class to allow search
@@ -14,10 +20,14 @@ class RecipesGridView extends StatelessWidget {
     bool checkVegetarian = Provider.of<RecipeList>(context).checkVegetarian;
     //call the list based on the search string
     List<Recipe> recipeList = Provider.of<RecipeList>(context)
-        .getAllRecipe()
-        .where((element) =>
-            element.recipeName.toLowerCase().contains(searchString))
+        .getAllRecipe().where((element) =>
+        element.recipeName.toLowerCase().contains(searchString))
         .toList();
+    if(checkVegetarian == false){
+      setState(() {
+        recipeList.indexWhere((element) => element.vegetarian == true) == false;
+      });
+    }
     return GridView.builder(
       itemBuilder: (BuildContext context, int index) {
         return ClipRRect(

@@ -48,14 +48,6 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.blueGrey),
         backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
-        actions: [
-          IconButton(
-            onPressed: () {
-              addReview(reviewsList);
-            },
-            icon: Icon(Icons.add),
-          )
-        ],
       ),
       body: Container(
         padding: EdgeInsets.all(10),
@@ -91,7 +83,21 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
                 onSaved: (value) {
                   description = value;
                 },
-              )
+              ),
+              Padding(padding: EdgeInsets.only(top: 15.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    side: BorderSide(color: Colors.black),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15))
+                ),
+                child: Text("Add Reviews",style: TextStyle(
+                color: Colors.black, fontSize: 15,)),
+                onPressed: (){
+                  addReview(reviewsList);
+                },
+              ),)
             ],
           ),
         ),
