@@ -24,6 +24,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
   String? ingredients;
   String? imageUrl;
   int? calories;
+  //add the recipes into the list when the form is valid
   void addRecipe(RecipeList recipeList) {
     bool isValid = form.currentState!.validate();
     if (isValid) {

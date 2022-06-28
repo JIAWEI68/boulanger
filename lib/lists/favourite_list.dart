@@ -17,5 +17,6 @@ class FavouriteList with ChangeNotifier {
     notifyListeners();
   }
 
+//allow the favourite list to be filtered based on this string when the value is changed
   String searchString = "";
 }

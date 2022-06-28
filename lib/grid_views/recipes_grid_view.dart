@@ -9,7 +9,10 @@ class RecipesGridView extends StatelessWidget {
   const RecipesGridView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    //call the search string inside the recipe list class to allow search
     String searchString = Provider.of<RecipeList>(context).searchString;
+    bool checkVegetarian = Provider.of<RecipeList>(context).checkVegetarian;
+    //call the list based on the search string
     List<Recipe> recipeList = Provider.of<RecipeList>(context)
         .getAllRecipe()
         .where((element) =>
@@ -35,7 +38,9 @@ class RecipesGridView extends StatelessWidget {
       addAutomaticKeepAlives: true,
       itemCount: recipeList.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //set the size of the grid tile
           childAspectRatio: (123 / 113),
+          //set the amount of grid tile in a row
           crossAxisCount: 2,
           crossAxisSpacing: 15.0,
           mainAxisSpacing: 10.0),

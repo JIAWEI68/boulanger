@@ -33,10 +33,12 @@ class DownloadList with ChangeNotifier {
     notifyListeners();
   }
 
+  //remove the downloaded item based on the item and not based on the index
   void deleteDownloadedItem(Recipe recipe) {
     downloadList.remove(recipe);
     notifyListeners();
   }
 
+  //set the search string to allow the list to be filtered
   String searchString = "";
 }

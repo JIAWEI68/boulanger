@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipes_app/models/recipe.dart';
 import 'package:recipes_app/screens/add_reviews_screen.dart';
 import 'package:recipes_app/screens/edit_reviews_screen.dart';
 
@@ -13,13 +12,16 @@ class ReviewsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AllReviews reviewsListProvider = Provider.of<AllReviews>(context);
-    var reviewsList = reviewsListProvider.getReviews().where((element) => element.recipeName == recipeName).toList();
+    var reviewsList = reviewsListProvider
+        .getReviews()
+        .where((element) => element.recipeName == recipeName)
+        .toList();
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.blueGrey),
         backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
         title: Text(
-          recipeName,
+          "Reviews" "(" + recipeName + ")",
           style: TextStyle(color: Colors.blueGrey),
         ),
       ),
@@ -29,39 +31,43 @@ class ReviewsScreen extends StatelessWidget {
         //when there is something in the list, itll show the items in the list
         child: reviewsList.isNotEmpty
             ? ListView.separated(
-          itemBuilder: (ctx, i) {
-            return Dismissible(
-              background: Container(color: Colors.red, child: Icon(Icons.delete),),
-              key: UniqueKey(),
-              onDismissed: (direction){
-                reviewsListProvider.removeReviews(i);
-              },
-              child: ListTile(
-                leading: const CircleAvatar(
-                  radius: 27,
-                  backgroundColor: Colors.black,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 25,
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.black,
+                itemBuilder: (ctx, i) {
+                  return Dismissible(
+                    background: Container(
+                      color: Colors.red,
+                      child: Icon(Icons.delete),
                     ),
-                  ),
-                ),
-                onTap: (){
-                  EditReviewsScreen.goToEditScreen(context, reviewsList[i], recipeName);
+                    key: UniqueKey(),
+                    onDismissed: (direction) {
+                      reviewsListProvider.removeReviews(i);
+                    },
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        radius: 27,
+                        backgroundColor: Colors.black,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 25,
+                          child: Icon(
+                            Icons.person,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        EditReviewsScreen.goToEditScreen(
+                            context, reviewsList[i], recipeName);
+                      },
+                      title: Text(reviewsList[i].username),
+                      subtitle: Text(reviewsList[i].description),
+                    ),
+                  );
                 },
-                title: Text(reviewsList[i].username),
-                subtitle: Text(reviewsList[i].description),
-              ),
-            );
-          },
-          itemCount: reviewsList.length,
-          separatorBuilder: (ctx, i) {
-            return const Divider(height: 3, color: Colors.blueGrey);
-          },
-        )
+                itemCount: reviewsList.length,
+                separatorBuilder: (ctx, i) {
+                  return const Divider(height: 3, color: Colors.blueGrey);
+                },
+              )
             : Column(
                 children: [
                   const SizedBox(
@@ -84,6 +90,10 @@ class ReviewsScreen extends StatelessWidget {
 
   void goToAddReviews(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddReviewsScreen(recipeName: recipeName,)));
+        context,
+        MaterialPageRoute(
+            builder: (context) => AddReviewsScreen(
+                  recipeName: recipeName,
+                )));
   }
 }

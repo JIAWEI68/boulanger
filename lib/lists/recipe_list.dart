@@ -16,6 +16,7 @@ class RecipeList with ChangeNotifier {
         vegetarian: true,
         difficulty: "Easy",
         madeBy: "Nagi",
+        //this is to make it so that the text shows the string directly
         steps: '''FAST SOAKED FRUIT:
 Place dried fruit and juice/brandy in a large microwavable container. Microwave 1 1/2 minutes on high or until hot.
 Stir to coat all fruit in liquid. Cover then set aside for 1 hour (to plump up/soak and cool).
@@ -36,6 +37,7 @@ Traditional White Christmas Cake (pictured in post) – Marzipan and fondant, se
 Simple – pile top with fresh cherries or other fruit, dust with icing sugar (powdered sugar). Wrap a ribbon around the cake for extra touch!
 Drippy white glaze – use the glaze in this Lemon Cake recipe, but leave out the lemon juice (ie make a plain sweet white glaze). Flip cake upside down for flat surface then glaze per that recipe.
 Serving – serve with custard for a traditional experience! Either homemade custard or store bought pouring custard (jazz it up by mixing in vanilla seed paste!).''',
+        //this is to make it so that the text shows the string directly
         ingredients: '''FAST SOAKED FRUIT (NOTE 1):
 ▢300g / 10 oz raisins
 ▢150g / 5 oz diced dried apricots , chopped 8 mm / 1/3"
@@ -75,6 +77,7 @@ OTHER DECORATING OPTIONS (OPTIONAL)
         vegetarian: false,
         difficulty: "Medium",
         madeBy: "Land O Lakes",
+        //this is to make it so that the text shows the string directly
         steps: '''STEP 1
 
 Heat oven to 350°F. Grease and flour 2 (9-inch) round baking pans. Set aside.
@@ -98,6 +101,7 @@ Beat 3/4 cup butter in bowl at medium speed until creamy. Gradually add powdered
 STEP 6
 
 Place 1 cake layer on serving plate, bottom-side up; frost top. Place remaining cake layer over frosting, bottom-side down; frost top and sides of cake. Decorate as desired.''',
+        //this is to make it so that the text shows the string directly
         ingredients: '''CAKE
 
 3 cups all-purpose flour
@@ -137,6 +141,7 @@ FROSTING
         vegetarian: false,
         difficulty: "Medium",
         madeBy: "Land O Lakes",
+        //this is to make it so that the text shows the string directly
         steps: '''
 1.Preheat oven to 350˚F with racks in the center of the oven. Grease two 9-inch round cake pans with butter and dust with flour, tapping out the excess.
 
@@ -155,6 +160,7 @@ FROSTING
 8.Add 1/2 tsp gel red food coloring or add it to reach desired color and mix just until blended, scraping down the bowl as needed.
 
 9.Divide evenly between prepared pans and bake at 350˚F for 30 minutes. Let rest in cake pans for 20 minutes then invert onto a wire rack and let cool completely to room temp before assembling with Cream Cheese Frosting.''',
+        //this is to make it so that the text shows the string directly
         ingredients: '''
 2 1/2 cups all-purpose flour, plus more to dust the pans
 2 Tbsp unsweetened cocoa powder
@@ -171,7 +177,7 @@ FROSTING
         calories: 600)
   ];
   String searchString = "";
-
+  bool checkVegetarian = false;
   List<Recipe> getAllRecipe() {
     return myRecipes;
   }

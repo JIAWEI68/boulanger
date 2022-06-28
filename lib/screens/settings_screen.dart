@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:recipes_app/lists/recipe_list.dart';
 import 'package:recipes_app/main.dart';
 import 'package:recipes_app/screens/add_recipe_screen.dart';
 import 'package:recipes_app/screens/faq_screen.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  @override
   Widget build(BuildContext context) {
+    RecipeList recipeList = Provider.of<RecipeList>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -19,18 +27,37 @@ class SettingsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 25.0),
-            child: Icon(
-              Icons.account_circle,
-              size: 125,
-            ),
-          ),
+              padding: EdgeInsets.only(top: 25.0),
+              child: Image.asset("images/profile_icon.png")),
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: Text(
               "Username",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 3.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Vegetarian",
+                  style: TextStyle(fontFamily: "Rockwell", fontSize: 20),
+                ),
+                Switch(
+                  activeColor: Color.fromRGBO(251, 170, 28, 10),
+                  inactiveThumbColor: Color.fromRGBO(251, 170, 28, 10),
+                  value: recipeList.checkVegetarian,
+                  onChanged: (value) {
+                    setState(() {
+                      recipeList.checkVegetarian = value;
+                    });
+                  },
+                ),
+              ],
             ),
           ),
           Padding(
@@ -108,9 +135,9 @@ class SettingsScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   fixedSize: Size(153, 48),
-                  side: BorderSide(color: Colors.black),
+                  side: BorderSide(color: Color.fromRGBO(251, 170, 28, 10)),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15))),
+                      borderRadius: BorderRadius.circular(10))),
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MainScreen()));
@@ -118,7 +145,9 @@ class SettingsScreen extends StatelessWidget {
               child: Text(
                 "Log Out",
                 style: TextStyle(
-                    color: Colors.black, fontSize: 18, fontFamily: "Segoe"),
+                    color: Color.fromRGBO(251, 170, 28, 10),
+                    fontSize: 18,
+                    fontFamily: "Rockwell"),
               ),
             ),
           )

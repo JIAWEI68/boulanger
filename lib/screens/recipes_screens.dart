@@ -51,19 +51,14 @@ class _RecipesScreensState extends State<RecipesScreens> {
     } else {
       iconColor = Colors.red;
     }
-    if(downloadedList.getDownloadList().every(
-            (element) =>
-        element.recipeName !=
-            widget.recipeToDisplay.recipeName)){
+    if (downloadedList.getDownloadList().every(
+        (element) => element.recipeName != widget.recipeToDisplay.recipeName)) {
       downloadText = "Download";
-    }
-    else {
+    } else {
       downloadText = "Delete Download";
     }
-    if(chosen)
-      card = widget.recipeToDisplay.ingredients;
-    if(!chosen)
-      card = widget.recipeToDisplay.steps;
+    if (chosen) card = widget.recipeToDisplay.ingredients;
+    if (!chosen) card = widget.recipeToDisplay.steps;
 
     var calories = widget.recipeToDisplay.calories.toString();
     return Scaffold(
@@ -115,10 +110,11 @@ class _RecipesScreensState extends State<RecipesScreens> {
                             ));
                             Navigator.pop(context);
                           } else {
-                           downloadedList.deleteDownloadedItem(widget.recipeToDisplay);
-                           setState(() {
-                             downloadText = "Delete Download";
-                           });
+                            downloadedList
+                                .deleteDownloadedItem(widget.recipeToDisplay);
+                            setState(() {
+                              downloadText = "Delete Download";
+                            });
                           }
                         },
                         child: Text(downloadText),
@@ -174,8 +170,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                             .showSnackBar(const SnackBar(
                           content: Text('Added to favourites successfully!'),
                         ));
-                      }
-                      else{
+                      } else {
                         favouriteList.removeFavourite(widget.recipeToDisplay);
                         setState(() {
                           iconColor = Colors.black;
@@ -206,7 +201,8 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ReviewsScreen(
-                                    recipeName: widget.recipeToDisplay.recipeName,
+                                    recipeName:
+                                        widget.recipeToDisplay.recipeName,
                                   )));
                     },
                   ),
@@ -249,6 +245,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           ),
                         ],
                       ),
+                      //make it so the text is on the left side of the screen
                       Row(
                         children: [
                           FittedBox(
@@ -262,13 +259,16 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           ),
                         ],
                       ),
-                      Card(
-                        child: AutoSizeText(
-                          widget.recipeToDisplay.description,
-                          style: const TextStyle(fontSize: 20),
-                          overflow: TextOverflow.fade,
-                          softWrap: true,
-                          maxLines: 8,
+                      SizedBox(
+                        height: 130,
+                        child: Card(
+                          child: AutoSizeText(
+                            widget.recipeToDisplay.description,
+                            style: const TextStyle(fontSize: 20),
+                            overflow: TextOverflow.fade,
+                            softWrap: true,
+                            maxLines: 8,
+                          ),
                         ),
                       ),
                       Column(
@@ -299,7 +299,8 @@ class _RecipesScreensState extends State<RecipesScreens> {
                                       fixedSize: const Size(120, 32),
                                       primary: Colors.white,
                                       shape: const StadiumBorder(),
-                                      side: const BorderSide(color: Colors.black)),
+                                      side: const BorderSide(
+                                          color: Colors.black)),
                                   onPressed: () {
                                     setState(() {
                                       chosen = true;
@@ -314,12 +315,12 @@ class _RecipesScreensState extends State<RecipesScreens> {
                                   ))
                             ],
                           ),
-                            SizedBox(
-                              width: double.infinity,
-                              child: Card(
-                                child: Text(card),
-                              ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: Card(
+                              child: Text(card),
                             ),
+                          ),
                         ],
                       ),
                     ],
@@ -329,9 +330,5 @@ class _RecipesScreensState extends State<RecipesScreens> {
             ],
           ),
         ));
-  }
-
-  void onPressed(index) {
-    int selectedIndex = index;
   }
 }
