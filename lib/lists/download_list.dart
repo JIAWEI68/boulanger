@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../models/recipe.dart';
 
-extension DuplicateRemoval<T> on List<T> {
-  List<T> get removeAllDuplicates => [
-        ...{...this}
-      ];
-}
-
 class DownloadList with ChangeNotifier {
   List<Recipe> downloadList = [];
 

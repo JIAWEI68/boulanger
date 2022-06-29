@@ -99,6 +99,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Padding(
+                  padding: EdgeInsets.only(top: 0.5, left: 200.0),
+                  child: TextButton(
+                    child: Text("Forget Password"),
+                    onPressed: () {},
+                  ),
+                ),
+                Padding(
                   padding: EdgeInsets.only(top: 40.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(

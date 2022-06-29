@@ -30,9 +30,10 @@ class ReviewsScreen extends StatelessWidget {
         //to set that when the reviews list is empty, itll show an image
         //when there is something in the list, itll show the items in the list
         child: reviewsList.isNotEmpty
-            ? ListView.separated(
+            ? ListView.builder(
                 itemBuilder: (ctx, i) {
                   return Dismissible(
+                    direction: DismissDirection.endToStart,
                     background: Container(
                       color: Colors.red,
                       child: Icon(Icons.delete),
@@ -41,32 +42,37 @@ class ReviewsScreen extends StatelessWidget {
                     onDismissed: (direction) {
                       reviewsListProvider.removeReviews(i);
                     },
-                    child: ListTile(
-                      leading: const CircleAvatar(
-                        radius: 27,
-                        backgroundColor: Colors.black,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 25,
-                          child: Icon(
-                            Icons.person,
-                            color: Colors.black,
+                    child: ClipRect(
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          side: BorderSide(color: Colors.black38),
+                        ),
+                        child: ListTile(
+                          leading: const CircleAvatar(
+                            radius: 27,
+                            backgroundColor: Colors.black,
+                            child: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 25,
+                              child: Icon(
+                                Icons.person,
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
+                          onTap: () {
+                            EditReviewsScreen.goToEditScreen(
+                                context, reviewsList[i], recipeName);
+                          },
+                          title: Text(reviewsList[i].username),
+                          subtitle: Text(reviewsList[i].description),
                         ),
                       ),
-                      onTap: () {
-                        EditReviewsScreen.goToEditScreen(
-                            context, reviewsList[i], recipeName);
-                      },
-                      title: Text(reviewsList[i].username),
-                      subtitle: Text(reviewsList[i].description),
                     ),
                   );
                 },
                 itemCount: reviewsList.length,
-                separatorBuilder: (ctx, i) {
-                  return const Divider(height: 3, color: Colors.blueGrey);
-                },
               )
             : Column(
                 children: [

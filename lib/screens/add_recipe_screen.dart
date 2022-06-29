@@ -322,6 +322,9 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                       validator: (value) {
                         if (value == "") {
                           return "Please enter a image link for your recipe";
+                        } else if ('/'.allMatches(value!).length >= 4 ||
+                            '/'.allMatches(value).isEmpty) {
+                          return "Invalid Image";
                         } else {
                           return null;
                         }

@@ -12,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     RecipeList recipeList = Provider.of<RecipeList>(context);
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: TextField(
+                  controller: searchController,
                   onChanged: (value) {
                     //to set the search string in the download list to the value of the text field
                     //set a text field where it gets the value and sets it to searchString which is in recipeList

@@ -35,8 +35,8 @@ class _DownloadScreenState extends State<DownloadScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Container(
+              padding: EdgeInsets.only(top: 10.0),
+              child: SizedBox(
                 height: 537.0009,
                 width: 350,
                 child: DownloadGridView(),

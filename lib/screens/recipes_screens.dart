@@ -108,15 +108,18 @@ class _RecipesScreensState extends State<RecipesScreens> {
                               content: Text('Download successfully!'),
                               duration: Duration(milliseconds: 10),
                             ));
+                            setState(() {
+                              downloadText = "Delete Download";
+                            });
                             Navigator.pop(context);
                           } else {
                             Navigator.pop(context);
-                              setState(() {
-                                downloadedList
-                                    .deleteDownloadedItem(widget.recipeToDisplay);
-                              });
                             setState(() {
-                              downloadText = "Delete Download";
+                              downloadedList
+                                  .deleteDownloadedItem(widget.recipeToDisplay);
+                            });
+                            setState(() {
+                              downloadText = "Download";
                             });
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
@@ -269,6 +272,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                       ),
                       SizedBox(
                         height: 140,
+                        width: double.infinity,
                         child: Card(
                           child: AutoSizeText(
                             widget.recipeToDisplay.description,
@@ -326,7 +330,10 @@ class _RecipesScreensState extends State<RecipesScreens> {
                           SizedBox(
                             width: double.infinity,
                             child: Card(
-                              child: Text(card, style: TextStyle(fontSize: 20),),
+                              child: Text(
+                                card,
+                                style: TextStyle(fontSize: 20),
+                              ),
                             ),
                           ),
                         ],

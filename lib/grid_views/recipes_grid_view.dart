@@ -20,14 +20,10 @@ class _RecipesGridViewState extends State<RecipesGridView> {
     bool checkVegetarian = Provider.of<RecipeList>(context).checkVegetarian;
     //call the list based on the search string
     List<Recipe> recipeList = Provider.of<RecipeList>(context)
-        .getAllRecipe().where((element) =>
-        element.recipeName.toLowerCase().contains(searchString))
+        .getAllRecipe()
+        .where((element) =>
+            element.recipeName.toLowerCase().contains(searchString))
         .toList();
-    if(checkVegetarian == false){
-      setState(() {
-        recipeList.indexWhere((element) => element.vegetarian == true) == false;
-      });
-    }
     return GridView.builder(
       itemBuilder: (BuildContext context, int index) {
         return ClipRRect(
