@@ -4,8 +4,6 @@ import 'package:recipes_app/lists/download_list.dart';
 import 'package:recipes_app/models/recipe.dart';
 import 'package:recipes_app/screens/recipes_screens.dart';
 
-import '../screens/download_recipe_screen.dart';
-
 class DownloadGridView extends StatefulWidget {
   const DownloadGridView({Key? key}) : super(key: key);
 
@@ -31,8 +29,7 @@ class _DownloadGridViewState extends State<DownloadGridView> {
             child: GridTile(
               child: GestureDetector(
                 onTap: () {
-                  RecipesScreens.goToRecipeDetails(
-                      context, downloadedList[i]);
+                  RecipesScreens.goToRecipeDetails(context, downloadedList[i]);
                 },
                 child: Image.network(
                   downloadedList[i].imageUrl,

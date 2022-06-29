@@ -37,9 +37,15 @@ class _RecipesGridViewState extends State<RecipesGridView> {
                   RecipesScreens.goToRecipeDetails(context, recipeList[index]);
                 },
                 child: Image.network(
-                  recipeList[index].imageUrl, errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace){
-                    return Text("Invalid Image");
-                },
+                  recipeList[index].imageUrl,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    return ClipRRect(
+                      child: Card(
+                        color: Colors.blue,
+                      ),
+                    );
+                  },
                   fit: BoxFit.cover,
                 ),
               ),

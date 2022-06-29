@@ -79,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SizedBox(
                     width: 320,
                     child: TextFormField(
+                      obscureText: true,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
