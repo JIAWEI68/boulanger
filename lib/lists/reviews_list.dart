@@ -21,7 +21,7 @@ class AllReviews with ChangeNotifier {
     notifyListeners();
   }
   void editReviews(Reviews reviews){
-    print(reviewsList.indexWhere((element) => element.description == reviews.description));
+    print(reviewsList.indexWhere((element) => element.username == reviews.username));
    reviewsList[reviewsList.indexWhere((element) => element.username == reviews.username)] = reviews;
    notifyListeners();
   }

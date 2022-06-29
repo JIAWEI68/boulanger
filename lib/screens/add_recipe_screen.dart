@@ -6,6 +6,7 @@ import 'package:recipes_app/lists/recipe_list.dart';
 class AddRecipesScreen extends StatefulWidget {
   const AddRecipesScreen({Key? key}) : super(key: key);
 
+
   @override
   State<AddRecipesScreen> createState() => _AddRecipesScreenState();
 }
@@ -13,17 +14,20 @@ class AddRecipesScreen extends StatefulWidget {
 //add recipe screen is similar to the add reviews screen
 //so the functions are similar just that instead of adding into the reviews list it is added into the main recipe list and shows in the home screen
 class _AddRecipesScreenState extends State<AddRecipesScreen> {
+
   var form = GlobalKey<FormState>();
 
   String? recipeName;
   String? description;
   String? difficulty;
-  bool? vegetarian;
+  String? vegetarian;
   String? madeBy;
   String? steps;
   String? ingredients;
   String? imageUrl;
   int? calories;
+
+  bool? get errorBuilder => null;
   //add the recipes into the list when the form is valid
   void addRecipe(RecipeList recipeList) {
     bool isValid = form.currentState!.validate();
@@ -176,32 +180,6 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                      top: 15.0,
-                    ),
-                    child: TextFormField(
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          hintText: 'Description',
-                          hintStyle: const TextStyle(fontSize: 16),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          filled: true),
-                      validator: (value) {
-                        if (value == "") {
-                          return "Please enter a description for your recipe";
-                        } else {
-                          return null;
-                        }
-                      },
-                      onSaved: (value) {
-                        description = value as String;
-                      },
-                    ),
-                  ),
-                  Padding(
                       padding: const EdgeInsets.only(
                         top: 15.0,
                       ),
@@ -224,7 +202,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                           )
                         ],
                         onChanged: (value) {
-                          vegetarian = value as bool;
+                          vegetarian = value as String;
                         },
                       )),
                   Padding(
@@ -322,10 +300,11 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                       validator: (value) {
                         if (value == "") {
                           return "Please enter a image link for your recipe";
-                        } else if ('/'.allMatches(value!).length >= 4 ||
-                            '/'.allMatches(value).isEmpty) {
-                          return "Invalid Image";
-                        } else {
+                        } //else if ('/'.allMatches(value!).length >= 4 ||
+                            //'/'.allMatches(value).isEmpty) {
+                          //return "Invalid Image";
+                        //}
+                        else {
                           return null;
                         }
                       },

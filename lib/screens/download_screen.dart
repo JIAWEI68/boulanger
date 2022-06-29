@@ -34,7 +34,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
                     labelText: "Search", suffixIcon: Icon(Icons.search)),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 10.0),
               child: SizedBox(
                 height: 537.0009,

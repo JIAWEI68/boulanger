@@ -24,6 +24,9 @@ class _RecipesGridViewState extends State<RecipesGridView> {
         .where((element) =>
             element.recipeName.toLowerCase().contains(searchString))
         .toList();
+    RecipeList removeRecipe = Provider.of<RecipeList>(context);
+    print(checkVegetarian);
+
     return GridView.builder(
       itemBuilder: (BuildContext context, int index) {
         return ClipRRect(
@@ -34,7 +37,9 @@ class _RecipesGridViewState extends State<RecipesGridView> {
                   RecipesScreens.goToRecipeDetails(context, recipeList[index]);
                 },
                 child: Image.network(
-                  recipeList[index].imageUrl,
+                  recipeList[index].imageUrl, errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace){
+                    return Text("Invalid Image");
+                },
                   fit: BoxFit.cover,
                 ),
               ),
