@@ -17,27 +17,28 @@ class _RecipesGridViewState extends State<RecipesGridView> {
   Widget build(BuildContext context) {
     //call the search string inside the recipe list class to allow search
     String searchString = Provider.of<RecipeList>(context).searchString;
-    bool checkVegetarian = Provider.of<RecipeList>(context).checkVegetarian;
     //call the list based on the search string
     List<Recipe> recipeList = Provider.of<RecipeList>(context)
         .getAllRecipe()
         .where((element) =>
             element.recipeName.toLowerCase().contains(searchString))
         .toList();
-    RecipeList removeRecipe = Provider.of<RecipeList>(context);
-    print(checkVegetarian);
 
     return GridView.builder(
       itemBuilder: (BuildContext context, int index) {
+        //give the grid tile a border
         return ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
             child: GridTile(
               child: GestureDetector(
                 onTap: () {
+                  //pass the data of the recipe list into the screen
                   RecipesScreens.goToRecipeDetails(context, recipeList[index]);
                 },
                 child: Image.network(
                   recipeList[index].imageUrl,
+                  //check whether the link of the image is valid
+                  //if not valid it shows a blue card inside the grid tile instead
                   errorBuilder: (BuildContext context, Object exception,
                       StackTrace? stackTrace) {
                     return ClipRRect(

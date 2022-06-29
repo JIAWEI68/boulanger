@@ -176,6 +176,7 @@ FROSTING
 1/2 tsp red gel food coloring''',
         calories: 600)
   ];
+  //to filter out the value based on this string
   String searchString = "";
   bool checkVegetarian = false;
   List<Recipe> getAllRecipe() {

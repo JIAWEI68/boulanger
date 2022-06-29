@@ -12,6 +12,7 @@ class FavouriteList with ChangeNotifier {
     notifyListeners();
   }
 
+  //remove the item in the list based on the item recipe and not the index
   void removeFavourite(Recipe recipe) {
     favourtieList.remove(recipe);
     notifyListeners();

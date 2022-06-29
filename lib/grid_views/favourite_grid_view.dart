@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/favourite_list.dart';
 import 'package:recipes_app/models/recipe.dart';
-import 'package:recipes_app/screens/favourite_recipe_screen.dart';
 import 'package:recipes_app/screens/recipes_screens.dart';
 
 class FavouriteGridView extends StatefulWidget {
@@ -30,11 +29,18 @@ class _FavouriteGridViewState extends State<FavouriteGridView> {
               child: GridTile(
                 child: GestureDetector(
                   onTap: () {
-                    RecipesScreens.goToRecipeDetails(
-                        context, favouriteList[i]);
+                    RecipesScreens.goToRecipeDetails(context, favouriteList[i]);
                   },
                   child: Image.network(
                     favouriteList[i].imageUrl,
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return ClipRRect(
+                        child: Card(
+                          color: Colors.blue,
+                        ),
+                      );
+                    },
                     fit: BoxFit.cover,
                   ),
                 ),

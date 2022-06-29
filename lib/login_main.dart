@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/favourite_list.dart';
 import 'package:recipes_app/lists/recipe_list.dart';
@@ -11,6 +12,9 @@ import 'lists/download_list.dart';
 import 'lists/reviews_list.dart';
 
 void main() {
+  //hide the bar
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom]);
   runApp(MyApp());
 }
 
@@ -55,7 +59,8 @@ class LoginMainScreen extends StatefulWidget {
 
 class _LoginMainScreenState extends State<LoginMainScreen> {
   int selectedIndex = 1;
-  final screens = [DownloadScreen(), HomeScreen(), LikeScreen()];
+  //list of screens to show in the home screen as a widget
+  final screens = [DownloadScreen(), const HomeScreen(), LikeScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

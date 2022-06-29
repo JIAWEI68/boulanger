@@ -12,6 +12,7 @@ class DownloadGridView extends StatefulWidget {
 }
 
 class _DownloadGridViewState extends State<DownloadGridView> {
+  //similar to the recipe grid view
   @override
   Widget build(BuildContext context) {
     String searchString = Provider.of<DownloadList>(context).searchString;
@@ -33,6 +34,14 @@ class _DownloadGridViewState extends State<DownloadGridView> {
                 },
                 child: Image.network(
                   downloadedList[i].imageUrl,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    return ClipRRect(
+                      child: Card(
+                        color: Colors.blue,
+                      ),
+                    );
+                  },
                   fit: BoxFit.cover,
                 ),
               ),

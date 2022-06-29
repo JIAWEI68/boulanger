@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/favourite_list.dart';
 import 'package:recipes_app/lists/recipe_list.dart';
@@ -12,6 +13,9 @@ import 'lists/download_list.dart';
 import 'lists/reviews_list.dart';
 
 void main() {
+  //hide the bar
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom]);
   runApp(MyApp());
 }
 
@@ -91,7 +95,7 @@ class _MainScreenState extends State<MainScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => LoginAndSignUpScreen()));
+                        builder: (context) => const LoginAndSignUpScreen()));
               },
             )
           ],

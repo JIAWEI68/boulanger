@@ -11,18 +11,26 @@ class AllReviews with ChangeNotifier {
   void addReviews(recipeName, username, description) {
     reviewsList.insert(
       0,
-      Reviews(recipeName : recipeName ,username: username, description: description),
+      Reviews(
+          recipeName: recipeName, username: username, description: description),
     );
     notifyListeners();
   }
 
+  //remove the reviews based on the index in the list
   void removeReviews(i) {
     reviewsList.removeAt(i);
     notifyListeners();
   }
-  void editReviews(Reviews reviews){
-    print(reviewsList.indexWhere((element) => element.username == reviews.username));
-   reviewsList[reviewsList.indexWhere((element) => element.username == reviews.username)] = reviews;
-   notifyListeners();
+
+  void editReviews(Reviews reviews) {
+    //prints the index of the list based on the username
+    print(reviewsList
+        .indexWhere((element) => element.username == reviews.username));
+    //checks the index of the list based on the username
+    //replaces the value of the list with the new value in that index
+    reviewsList[reviewsList.indexWhere(
+        (element) => element.username == reviews.username)] = reviews;
+    notifyListeners();
   }
 }
