@@ -20,10 +20,12 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
   String? difficulty;
   bool? vegetarian;
   String? madeBy;
+  String? category;
   String? steps;
   String? ingredients;
   String? imageUrl;
   int? calories;
+  String? id;
 
   //add the recipes into the list when the form is valid
   void addRecipe(RecipeList recipeList) {
@@ -36,8 +38,8 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
       if (kDebugMode) {
         print(description);
       }
-      recipeList.addRecipes(imageUrl, recipeName, description, vegetarian,
-          difficulty, madeBy, steps, ingredients, calories);
+      recipeList.addRecipes(id, imageUrl, recipeName, description, vegetarian,
+          difficulty, madeBy, category, steps, ingredients, calories);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Recipes added successfully!'),
       ));

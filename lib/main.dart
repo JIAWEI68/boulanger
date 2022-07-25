@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -22,38 +23,42 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      //the providers of the list
-      providers: [
-        ChangeNotifierProvider<AllReviews>(
-          create: (ctx) => AllReviews(),
-        ),
-        ChangeNotifierProvider<DownloadList>(
-          create: (ctx) => DownloadList(),
-        ),
-        ChangeNotifierProvider<RecipeList>(create: (ctx) => RecipeList()),
-        ChangeNotifierProvider<FavouriteList>(create: (ctx) => FavouriteList())
-      ],
-      child: MaterialApp(
-          //remove the debug banner at the top right of the screen
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primaryColor: const Color.fromRGBO(254, 238, 210, 10),
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (ctx, snapshot) => MultiProvider(
+        //the providers of the list
+        providers: [
+          ChangeNotifierProvider<AllReviews>(
+            create: (ctx) => AllReviews(),
           ),
-          //set it so that when the app first launches it shows the splash screen first
-          home: const SplashScreen(),
-          //the routes of the screens
-          routes: {
-            DownloadScreen.routeName: (_) {
-              return DownloadScreen();
-            },
-            LikeScreen.routeName: (_) {
-              return LikeScreen();
-            },
-            MainScreen.routeName: (_) {
-              return MainScreen();
-            }
-          }),
+          ChangeNotifierProvider<DownloadList>(
+            create: (ctx) => DownloadList(),
+          ),
+          ChangeNotifierProvider<RecipeList>(create: (ctx) => RecipeList()),
+          ChangeNotifierProvider<FavouriteList>(
+              create: (ctx) => FavouriteList())
+        ],
+        child: MaterialApp(
+            //remove the debug banner at the top right of the screen
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primaryColor: const Color.fromRGBO(254, 238, 210, 10),
+            ),
+            //set it so that when the app first launches it shows the splash screen first
+            home: const SplashScreen(),
+            //the routes of the screens
+            routes: {
+              DownloadScreen.routeName: (_) {
+                return DownloadScreen();
+              },
+              LikeScreen.routeName: (_) {
+                return LikeScreen();
+              },
+              MainScreen.routeName: (_) {
+                return MainScreen();
+              }
+            }),
+      ),
     );
   }
 }

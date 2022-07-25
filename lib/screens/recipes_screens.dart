@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/favourite_list.dart';
 import 'package:recipes_app/models/recipe.dart';
 import 'package:recipes_app/screens/reviews_screen.dart';
+import 'package:recipes_app/services/firestore_services.dart';
 
 import '../lists/download_list.dart';
 
@@ -37,6 +38,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
   bool chosen = false;
   @override
   Widget build(BuildContext context) {
+    FirestoreService firestoreService = FirestoreService();
     String card = widget.recipeToDisplay.steps;
     FavouriteList favouriteList = Provider.of<FavouriteList>(context);
     DownloadList downloadedList = Provider.of<DownloadList>(context);
@@ -114,13 +116,14 @@ class _RecipesScreensState extends State<RecipesScreens> {
                                         element.recipeName !=
                                         widget.recipeToDisplay.recipeName)) {
                                   //add the recipe into the list based on the items name, and the parameters
-                                  downloadedList.downloadItem(
+                                  firestoreService.downloadItem(
                                       widget.recipeToDisplay.imageUrl,
                                       widget.recipeToDisplay.recipeName,
                                       widget.recipeToDisplay.description,
                                       widget.recipeToDisplay.vegetarian,
                                       widget.recipeToDisplay.difficulty,
                                       widget.recipeToDisplay.madeBy,
+                                      widget.recipeToDisplay.category,
                                       widget.recipeToDisplay.steps,
                                       widget.recipeToDisplay.ingredients,
                                       widget.recipeToDisplay.calories);

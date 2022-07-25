@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:recipes_app/services/firestore_services.dart';
 
 import '../models/recipe.dart';
 
 class RecipeList with ChangeNotifier {
+  FirestoreService firestoreService = FirestoreService();
   List<Recipe> myRecipes = [
     Recipe(
+        id: "0",
         imageUrl:
             "https://www.recipetineats.com/wp-content/uploads/2019/12/Christmas-Cake-decorated-with-fondant-marzipan-and-cherries.jpg",
         recipeName: "Christmas Cake",
@@ -16,6 +19,7 @@ class RecipeList with ChangeNotifier {
         vegetarian: true,
         difficulty: "Easy",
         madeBy: "Nagi",
+        category: "Cake",
         //this is to make it so that the text shows the string directly
         steps: '''FAST SOAKED FRUIT:
 Place dried fruit and juice/brandy in a large microwavable container. Microwave 1 1/2 minutes on high or until hot.
@@ -69,6 +73,7 @@ OTHER DECORATING OPTIONS (OPTIONAL)
 ▢Drippy white glaze (directions below)''',
         calories: 500),
     Recipe(
+        id: "1",
         imageUrl:
             "https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/x17/16714-birthday-cake-600x600.jpg?ext=.jpg",
         recipeName: "Birthday Cake",
@@ -77,6 +82,7 @@ OTHER DECORATING OPTIONS (OPTIONAL)
         vegetarian: false,
         difficulty: "Medium",
         madeBy: "Land O Lakes",
+        category: "Cake",
         //this is to make it so that the text shows the string directly
         steps: '''STEP 1
 
@@ -133,6 +139,7 @@ FROSTING
 1 teaspoon vanilla extract''',
         calories: 550),
     Recipe(
+        id: "2",
         imageUrl:
             "https://natashaskitchen.com/wp-content/uploads/2021/02/Red-Velvet-Cake-4.jpg",
         recipeName: "Red Velvet Cake",
@@ -141,6 +148,7 @@ FROSTING
         vegetarian: false,
         difficulty: "Medium",
         madeBy: "Land O Lakes",
+        category: "Cake",
         //this is to make it so that the text shows the string directly
         steps: '''
 1.Preheat oven to 350˚F with racks in the center of the oven. Grease two 9-inch round cake pans with butter and dust with flour, tapping out the excess.
@@ -176,6 +184,7 @@ FROSTING
 1/2 tsp red gel food coloring''',
         calories: 600)
   ];
+
   //to filter out the value based on this string
   String searchString = "";
   bool checkVegetarian = false;
@@ -183,21 +192,22 @@ FROSTING
     return myRecipes;
   }
 
-  void addRecipes(imageUrl, recipeName, description, vegetarian, difficulty,
-      madeBy, steps, ingredients, calories) {
+  void addRecipes(id, imageUrl, recipeName, description, vegetarian, difficulty,
+      madeBy, category, steps, ingredients, calories) {
     myRecipes.insert(
         0,
         Recipe(
-          imageUrl: imageUrl,
-          recipeName: recipeName,
-          description: description,
-          vegetarian: vegetarian,
-          difficulty: difficulty,
-          madeBy: madeBy,
-          steps: steps,
-          ingredients: ingredients,
-          calories: calories,
-        ));
+            id: id,
+            imageUrl: imageUrl,
+            recipeName: recipeName,
+            description: description,
+            vegetarian: vegetarian,
+            difficulty: difficulty,
+            madeBy: madeBy,
+            category: category,
+            steps: steps,
+            ingredients: ingredients,
+            calories: calories));
     notifyListeners();
   }
 }
