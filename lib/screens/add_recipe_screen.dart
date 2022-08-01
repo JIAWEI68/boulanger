@@ -28,7 +28,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
   String? id;
 
   //add the recipes into the list when the form is valid
-  void addRecipe(RecipeList recipeList) {
+  void addRecipe(RecipeProvider recipeList) {
     bool isValid = form.currentState!.validate();
     if (isValid) {
       form.currentState!.save();
@@ -51,7 +51,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    RecipeList recipeList = Provider.of<RecipeList>(context);
+    RecipeProvider recipeList = Provider.of<RecipeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.blueGrey),

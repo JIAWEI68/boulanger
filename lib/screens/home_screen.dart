@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     FirestoreService firestoreService = FirestoreService();
-    RecipeList recipeList = Provider.of<RecipeList>(context);
+    RecipeProvider recipeList = Provider.of<RecipeProvider>(context);
     return StreamBuilder<List<Recipe>>(
         stream: firestoreService.getRecipes(),
         builder: (context, snapshot) {
@@ -41,9 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           onChanged: (value) {
                             //to set the search string in the download list to the value of the text field
                             //set a text field where it gets the value and sets it to searchString which is in recipeList
-                            setState(() {
-                              recipeList.searchString = value.toLowerCase();
-                            });
+                            // setState(() {
+                            //   recipeList.searchString = value;
+                            // });
                           },
                           decoration: InputDecoration(
                               labelText: "Search",
@@ -58,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 537.0009,
                           width: 350,
                           //set the grid view as the widget for the screen
-                          child: RecipesGridView(),
+                          child: RecipesGridView(
+                            controller: searchController,
+                          ),
                         ),
                       )
                     ]),

@@ -24,16 +24,17 @@ class Recipe {
       required this.ingredients,
       required this.calories});
 
-  Recipe.fromMap(Map<String, dynamic> snapshot, String id)
-      : id = id,
-        imageUrl = snapshot['imageUrl'] ?? '',
-        recipeName = snapshot['recipeName'] ?? '',
-        description = snapshot['description'] ?? '',
-        vegetarian = snapshot['vegetarian'] ?? '',
-        difficulty = snapshot['difficulty'] ?? '',
-        madeBy = snapshot['madeBy'] ?? '',
-        category = snapshot['category'] ?? '',
-        steps = snapshot['steps'] ?? '',
-        ingredients = snapshot['ingredients'] ?? '',
-        calories = snapshot['calories'] ?? '';
+  factory Recipe.fromMap(Map<String, dynamic> snapshot, String id) => Recipe(
+        id: id,
+        imageUrl: snapshot['imageUrl'] ?? '',
+        recipeName: snapshot['recipeName'] ?? '',
+        description: snapshot['description'] ?? '',
+        vegetarian: snapshot['vegetarian'] ?? '',
+        difficulty: snapshot['difficulty'] ?? '',
+        madeBy: snapshot['madeBy'] ?? '',
+        category: snapshot['category'] ?? '',
+        steps: snapshot['steps'] ?? '',
+        ingredients: snapshot['ingredients'] ?? '',
+        calories: snapshot['calories'] ?? '',
+      );
 }

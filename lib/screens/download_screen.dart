@@ -13,9 +13,10 @@ class DownloadScreen extends StatefulWidget {
 }
 
 class _DownloadScreenState extends State<DownloadScreen> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    DownloadList downloadedList = Provider.of<DownloadList>(context);
+    DownloadProvider downloadedList = Provider.of<DownloadProvider>(context);
     FirestoreService firestoreService = FirestoreService();
     return StreamBuilder<List<Recipe>>(
         stream: firestoreService.getDownloaded(),
@@ -34,13 +35,8 @@ class _DownloadScreenState extends State<DownloadScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 15.0),
                       //create a text field to allow search
                       child: TextField(
-                        onChanged: (value) {
-                          setState(() {
-                            //to set the search string in the download list to the value of the text field
-                            //set a text field where it gets the value and sets it to searchString which is in downloadedList
-                            downloadedList.searchString = value.toLowerCase();
-                          });
-                        },
+                        controller: searchController,
+                        onChanged: (value) {},
                         decoration: const InputDecoration(
                             labelText: "Search",
                             suffixIcon: Icon(Icons.search)),
@@ -51,7 +47,9 @@ class _DownloadScreenState extends State<DownloadScreen> {
                       child: SizedBox(
                         height: 537.0009,
                         width: 350,
-                        child: DownloadGridView(),
+                        child: DownloadGridView(
+                          controller: searchController,
+                        ),
                       ),
                     ),
                   ],

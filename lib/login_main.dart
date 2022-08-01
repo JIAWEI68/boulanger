@@ -27,10 +27,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AllReviews>(
           create: (ctx) => AllReviews(),
         ),
-        ChangeNotifierProvider<DownloadList>(
-          create: (ctx) => DownloadList(),
+        ChangeNotifierProvider<DownloadProvider>(
+          create: (ctx) => DownloadProvider(),
         ),
-        ChangeNotifierProvider<RecipeList>(create: (ctx) => RecipeList()),
+        ChangeNotifierProvider<RecipeProvider>(
+            create: (ctx) => RecipeProvider()),
         ChangeNotifierProvider<FavouriteList>(create: (ctx) => FavouriteList())
       ],
       child: MaterialApp(

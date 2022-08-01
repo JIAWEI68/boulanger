@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../models/recipe.dart';
 
-class DownloadList with ChangeNotifier {
+class DownloadProvider with ChangeNotifier {
   List<Recipe> downloadList = [];
 
   List<Recipe> getDownloadList() {
@@ -36,4 +37,28 @@ class DownloadList with ChangeNotifier {
 
   //set the search string to allow the list to be filtered
   String searchString = "";
+  DownloadProvider() {
+    FirebaseFirestore.instance
+        .collection("downloads")
+        .snapshots()
+        .listen((event) {
+      for (var change in event.docChanges) {
+        Recipe recipe = Recipe.fromMap(change.doc.data()!, change.doc.id);
+        switch (change.type) {
+          case DocumentChangeType.added:
+            downloadList.add(recipe);
+            break;
+          case DocumentChangeType.modified:
+            downloadList.removeWhere((element) => element.id == recipe.id);
+            downloadList.add(recipe);
+            // TODO: Handle this case.
+            break;
+          case DocumentChangeType.removed:
+            downloadList.removeWhere((element) => element.id == recipe.id);
+            // TODO: Handle this case.
+            break;
+        }
+      }
+    });
+  }
 }

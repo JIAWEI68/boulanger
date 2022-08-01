@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/services/firestore_services.dart';
 
 import '../models/recipe.dart';
 
-class RecipeList with ChangeNotifier {
+class RecipeProvider with ChangeNotifier {
   FirestoreService firestoreService = FirestoreService();
+
   List<Recipe> myRecipes = [
     Recipe(
         id: "0",
@@ -189,7 +191,7 @@ FROSTING
   String searchString = "";
   bool checkVegetarian = false;
   List<Recipe> getAllRecipe() {
-    return myRecipes;
+    return recipeList;
   }
 
   void addRecipes(id, imageUrl, recipeName, description, vegetarian, difficulty,
@@ -209,5 +211,32 @@ FROSTING
             ingredients: ingredients,
             calories: calories));
     notifyListeners();
+  }
+
+  List<Recipe> recipeList = [];
+
+  RecipeProvider() {
+    FirebaseFirestore.instance
+        .collection("recipes")
+        .snapshots()
+        .listen((event) {
+      for (var change in event.docChanges) {
+        Recipe recipe = Recipe.fromMap(change.doc.data()!, change.doc.id);
+        switch (change.type) {
+          case DocumentChangeType.added:
+            recipeList.add(recipe);
+            break;
+          case DocumentChangeType.modified:
+            recipeList.removeWhere((element) => element.id == recipe.id);
+            recipeList.add(recipe);
+            // TODO: Handle this case.
+            break;
+          case DocumentChangeType.removed:
+            recipeList.removeWhere((element) => element.id == recipe.id);
+            // TODO: Handle this case.
+            break;
+        }
+      }
+    });
   }
 }

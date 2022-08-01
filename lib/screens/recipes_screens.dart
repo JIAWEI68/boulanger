@@ -41,7 +41,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
     FirestoreService firestoreService = FirestoreService();
     String card = widget.recipeToDisplay.steps;
     FavouriteList favouriteList = Provider.of<FavouriteList>(context);
-    DownloadList downloadedList = Provider.of<DownloadList>(context);
+    DownloadProvider downloadedList = Provider.of<DownloadProvider>(context);
     if (favouriteList.getFavourtieList().every(
         (element) => element.recipeName != widget.recipeToDisplay.recipeName)) {
       iconColor = Colors.black;

@@ -2,6 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:recipes_app/models/recipe.dart';
 
 class FirestoreService {
+  List<String> recipeSearch = [];
+  String searchString = "";
+  String downloadSearch = '';
+  String favouriteSearch = '';
   addRecipes(imageUrl, recipeName, description, vegetarian, difficulty, madeBy,
       category, steps, ingredients, calories) {
     return FirebaseFirestore.instance.collection('recipes').add({
@@ -50,8 +54,6 @@ class FirestoreService {
     });
   }
 
-  List<Recipe> recipesList = [];
-
   Stream<List<Recipe>> getRecipes() {
     return FirebaseFirestore.instance.collection('recipes').snapshots().map(
         (snapshot) => snapshot.docs
@@ -72,4 +74,7 @@ class FirestoreService {
             .map<Recipe>((doc) => Recipe.fromMap(doc.data(), doc.id))
             .toList());
   }
+
+  CollectionReference allRecipesCollection =
+      FirebaseFirestore.instance.collection('recipes');
 }
