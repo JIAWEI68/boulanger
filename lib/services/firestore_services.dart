@@ -59,7 +59,9 @@ class FirestoreService {
         (snapshot) => snapshot.docs
             .map<Recipe>((doc) => Recipe.fromMap(doc.data(), doc.id))
             .toList());
+
   }
+
 
   Stream<List<Recipe>> getDownloaded() {
     return FirebaseFirestore.instance.collection('downloads').snapshots().map(
