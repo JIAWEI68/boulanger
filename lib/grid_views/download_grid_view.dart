@@ -14,7 +14,7 @@ class DownloadGridView extends StatefulWidget {
 }
 
 class _DownloadGridViewState extends State<DownloadGridView> {
-  late TextEditingController searchController = widget.controller;
+  late TextEditingController downloadSearchController = widget.controller;
   //similar to the recipe grid view
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,16 @@ class _DownloadGridViewState extends State<DownloadGridView> {
     return Consumer<DownloadProvider>(
       builder:
           (BuildContext context, DownloadProvider provider, Widget? child) {
-        if (searchController.text.isEmpty) {
+        if (downloadSearchController.text.isEmpty) {
           downloadList = provider.downloadList;
         } else {
           downloadList = provider.downloadList
               .where((element) => element.recipeName
                   .toLowerCase()
-                  .contains(searchController.text.toLowerCase()))
+                  .contains(downloadSearchController.text.toLowerCase()))
               .toList();
           print(downloadList);
+          print(downloadSearchController.text);
         }
         return GridView.builder(
           scrollDirection: Axis.vertical,

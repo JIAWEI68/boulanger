@@ -13,7 +13,7 @@ class DownloadScreen extends StatefulWidget {
 }
 
 class _DownloadScreenState extends State<DownloadScreen> {
-  TextEditingController searchController = TextEditingController();
+  TextEditingController downloadSearchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     DownloadProvider downloadedList = Provider.of<DownloadProvider>(context);
@@ -35,7 +35,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 15.0),
                       //create a text field to allow search
                       child: TextField(
-                        controller: searchController,
+                        controller: downloadSearchController,
                         onChanged: (value) {},
                         decoration: const InputDecoration(
                             labelText: "Search",
@@ -48,7 +48,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
                         height: 537.0009,
                         width: 350,
                         child: DownloadGridView(
-                          controller: searchController,
+                          controller: downloadSearchController,
                         ),
                       ),
                     ),
