@@ -37,7 +37,9 @@ class _DownloadScreenState extends State<DownloadScreen> {
                       child: TextField(
                         controller: downloadSearchController,
                         onChanged: (value) {
-                          downloadedList.searchString = value;
+                          setState(() {
+                            downloadedList.searchString = value;
+                          });
                         },
                         decoration: const InputDecoration(
                             labelText: "Search",
