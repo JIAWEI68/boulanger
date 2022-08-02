@@ -1,4 +1,4 @@
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/reviews_list.dart';
 
@@ -15,7 +15,7 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
   var form = GlobalKey<FormState>();
 
   String? username;
-
+  String? id;
   String? description;
 
   void addReview(AllReviews reviewsList) {
@@ -28,6 +28,7 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
       print(username);
       print(description);
       reviewsList.addReviews(
+        id,
         widget.recipeName,
         username,
         description,
@@ -84,20 +85,24 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
                   description = value;
                 },
               ),
-              Padding(padding: EdgeInsets.only(top: 15.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    side: BorderSide(color: Colors.black),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15))
+              Padding(
+                padding: EdgeInsets.only(top: 15.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      side: BorderSide(color: Colors.black),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                  child: Text("Add Reviews",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                      )),
+                  onPressed: () {
+                    addReview(reviewsList);
+                  },
                 ),
-                child: Text("Add Reviews",style: TextStyle(
-                color: Colors.black, fontSize: 15,)),
-                onPressed: (){
-                  addReview(reviewsList);
-                },
-              ),)
+              )
             ],
           ),
         ),

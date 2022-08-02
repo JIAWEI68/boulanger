@@ -8,11 +8,14 @@ class AllReviews with ChangeNotifier {
     return reviewsList;
   }
 
-  void addReviews(recipeName, username, description) {
+  void addReviews(recipeName, username, description, id) {
     reviewsList.insert(
       0,
       Reviews(
-          recipeName: recipeName, username: username, description: description),
+          recipeName: recipeName,
+          username: username,
+          description: description,
+          id: id),
     );
     notifyListeners();
   }

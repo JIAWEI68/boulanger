@@ -32,7 +32,8 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<RecipeProvider>(
             create: (ctx) => RecipeProvider()),
-        ChangeNotifierProvider<FavouriteList>(create: (ctx) => FavouriteList())
+        ChangeNotifierProvider<FavouriteProvider>(
+            create: (ctx) => FavouriteProvider())
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/reviews_list.dart';
@@ -9,10 +7,20 @@ class EditReviewsScreen extends StatefulWidget {
   Reviews reviewsUsername;
   String recipeName;
   static String routeName = '/add-reviews';
-  EditReviewsScreen({Key? key, required this.reviewsUsername, required this.recipeName}) : super(key: key);
-  static void goToEditScreen(BuildContext context, Reviews reviews, String recipeName){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => EditReviewsScreen(reviewsUsername: reviews, recipeName: recipeName,)));
+  EditReviewsScreen(
+      {Key? key, required this.reviewsUsername, required this.recipeName})
+      : super(key: key);
+  static void goToEditScreen(
+      BuildContext context, Reviews reviews, String recipeName) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EditReviewsScreen(
+                  reviewsUsername: reviews,
+                  recipeName: recipeName,
+                )));
   }
+
   @override
   State<EditReviewsScreen> createState() => _EditReviewsScreenState();
 }
@@ -21,7 +29,7 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
   var form = GlobalKey<FormState>();
 
   String? username;
-
+  String? id;
   String? description;
 
   void editReviews(AllReviews reviewsList) {
@@ -33,9 +41,11 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
       form.currentState!.save();
       print(username);
       print(description);
-      reviewsList.editReviews(
-        Reviews(recipeName : widget.recipeName, username: username!, description: description!)
-      );
+      reviewsList.editReviews(Reviews(
+          id: id!,
+          recipeName: widget.recipeName,
+          username: username!,
+          description: description!));
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Reviews added successfully!'),
       ));
@@ -89,20 +99,24 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
                   description = value as String;
                 },
               ),
-              Padding(padding: EdgeInsets.only(top: 15.0),
+              Padding(
+                padding: EdgeInsets.only(top: 15.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       primary: Colors.white,
                       side: BorderSide(color: Colors.black),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15))
-                  ),
-                  child: Text("Edit Reviews",style: TextStyle(
-                      color: Colors.black, fontSize: 15,)),
-                  onPressed: (){
+                          borderRadius: BorderRadius.circular(15))),
+                  child: Text("Edit Reviews",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                      )),
+                  onPressed: () {
                     editReviews(reviewsList);
                   },
-                ),)
+                ),
+              )
             ],
           ),
         ),

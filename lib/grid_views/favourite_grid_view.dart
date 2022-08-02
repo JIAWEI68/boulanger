@@ -6,8 +6,9 @@ import 'package:recipes_app/screens/recipes_screens.dart';
 import 'package:recipes_app/services/firestore_services.dart';
 
 class FavouriteGridView extends StatefulWidget {
-  const FavouriteGridView({Key? key}) : super(key: key);
-
+  const FavouriteGridView({Key? key, required this.controller})
+      : super(key: key);
+  final TextEditingController controller;
   @override
   State<FavouriteGridView> createState() => _FavouriteGridViewState();
 }
@@ -15,49 +16,61 @@ class FavouriteGridView extends StatefulWidget {
 class _FavouriteGridViewState extends State<FavouriteGridView> {
   @override
   Widget build(BuildContext context) {
-    String searchString = Provider.of<FavouriteList>(context).searchString;
-    List<Recipe> favouriteList = Provider.of<FavouriteList>(context)
-        .getFavourtieList()
-        .where((element) =>
-            element.recipeName.toLowerCase().contains(searchString))
-        .toList();
+    late TextEditingController searchController = widget.controller;
+    String searchString = Provider.of<FavouriteProvider>(context).searchString;
+    // List<Recipe> favouriteList = Provider.of<FavouriteProvider>(context)
+    //     .getFavourtieList();
+    List<Recipe> favouriteList = [];
     FirestoreService firestoreService = FirestoreService();
-    return StreamBuilder<List<Recipe>>(
-        stream: firestoreService.getFavourites(),
-        builder: (context, snapshot) {
-          return GridView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemBuilder: (ctx, i) {
-                return ClipRRect(
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: GridTile(
-                      child: GestureDetector(
-                        onTap: () {
-                          RecipesScreens.goToRecipeDetails(
-                              context, favouriteList[i]);
+    return Consumer<FavouriteProvider>(
+      builder:
+          (BuildContext context, FavouriteProvider provider, Widget? child) {
+        print(favouriteList);
+        print(searchController.text);
+        if (searchController.text.isEmpty) {
+          favouriteList = provider.favourtieList;
+        } else {
+          favouriteList = provider.favourtieList
+              .where((element) => element.recipeName
+                  .toLowerCase()
+                  .contains(searchController.text.toLowerCase()))
+              .toList();
+        }
+        print(searchController.text.toLowerCase());
+        return GridView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemBuilder: (ctx, i) {
+              return ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: GridTile(
+                    child: GestureDetector(
+                      onTap: () {
+                        RecipesScreens.goToRecipeDetails(
+                            context, favouriteList[i]);
+                      },
+                      child: Image.network(
+                        favouriteList[i].imageUrl,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return ClipRRect(
+                            child: Card(
+                              color: Colors.blue,
+                            ),
+                          );
                         },
-                        child: Image.network(
-                          snapshot.data![i].imageUrl,
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace? stackTrace) {
-                            return ClipRRect(
-                              child: Card(
-                                color: Colors.blue,
-                              ),
-                            );
-                          },
-                          fit: BoxFit.cover,
-                        ),
+                        fit: BoxFit.cover,
                       ),
-                    ));
-              },
-              itemCount: snapshot.data!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: (123 / 113),
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15.0,
-                  mainAxisSpacing: 10.0));
-        });
+                    ),
+                  ));
+            },
+            itemCount: favouriteList.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: (123 / 113),
+                crossAxisCount: 2,
+                crossAxisSpacing: 15.0,
+                mainAxisSpacing: 10.0));
+      },
+    );
   }
 }

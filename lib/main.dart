@@ -26,12 +26,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      //the providers of the list
+      //the lists of the list
       providers: [
         ChangeNotifierProvider.value(value: AllReviews()),
         ChangeNotifierProvider.value(value: DownloadProvider()),
         ChangeNotifierProvider.value(value: RecipeProvider()),
-        ChangeNotifierProvider.value(value: FavouriteList()),
+        ChangeNotifierProvider.value(value: FavouriteProvider()),
       ],
       child: MaterialApp(
           //remove the debug banner at the top right of the screen

@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:recipes_app/models/recipe.dart';
 
-class FavouriteList with ChangeNotifier {
+class FavouriteProvider with ChangeNotifier {
   List<Recipe> favourtieList = [];
   List<Recipe> getFavourtieList() {
     return favourtieList;
@@ -20,4 +21,30 @@ class FavouriteList with ChangeNotifier {
 
 //allow the favourite list to be filtered based on this string when the value is changed
   String searchString = "";
+  FavouriteProvider() {
+    FirebaseFirestore.instance
+        .collection("favourites")
+        .snapshots()
+        .listen((event) {
+      for (var change in event.docChanges) {
+        Recipe recipe = Recipe.fromMap(change.doc.data()!, change.doc.id);
+        print(change.doc.data());
+        print(recipe.id);
+        switch (change.type) {
+          case DocumentChangeType.added:
+            favourtieList.add(recipe);
+            break;
+          case DocumentChangeType.modified:
+            favourtieList.removeWhere((element) => element.id == recipe.id);
+            favourtieList.add(recipe);
+            // TODO: Handle this case.
+            break;
+          case DocumentChangeType.removed:
+            favourtieList.removeWhere((element) => element.id == recipe.id);
+            // TODO: Handle this case.
+            break;
+        }
+      }
+    });
+  }
 }

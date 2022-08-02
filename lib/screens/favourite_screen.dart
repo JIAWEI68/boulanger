@@ -12,35 +12,44 @@ class LikeScreen extends StatefulWidget {
 
 //similar to the home screen but instead with a change of variable names
 class _LikeScreenState extends State<LikeScreen> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    FavouriteList favouriteList = Provider.of<FavouriteList>(context);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: TextField(
-              onChanged: (value) {
-                setState(() {
-                  favouriteList.searchString = value.toLowerCase();
-                });
-              },
-              decoration: const InputDecoration(
-                  labelText: "Search", suffixIcon: Icon(Icons.search)),
-            ),
+    FavouriteProvider favouriteList = Provider.of<FavouriteProvider>(context);
+    return Consumer(
+      builder:
+          (BuildContext context, FavouriteProvider provider, Widget? child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: TextField(
+                  controller: searchController,
+                  onChanged: (value) {
+                    setState(() {
+                      favouriteList.searchString = value.toLowerCase();
+                    });
+                  },
+                  decoration: const InputDecoration(
+                      labelText: "Search", suffixIcon: Icon(Icons.search)),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: SizedBox(
+                  height: 537.0009,
+                  width: 350,
+                  child: FavouriteGridView(
+                    controller: searchController,
+                  ),
+                ),
+              )
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 10.0),
-            child: SizedBox(
-              height: 537.0009,
-              width: 350,
-              child: FavouriteGridView(),
-            ),
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 }
