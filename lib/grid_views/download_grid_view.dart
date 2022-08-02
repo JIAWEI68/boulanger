@@ -18,23 +18,25 @@ class _DownloadGridViewState extends State<DownloadGridView> {
   //similar to the recipe grid view
   @override
   Widget build(BuildContext context) {
-    List<Recipe> downloadList = [];
+    List<Recipe> downloadList = Provider.of<DownloadProvider>(context).getDownloadList();
     // String searchString = Provider.of<DownloadList>(context).searchString;
     FirestoreService firestoreService = FirestoreService();
+    String searchString = Provider.of<DownloadProvider>(context).searchString;
     return Consumer<DownloadProvider>(
       builder:
           (BuildContext context, DownloadProvider provider, Widget? child) {
+            print(downloadSearchController.text);
         if (downloadSearchController.text.isEmpty) {
           downloadList = provider.downloadList;
         } else {
           downloadList = provider.downloadList
               .where((element) => element.recipeName
                   .toLowerCase()
-                  .contains(downloadSearchController.text.toLowerCase()))
+                  .contains(searchString.toLowerCase()))
               .toList();
-          print(downloadList);
-          print(downloadSearchController.text);
         }
+            print(searchString.toLowerCase());
+        print(downloadList.contains(searchString));
         return GridView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,

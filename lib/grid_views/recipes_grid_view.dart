@@ -36,6 +36,7 @@ class _RecipesGridViewState extends State<RecipesGridView> {
                 .contains(searchController.text.toLowerCase()))
             .toList();
       }
+      print(searchController.text.toLowerCase());
       return GridView.builder(
         itemBuilder: (BuildContext context, int index) {
           //give the grid tile a border

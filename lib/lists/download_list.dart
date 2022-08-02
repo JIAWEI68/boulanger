@@ -44,6 +44,7 @@ class DownloadProvider with ChangeNotifier {
         .listen((event) {
       for (var change in event.docChanges) {
         Recipe recipe = Recipe.fromMap(change.doc.data()!, change.doc.id);
+        print(change.doc.data());
         switch (change.type) {
           case DocumentChangeType.added:
             downloadList.add(recipe);

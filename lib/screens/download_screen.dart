@@ -36,7 +36,9 @@ class _DownloadScreenState extends State<DownloadScreen> {
                       //create a text field to allow search
                       child: TextField(
                         controller: downloadSearchController,
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          downloadedList.searchString = value;
+                        },
                         decoration: const InputDecoration(
                             labelText: "Search",
                             suffixIcon: Icon(Icons.search)),
