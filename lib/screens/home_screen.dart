@@ -41,9 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           onChanged: (value) {
                             //to set the search string in the download list to the value of the text field
                             //set a text field where it gets the value and sets it to searchString which is in recipeList
-                            // setState(() {
-                            //   recipeList.searchString = value;
-                            // });
+                            setState(() {
+                              recipeList.searchString = value;
+                            });
                           },
                           decoration: InputDecoration(
                               labelText: "Search",

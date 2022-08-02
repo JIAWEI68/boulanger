@@ -189,6 +189,7 @@ FROSTING
 
   //to filter out the value based on this string
   String searchString = "";
+  List<Recipe> recipeList = [];
   bool checkVegetarian = false;
   List<Recipe> getAllRecipe() {
     return recipeList;
@@ -212,8 +213,6 @@ FROSTING
             calories: calories));
     notifyListeners();
   }
-
-  List<Recipe> recipeList = [];
 
   RecipeProvider() {
     FirebaseFirestore.instance

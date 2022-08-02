@@ -17,14 +17,16 @@ class _RecipesGridViewState extends State<RecipesGridView> {
   late TextEditingController searchController = widget.controller;
   @override
   Widget build(BuildContext context) {
-    List<Recipe> recipeList = [];
-    // print(searchString.text);
     FirestoreService firestoreService = FirestoreService();
     //call the search string inside the recipe list class to allow search
-    // String searchString = Provider.of<RecipeList>(context).searchString;
+    String searchString = Provider.of<RecipeProvider>(context).searchString;
+    List<Recipe> recipeList =
+        Provider.of<RecipeProvider>(context).getAllRecipe();
     //call the list based on the search string
     return Consumer<RecipeProvider>(builder:
         (BuildContext context, RecipeProvider provider, Widget? child) {
+      print(recipeList);
+      print(searchController.text);
       if (searchController.text.isEmpty) {
         recipeList = provider.recipeList;
       } else {
@@ -33,7 +35,6 @@ class _RecipesGridViewState extends State<RecipesGridView> {
                 .toLowerCase()
                 .contains(searchController.text.toLowerCase()))
             .toList();
-        print(recipeList);
       }
       return GridView.builder(
         itemBuilder: (BuildContext context, int index) {
