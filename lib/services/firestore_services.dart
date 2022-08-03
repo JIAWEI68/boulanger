@@ -85,13 +85,6 @@ class FirestoreService {
             .toList());
   }
 
-  Stream<List<Reviews>> getReviews() {
-    return FirebaseFirestore.instance.collection('reviews').snapshots().map(
-        (snapshot) => snapshot.docs
-            .map<Reviews>((doc) => Reviews.fromMap(doc.data(), doc.id))
-            .toList());
-  }
-
   addReview(recipeName, username, description) {
     return FirebaseFirestore.instance.collection('reviews').add({
       'recipeName': recipeName,
@@ -99,4 +92,11 @@ class FirestoreService {
       'description': description,
     });
   }
+  Stream<List<Reviews>> getReviews() {
+    return FirebaseFirestore.instance.collection('reviews').snapshots().map(
+        (snapshot) => snapshot.docs
+            .map<Reviews>((doc) => Reviews.fromMap(doc.data(), doc.id))
+            .toList());
+  }
+
 }

@@ -23,60 +23,65 @@ class _RecipesGridViewState extends State<RecipesGridView> {
     List<Recipe> recipeList =
         Provider.of<RecipeProvider>(context).getAllRecipe();
     //call the list based on the search string
-    return Consumer<RecipeProvider>(builder:
-        (BuildContext context, RecipeProvider provider, Widget? child) {
-      print(recipeList);
-      print(searchController.text);
-      if (searchController.text.isEmpty) {
-        recipeList = provider.recipeList;
-      } else {
-        recipeList = provider.recipeList
-            .where((element) => element.recipeName
-                .toLowerCase()
-                .contains(searchController.text.toLowerCase()))
-            .toList();
+    return StreamBuilder<Object>(
+      stream: firestoreService.getRecipes(),
+      builder: (context, snapshot) {
+        return Consumer<RecipeProvider>(builder:
+            (BuildContext context, RecipeProvider provider, Widget? child) {
+          print(recipeList);
+          print(searchController.text);
+          if (searchController.text.isEmpty) {
+            recipeList = provider.recipeList;
+          } else {
+            recipeList = provider.recipeList
+                .where((element) => element.recipeName
+                    .toLowerCase()
+                    .contains(searchController.text.toLowerCase()))
+                .toList();
+          }
+          print(searchController.text.toLowerCase());
+          return GridView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              //give the grid tile a border
+              return ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: GridTile(
+                    child: GestureDetector(
+                      onTap: () {
+                        //pass the data of the recipe list into the screen
+                        RecipesScreens.goToRecipeDetails(
+                            context, recipeList[index]);
+                      },
+                      child: Image.network(
+                        recipeList[index].imageUrl,
+                        //check whether the link of the image is valid
+                        //if not valid it shows a blue card inside the grid tile instead
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return ClipRRect(
+                            child: Card(
+                              color: Colors.blue,
+                            ),
+                          );
+                        },
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ));
+            },
+            shrinkWrap: false,
+            addAutomaticKeepAlives: true,
+            itemCount: recipeList.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                //set the size of the grid tile
+                childAspectRatio: (123 / 113),
+                //set the amount of grid tile in a row
+                crossAxisCount: 2,
+                crossAxisSpacing: 15.0,
+                mainAxisSpacing: 10.0),
+          );
+        });
       }
-      print(searchController.text.toLowerCase());
-      return GridView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          //give the grid tile a border
-          return ClipRRect(
-              borderRadius: BorderRadius.circular(15.0),
-              child: GridTile(
-                child: GestureDetector(
-                  onTap: () {
-                    //pass the data of the recipe list into the screen
-                    RecipesScreens.goToRecipeDetails(
-                        context, recipeList[index]);
-                  },
-                  child: Image.network(
-                    recipeList[index].imageUrl,
-                    //check whether the link of the image is valid
-                    //if not valid it shows a blue card inside the grid tile instead
-                    errorBuilder: (BuildContext context, Object exception,
-                        StackTrace? stackTrace) {
-                      return ClipRRect(
-                        child: Card(
-                          color: Colors.blue,
-                        ),
-                      );
-                    },
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ));
-        },
-        shrinkWrap: false,
-        addAutomaticKeepAlives: true,
-        itemCount: recipeList.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //set the size of the grid tile
-            childAspectRatio: (123 / 113),
-            //set the amount of grid tile in a row
-            crossAxisCount: 2,
-            crossAxisSpacing: 15.0,
-            mainAxisSpacing: 10.0),
-      );
-    });
+    );
   }
 }
