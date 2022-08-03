@@ -1,14 +1,32 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/login_main.dart';
+import 'package:recipes_app/screens/forget_password.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  final VoidCallback showRegisterPage;
+  LoginScreen({Key? key, required this.showRegisterPage}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim());
+  }
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   var form = GlobalKey<FormState>();
   String? username;
   String? password;
@@ -31,10 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.blueGrey),
-        backgroundColor: Color.fromRGBO(254, 238, 210, 10),
-      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 80),
         child: Container(
@@ -55,10 +69,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SizedBox(
                     width: 320,
                     child: TextFormField(
+                      controller: emailController,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                          hintText: 'Username',
+                          hintText: 'Email',
                           hintStyle: TextStyle(fontSize: 16),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -79,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SizedBox(
                     width: 320,
                     child: TextFormField(
+                      controller: passwordController,
                       obscureText: true,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
@@ -103,26 +119,45 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: EdgeInsets.only(top: 0.5, left: 200.0),
                   child: TextButton(
                     child: Text("Forget Password"),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgetPasswordScreen()));
+                    },
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 40.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                        fixedSize: Size(173, 68),
-                        side: BorderSide(color: Colors.black),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15))),
-                    onPressed: () {
-                      login();
-                    },
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                        color: Color.fromRGBO(251, 170, 28, 10),
-                        fontSize: 23,
+                  padding: EdgeInsets.only(top: 0.5),
+                  child: GestureDetector(
+                    child: TextButton(
+                      child: Text("Register Now"),
+                      onPressed: () {
+                        widget.showRegisterPage();
+                      },
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: GestureDetector(
+                    onTap: signIn,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          fixedSize: Size(173, 68),
+                          side: BorderSide(color: Colors.black),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15))),
+                      onPressed: () {
+                        signIn();
+                      },
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                          color: Color.fromRGBO(251, 170, 28, 10),
+                          fontSize: 23,
+                        ),
                       ),
                     ),
                   ),
@@ -134,6 +169,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  void goToHomePage(BuildContext context) {}
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +8,7 @@ import 'package:recipes_app/lists/recipe_list.dart';
 import 'package:recipes_app/screens/download_screen.dart';
 import 'package:recipes_app/screens/favourite_screen.dart';
 import 'package:recipes_app/screens/home_screen.dart';
-import 'package:recipes_app/screens/login_sign_up_screen.dart';
+import 'package:recipes_app/screens/settings_screen.dart';
 import 'package:recipes_app/screens/splash_screen.dart';
 
 import 'lists/download_list.dart';
@@ -64,6 +65,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final user = FirebaseAuth.instance.currentUser!;
   //set the index of the bottom nav, this is the index of the list screens
   //when the app is launched, the app will show home screen first
   //to set the index of the list when the icon in the bottom nav is pressed
@@ -72,6 +74,7 @@ class _MainScreenState extends State<MainScreen> {
   final screens = [DownloadScreen(), HomeScreen(), LikeScreen()];
   @override
   Widget build(BuildContext context) {
+    print(user.email!);
     return Scaffold(
         //ensure that when the keyboard is pressed, there will be no bottom overflow error
         resizeToAvoidBottomInset: false,
@@ -91,10 +94,8 @@ class _MainScreenState extends State<MainScreen> {
                 color: Colors.blueGrey,
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginAndSignUpScreen()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingsScreen()));
               },
             )
           ],

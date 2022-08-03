@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import '../main.dart';
+import 'package:recipes_app/auth/main_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -19,8 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
     //this is to set the time the screen shows when the app is launched
     Timer(
         const Duration(seconds: 2),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MainScreen())));
+        () => Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => MainScreenCheck())));
   }
 
   @override

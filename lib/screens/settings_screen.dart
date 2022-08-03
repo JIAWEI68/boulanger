@@ -1,7 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/recipe_list.dart';
-import 'package:recipes_app/main.dart';
 import 'package:recipes_app/screens/add_recipe_screen.dart';
 import 'package:recipes_app/screens/faq_screen.dart';
 
@@ -13,6 +13,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     RecipeProvider recipeList = Provider.of<RecipeProvider>(context);
@@ -32,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Padding(
             padding: EdgeInsets.only(top: 10.0),
             child: Text(
-              "Username",
+              "" + user.email!,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
@@ -139,8 +140,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainScreen()));
+                FirebaseAuth.instance.signOut();
+                Navigator.pop(context);
               },
               child: Text(
                 "Log Out",

@@ -1,15 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../login_main.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  final VoidCallback showLoginPage;
+  const SignUpScreen({Key? key, required this.showLoginPage}) : super(key: key);
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   @override
   var form = GlobalKey<FormState>();
   String? username;
@@ -32,13 +37,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  Future signUp() async {
+    if (passwordConfirm()) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    }
+  }
+
+  bool passwordConfirm() {
+    if (passwordController.text == confirmPasswordController.text) {
+      return true;
+    }
+    return false;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.blueGrey),
-        backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
-      ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 80),
         child: Container(
           alignment: Alignment.center,
           child: Form(
@@ -47,91 +72,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Image.asset("images/profile_icon.png"),
-                ),
+                Container(
+                    alignment: Alignment.center,
+                    child: Image.asset("images/profile_icon.png")),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 15.0,
+                    top: 45.0,
                   ),
                   child: SizedBox(
                     width: 320,
                     child: TextFormField(
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          hintText: 'Username',
-                          hintStyle: TextStyle(fontSize: 16),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          filled: true),
-                      //check if the value in the text field is empty
-                      validator: (value) {
-                        if (value == "") {
-                          return "Please enter a username";
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 15.0),
-                  child: SizedBox(
-                    width: 320,
-                    child: TextFormField(
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          hintText: 'First Name',
-                          hintStyle: TextStyle(fontSize: 16),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          filled: true),
-                      //this method is the same for all the text field as it checks whether the text field is empty
-                      validator: (value) {
-                        if (value == "") {
-                          return "Please enter a first name";
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 15.0),
-                  child: SizedBox(
-                    width: 320,
-                    child: TextFormField(
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          hintText: 'Last Name',
-                          hintStyle: TextStyle(fontSize: 16),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          filled: true),
-                      validator: (value) {
-                        if (value == "") {
-                          return "Please enter a last name";
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 15.0),
-                  child: SizedBox(
-                    width: 320,
-                    child: TextFormField(
+                      controller: emailController,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
@@ -143,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           filled: true),
                       validator: (value) {
                         if (value == "") {
-                          return "Please enter a email";
+                          return "Please enter a username";
                         } else {
                           return null;
                         }
@@ -152,13 +103,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 15.0),
+                  padding: EdgeInsets.only(top: 25.0),
                   child: SizedBox(
                     width: 320,
                     child: TextFormField(
+                      controller: passwordController,
+                      obscureText: true,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
-                      obscureText: true,
                       decoration: InputDecoration(
                           hintText: 'Password',
                           hintStyle: TextStyle(fontSize: 16),
@@ -177,11 +129,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 50.0),
-                  child: Container(
-                    alignment: Alignment.center,
-                    //a button to check the text field if it is empty when pressed
-                    //if not empty, it will go to the login main screen
+                  padding: EdgeInsets.only(top: 25.0),
+                  child: SizedBox(
+                    width: 320,
+                    child: TextFormField(
+                      controller: confirmPasswordController,
+                      obscureText: true,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'Confirm Password',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true),
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please enter a password";
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 0.5, left: 200.0),
+                  child: TextButton(
+                    child: Text("Forget Password"),
+                    onPressed: () {},
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 0.5),
+                  child: GestureDetector(
+                    child: TextButton(
+                      child: Text("Login"),
+                      onPressed: () {
+                        widget.showLoginPage();
+                      },
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: GestureDetector(
+                    onTap: signUp,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           primary: Colors.white,
@@ -190,7 +184,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15))),
                       onPressed: () {
-                        register();
+                        signUp();
                       },
                       child: Text(
                         "Register",

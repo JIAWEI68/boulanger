@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipes_app/screens/login_screen.dart';
-import 'package:recipes_app/screens/sign_up_screen.dart';
 
 class LoginAndSignUpScreen extends StatelessWidget {
   const LoginAndSignUpScreen({Key? key}) : super(key: key);
@@ -37,7 +35,7 @@ class LoginAndSignUpScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15))),
                   onPressed: () {
-                    goToRegister(context);
+                    // goToRegister(context);
                   },
                   child: const Text(
                     "Sign Up",
@@ -65,7 +63,7 @@ class LoginAndSignUpScreen extends StatelessWidget {
                         color: Colors.black, fontSize: 23, fontFamily: "Segoe"),
                   ),
                   onPressed: () {
-                    goToLogin(context);
+                    // goToLogin(context);
                   },
                 ),
               ),
@@ -76,13 +74,13 @@ class LoginAndSignUpScreen extends StatelessWidget {
     );
   }
 
-  void goToLogin(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-  }
+  // void goToLogin(BuildContext context) {
+  //   Navigator.push(
+  //       context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+  // }
 
-  void goToRegister(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
-  }
+  // void goToRegister(BuildContext context) {
+  //   Navigator.push(
+  //       context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+  // }
 }
