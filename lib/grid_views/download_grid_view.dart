@@ -23,56 +23,61 @@ class _DownloadGridViewState extends State<DownloadGridView> {
     // String searchString = Provider.of<DownloadList>(context).searchString;
     FirestoreService firestoreService = FirestoreService();
     String searchString = Provider.of<DownloadProvider>(context).searchString;
-    return Consumer<DownloadProvider>(
-      builder:
-          (BuildContext context, DownloadProvider provider, Widget? child) {
-        print(downloadSearchController.text);
-        if (downloadSearchController.text.isEmpty) {
-          downloadList = provider.downloadList;
-        } else {
-          downloadList = provider.downloadList
-              .where((element) => element.recipeName
-                  .toLowerCase()
-                  .contains(downloadSearchController.text))
-              .toList();
-        }
-        print(searchString.toLowerCase());
-        print(downloadList.contains(searchString));
-        return GridView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemBuilder: (ctx, i) {
-            return ClipRRect(
-                borderRadius: BorderRadius.circular(15.0),
-                child: GridTile(
-                  child: GestureDetector(
-                    onTap: () {
-                      RecipesScreens.goToRecipeDetails(
-                          context, downloadList[i]);
-                    },
-                    child: Image.network(
-                      downloadList[i].imageUrl,
-                      errorBuilder: (BuildContext context, Object exception,
-                          StackTrace? stackTrace) {
-                        return ClipRRect(
-                          child: Card(
-                            color: Colors.blue,
-                          ),
-                        );
-                      },
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ));
+    return StreamBuilder<List<Recipe>>(
+      stream: firestoreService.getDownloaded(),
+      builder: (context, snapshot) {
+        return Consumer<DownloadProvider>(
+          builder:
+              (BuildContext context, DownloadProvider provider, Widget? child) {
+            print(downloadSearchController.text);
+            if (downloadSearchController.text.isEmpty) {
+              downloadList = provider.downloadList;
+            } else {
+              downloadList = provider.downloadList
+                  .where((element) => element.recipeName
+                      .toLowerCase()
+                      .contains(downloadSearchController.text))
+                  .toList();
+            }
+            print(searchString.toLowerCase());
+            print(downloadList.contains(searchString));
+            return GridView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemBuilder: (ctx, i) {
+                return ClipRRect(
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: GridTile(
+                      child: GestureDetector(
+                        onTap: () {
+                          RecipesScreens.goToRecipeDetails(
+                              context, downloadList[i]);
+                        },
+                        child: Image.network(
+                          downloadList[i].imageUrl,
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace? stackTrace) {
+                            return ClipRRect(
+                              child: Card(
+                                color: Colors.blue,
+                              ),
+                            );
+                          },
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ));
+              },
+              itemCount: downloadList.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: (123 / 113),
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 15.0,
+                  mainAxisSpacing: 3.0),
+            );
           },
-          itemCount: downloadList.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: (123 / 113),
-              crossAxisCount: 2,
-              crossAxisSpacing: 15.0,
-              mainAxisSpacing: 3.0),
         );
-      },
+      }
     );
   }
 }
