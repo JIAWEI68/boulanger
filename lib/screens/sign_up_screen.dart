@@ -20,6 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   var form = GlobalKey<FormState>();
   String? username;
+  String imageUrl = "";
   String? firstName;
   String? lastName;
   void register() {
@@ -51,8 +52,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-      firestoreService.addUser(username, firstName, lastName,
-          emailController.text.trim(), passwordController.text.trim());
+      firestoreService.addUser(
+          username,
+          firstName,
+          lastName,
+          emailController.text.trim(),
+          passwordController.text.trim(),
+          imageUrl);
     }
   }
 

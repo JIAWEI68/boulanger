@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/reviews_list.dart';
+import 'package:recipes_app/models/users.dart';
+import 'package:recipes_app/providers/users_providers.dart';
 import 'package:recipes_app/services/firestore_services.dart';
 
 class AddReviewsScreen extends StatefulWidget {
@@ -44,69 +47,80 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+    List<Users> userList = [];
     ReviewsProvider reviewsList = Provider.of<ReviewsProvider>(context);
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.blueGrey),
-        backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: Form(
-          key: form,
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(label: Text('Username')),
-                validator: (value) {
-                  if (value == "") {
-                    return "Please enter a username";
-                  } else {
-                    return null;
-                  }
-                },
-                //the text field data will be set into  the param string username
-                //this will then be added into the reviews list
-                //this is the same for the other text field
-                onSaved: (value) {
-                  username = value as String;
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(label: Text('Description')),
-                validator: (value) {
-                  if (value == "") {
-                    return "Please enter a description";
-                  } else {
-                    return null;
-                  }
-                },
-                onSaved: (value) {
-                  description = value as String;
-                },
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 15.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      side: BorderSide(color: Colors.black),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15))),
-                  child: Text("Add Reviews",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                      )),
-                  onPressed: () {
-                    addReview(reviewsList);
-                  },
-                ),
-              )
-            ],
+    return Consumer(
+      builder: (BuildContext context, UserProvider provider, Widget? child) {
+        userList = provider.userList
+            .where((element) => element.email == user.email)
+            .toList();
+        return Scaffold(
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.blueGrey),
+            backgroundColor: const Color.fromRGBO(254, 238, 210, 10),
           ),
-        ),
-      ),
+          body: Container(
+            padding: EdgeInsets.all(10),
+            child: Form(
+              key: form,
+              child: Column(
+                children: [
+                  TextFormField(
+                    enabled: false,
+                    initialValue: userList[0].username,
+                    decoration: InputDecoration(label: Text('Username')),
+                    validator: (value) {
+                      if (value == "") {
+                        return "Please enter a username";
+                      } else {
+                        return null;
+                      }
+                    },
+                    //the text field data will be set into  the param string username
+                    //this will then be added into the reviews list
+                    //this is the same for the other text field
+                    onSaved: (value) {
+                      username = userList[0].username;
+                    },
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(label: Text('Description')),
+                    validator: (value) {
+                      if (value == "") {
+                        return "Please enter a description";
+                      } else {
+                        return null;
+                      }
+                    },
+                    onSaved: (value) {
+                      description = value as String;
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 15.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          side: BorderSide(color: Colors.black),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15))),
+                      child: Text("Add Reviews",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          )),
+                      onPressed: () {
+                        addReview(reviewsList);
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -68,6 +68,7 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
           child: Column(
             children: [
               TextFormField(
+                enabled: false,
                 initialValue: widget.reviewsUsername.username,
                 decoration: InputDecoration(label: Text('Username')),
                 validator: (value) {

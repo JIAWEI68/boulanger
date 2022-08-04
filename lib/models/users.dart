@@ -1,5 +1,6 @@
 class Users {
   String id;
+  String imageUrl;
   String username;
   String firstName;
   String lastName;
@@ -8,6 +9,7 @@ class Users {
 
   Users({
     required this.id,
+    required this.imageUrl,
     required this.username,
     required this.firstName,
     required this.lastName,
@@ -17,6 +19,7 @@ class Users {
 
   factory Users.fromMap(Map<String, dynamic> snapshot, String id) => Users(
         id: id,
+        imageUrl: snapshot['imageUrl'] ?? '',
         username: snapshot['username'] ?? '',
         firstName: snapshot['firstName'] ?? '',
         lastName: snapshot['lastName'] ?? '',

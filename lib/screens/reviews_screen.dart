@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/models/reviews.dart';
+import 'package:recipes_app/models/users.dart';
 import 'package:recipes_app/screens/add_reviews_screen.dart';
 import 'package:recipes_app/screens/edit_reviews_screen.dart';
 import 'package:recipes_app/services/firestore_services.dart';
 
 import '../lists/reviews_list.dart';
+import '../providers/users_providers.dart';
 
 class ReviewsScreen extends StatelessWidget {
   final String recipeName;
@@ -13,6 +16,8 @@ class ReviewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+    List<Users> userList = [];
     ReviewsProvider reviewsListProvider = Provider.of<ReviewsProvider>(context);
     var reviewsList = reviewsListProvider
         .getReviews()
@@ -26,9 +31,12 @@ class ReviewsScreen extends StatelessWidget {
           reviewList = snapshot.data!
               .where((element) => element.recipeName == recipeName)
               .toList();
-          return Consumer(
+          return Consumer2(
             builder: (BuildContext context, ReviewsProvider provider,
-                Widget? child) {
+                UserProvider userProvider, Widget? child) {
+              userList = userProvider.userList
+                  .where((element) => element.email == user.email)
+                  .toList();
               reviewList = provider.reviewsList
                   .where((element) => element.recipeName == recipeName)
                   .toList();
@@ -48,43 +56,60 @@ class ReviewsScreen extends StatelessWidget {
                   child: snapshot.data!.isNotEmpty
                       ? ListView.builder(
                           itemBuilder: (ctx, i) {
-                            return Dismissible(
-                              direction: DismissDirection.endToStart,
-                              background: Container(
-                                color: Colors.red,
-                                child: Icon(Icons.delete),
-                              ),
-                              key: UniqueKey(),
-                              onDismissed: (direction) {
-                                firestoreService
-                                    .deleteReviews(reviewList[i].id);
-                              },
-                              child: ClipRect(
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    side: BorderSide(color: Colors.black38),
+                            return ClipRect(
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  side: BorderSide(color: Colors.black38),
+                                ),
+                                child: ListTile(
+                                  trailing: IconButton(
+                                    icon:
+                                        Icon(Icons.delete, color: Colors.black),
+                                    onPressed: () {
+                                      if (userList[0].username ==
+                                          reviewList[i].username) {
+                                        firestoreService
+                                            .deleteReviews(reviewList[i].id);
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              const AlertDialog(
+                                            title: Text("Not your review!!!"),
+                                          ),
+                                        );
+                                      }
+                                    },
                                   ),
-                                  child: ListTile(
-                                    leading: const CircleAvatar(
-                                      radius: 27,
-                                      backgroundColor: Colors.black,
-                                      child: CircleAvatar(
-                                        backgroundColor: Colors.white,
-                                        radius: 25,
-                                        child: Icon(
-                                          Icons.person,
-                                          color: Colors.black,
-                                        ),
+                                  leading: const CircleAvatar(
+                                    radius: 27,
+                                    backgroundColor: Colors.black,
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      radius: 25,
+                                      child: Icon(
+                                        Icons.person,
+                                        color: Colors.black,
                                       ),
                                     ),
-                                    onTap: () {
+                                  ),
+                                  onTap: () {
+                                    if (userList[0].username ==
+                                        reviewList[i].username) {
                                       EditReviewsScreen.goToEditScreen(
                                           context, reviewList[i], recipeName);
-                                    },
-                                    title: Text(reviewList[i].username),
-                                    subtitle: Text(reviewList[i].description),
-                                  ),
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => const AlertDialog(
+                                          title: Text("Not your review!!!"),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  title: Text(reviewList[i].username),
+                                  subtitle: Text(reviewList[i].description),
                                 ),
                               ),
                             );

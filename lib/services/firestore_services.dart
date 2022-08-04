@@ -120,6 +120,7 @@ class FirestoreService {
     lastName,
     email,
     password,
+    imageUrl,
   ) {
     return FirebaseFirestore.instance.collection('users').add({
       'username': username,
@@ -127,6 +128,7 @@ class FirestoreService {
       'lastName': lastName,
       'email': email,
       'password': password,
+      'imageUrl': imageUrl,
     });
   }
 
