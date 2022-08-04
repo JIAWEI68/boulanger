@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:recipes_app/models/recipe.dart';
 import 'package:recipes_app/models/reviews.dart';
 
+import '../models/users.dart';
+
 class FirestoreService {
   List<String> recipeSearch = [];
   String searchString = "";
@@ -92,6 +94,7 @@ class FirestoreService {
       'description': description,
     });
   }
+
   Stream<List<Reviews>> getReviews() {
     return FirebaseFirestore.instance.collection('reviews').snapshots().map(
         (snapshot) => snapshot.docs
@@ -99,4 +102,26 @@ class FirestoreService {
             .toList());
   }
 
+  addUser(
+    username,
+    firstName,
+    lastName,
+    email,
+    password,
+  ) {
+    return FirebaseFirestore.instance.collection('users').add({
+      'username': username,
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'password': password,
+    });
+  }
+
+  Stream<List<Users>> getUsers() {
+    return FirebaseFirestore.instance.collection('users').snapshots().map(
+        (snapshot) => snapshot.docs
+            .map<Users>((doc) => Users.fromMap(doc.data(), doc.id))
+            .toList());
+  }
 }

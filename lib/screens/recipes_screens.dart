@@ -55,7 +55,8 @@ class _RecipesScreensState extends State<RecipesScreens> {
         } else {
           iconColor = Colors.red;
         }
-        if (downloadProvider.downloadList.contains(widget.recipeToDisplay)) {
+        if (downloadProvider.downloadList.every((element) =>
+            element.recipeName != widget.recipeToDisplay.recipeName)) {
           downloadText = "Download";
         } else {
           downloadText = "Delete Download";
@@ -142,10 +143,10 @@ class _RecipesScreensState extends State<RecipesScreens> {
                                       Navigator.pop(context);
                                     } else {
                                       Navigator.pop(context);
-                                      setState(() {
-                                        downloadedList.deleteDownloadedItem(
-                                            widget.recipeToDisplay);
-                                      });
+
+                                      firestoreService.removeDownloadedItem(
+                                          widget.recipeToDisplay.id);
+
                                       setState(() {
                                         downloadText = "Download";
                                       });

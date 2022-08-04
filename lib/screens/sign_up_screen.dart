@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:recipes_app/services/firestore_services.dart';
 
 import '../login_main.dart';
 
@@ -15,17 +16,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  FirestoreService firestoreService = FirestoreService();
   @override
   var form = GlobalKey<FormState>();
   String? username;
-  String? password;
+  String? firstName;
+  String? lastName;
   void register() {
     //this is to check if the text field has been all filled up
     bool isValid = form.currentState!.validate();
     if (isValid) {
       form.currentState!.save();
       print(username);
-      print(password);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => LoginMainScreen()));
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -49,6 +51,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
+      firestoreService.addUser(username, firstName, lastName,
+          emailController.text.trim(), passwordController.text.trim());
     }
   }
 
@@ -63,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 80),
+        padding: EdgeInsets.only(top: 40),
         child: Container(
           alignment: Alignment.center,
           child: Form(
@@ -77,7 +81,100 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Image.asset("images/profile_icon.png")),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 45.0,
+                    top: 25.0,
+                  ),
+                  child: SizedBox(
+                    width: 320,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'Username',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true),
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please enter a username";
+                        } else {
+                          return null;
+                        }
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          username = value;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 25.0,
+                  ),
+                  child: SizedBox(
+                    width: 320,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'First Name',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true),
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please enter a username";
+                        } else {
+                          return null;
+                        }
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          firstName = value;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 25.0,
+                  ),
+                  child: SizedBox(
+                    width: 320,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'Last Name',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true),
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please enter a username";
+                        } else {
+                          return null;
+                        }
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          lastName = value;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 25.0,
                   ),
                   child: SizedBox(
                     width: 320,
@@ -94,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           filled: true),
                       validator: (value) {
                         if (value == "") {
-                          return "Please enter a username";
+                          return "Please enter a email";
                         } else {
                           return null;
                         }
@@ -144,21 +241,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           filled: true),
-                      validator: (value) {
-                        if (value == "") {
+                      validator: (confirmPassword) {
+                        if (confirmPasswordController.text == "") {
                           return "Please enter a password";
                         } else {
                           return null;
                         }
                       },
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 0.5, left: 200.0),
-                  child: TextButton(
-                    child: Text("Forget Password"),
-                    onPressed: () {},
                   ),
                 ),
                 Padding(

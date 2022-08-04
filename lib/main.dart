@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/favourite_list.dart';
 import 'package:recipes_app/lists/recipe_list.dart';
+import 'package:recipes_app/providers/users_providers.dart';
 import 'package:recipes_app/screens/download_screen.dart';
 import 'package:recipes_app/screens/favourite_screen.dart';
 import 'package:recipes_app/screens/home_screen.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: DownloadProvider()),
         ChangeNotifierProvider.value(value: RecipeProvider()),
         ChangeNotifierProvider.value(value: FavouriteProvider()),
+        ChangeNotifierProvider.value(value: UserProvider())
       ],
       child: MaterialApp(
           //remove the debug banner at the top right of the screen
