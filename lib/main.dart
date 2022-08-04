@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       //the lists of the list
       providers: [
-        ChangeNotifierProvider.value(value: AllReviews()),
+        ChangeNotifierProvider.value(value: ReviewsProvider()),
         ChangeNotifierProvider.value(value: DownloadProvider()),
         ChangeNotifierProvider.value(value: RecipeProvider()),
         ChangeNotifierProvider.value(value: FavouriteProvider()),

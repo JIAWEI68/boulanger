@@ -95,6 +95,18 @@ class FirestoreService {
     });
   }
 
+  editReviews(id, recipeName, username, description) {
+    return FirebaseFirestore.instance.collection('reviews').doc(id).update({
+      'recipeName': recipeName,
+      'username': username,
+      'description': description,
+    });
+  }
+
+  deleteReviews(id) {
+    return FirebaseFirestore.instance.collection('reviews').doc(id).delete();
+  }
+
   Stream<List<Reviews>> getReviews() {
     return FirebaseFirestore.instance.collection('reviews').snapshots().map(
         (snapshot) => snapshot.docs

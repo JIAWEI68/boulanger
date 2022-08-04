@@ -197,9 +197,6 @@ class _RecipesScreensState extends State<RecipesScreens> {
                       if (favouriteList.getFavourtieList().every((element) =>
                           element.recipeName !=
                           widget.recipeToDisplay.recipeName)) {
-                        setState(() {
-                          iconColor = Colors.red;
-                        });
                         firestoreService.favourite(
                             widget.recipeToDisplay.imageUrl,
                             widget.recipeToDisplay.recipeName,
@@ -211,17 +208,15 @@ class _RecipesScreensState extends State<RecipesScreens> {
                             widget.recipeToDisplay.steps,
                             widget.recipeToDisplay.ingredients,
                             widget.recipeToDisplay.calories);
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text('Added to favourites successfully!'),
-                        ));
+                        setState(() {
+                          iconColor = Colors.red;
+                        });
                       } else {
                         firestoreService
                             .removeFavourite(widget.recipeToDisplay.id);
                         setState(() {
                           iconColor = Colors.black;
                         });
-                        Navigator.pop(context);
                       }
                     },
                   )

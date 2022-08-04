@@ -13,18 +13,15 @@ class MainScreenCheck extends StatefulWidget {
 class _MainScreenCheckState extends State<MainScreenCheck> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //set the body the with the screens as widgets
-      body: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return MainScreen();
-          } else {
-            return AuthScreen();
-          }
-        },
-      ),
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return MainScreen();
+        } else {
+          return AuthScreen();
+        }
+      },
     );
   }
 }

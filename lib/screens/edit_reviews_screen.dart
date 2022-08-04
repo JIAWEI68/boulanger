@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/reviews_list.dart';
 import 'package:recipes_app/models/reviews.dart';
+import 'package:recipes_app/services/firestore_services.dart';
 
 class EditReviewsScreen extends StatefulWidget {
   Reviews reviewsUsername;
@@ -27,12 +28,12 @@ class EditReviewsScreen extends StatefulWidget {
 
 class _EditReviewsScreenState extends State<EditReviewsScreen> {
   var form = GlobalKey<FormState>();
-
+  FirestoreService firestoreService = FirestoreService();
   String? username;
   String? id;
   String? description;
 
-  void editReviews(AllReviews reviewsList) {
+  void editReviews(String id) {
     //to check whether the textfield is empty or not
     //when the text field is not empty, the values from all the text fields will be added into the reviews list
     //which will be shown in the list view and the reviews screen
@@ -41,11 +42,8 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
       form.currentState!.save();
       print(username);
       print(description);
-      reviewsList.editReviews(Reviews(
-          id: id!,
-          recipeName: widget.recipeName,
-          username: username!,
-          description: description!));
+      firestoreService.editReviews(
+          id, widget.recipeName, widget.reviewsUsername.username, description);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Reviews added successfully!'),
       ));
@@ -57,7 +55,7 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AllReviews reviewsList = Provider.of<AllReviews>(context);
+    ReviewsProvider reviewsList = Provider.of<ReviewsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.blueGrey),
@@ -113,7 +111,7 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
                         fontSize: 15,
                       )),
                   onPressed: () {
-                    editReviews(reviewsList);
+                    editReviews(widget.reviewsUsername.id);
                   },
                 ),
               )

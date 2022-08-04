@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/reviews_list.dart';
+import 'package:recipes_app/services/firestore_services.dart';
 
 class AddReviewsScreen extends StatefulWidget {
   static String routeName = '/add-reviews';
@@ -12,13 +13,13 @@ class AddReviewsScreen extends StatefulWidget {
 }
 
 class _AddReviewsScreenState extends State<AddReviewsScreen> {
+  FirestoreService firestoreService = FirestoreService();
   var form = GlobalKey<FormState>();
 
   String? username;
-  String? id;
   String? description;
 
-  void addReview(AllReviews reviewsList) {
+  void addReview(ReviewsProvider reviewsList) {
     //to check whether the textfield is empty or not
     //when the text field is not empty, the values from all the text fields will be added into the reviews list
     //which will be shown in the list view and the reviews screen
@@ -27,8 +28,7 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
       form.currentState!.save();
       print(username);
       print(description);
-      reviewsList.addReviews(
-        id,
+      firestoreService.addReview(
         widget.recipeName,
         username,
         description,
@@ -44,7 +44,7 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AllReviews reviewsList = Provider.of<AllReviews>(context);
+    ReviewsProvider reviewsList = Provider.of<ReviewsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.blueGrey),
@@ -82,7 +82,7 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
                   }
                 },
                 onSaved: (value) {
-                  description = value;
+                  description = value as String;
                 },
               ),
               Padding(
