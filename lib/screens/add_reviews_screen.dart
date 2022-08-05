@@ -6,6 +6,8 @@ import 'package:recipes_app/models/users.dart';
 import 'package:recipes_app/providers/users_providers.dart';
 import 'package:recipes_app/services/firestore_services.dart';
 
+import '../models/reviews.dart';
+
 class AddReviewsScreen extends StatefulWidget {
   static String routeName = '/add-reviews';
   String recipeName;
@@ -18,10 +20,11 @@ class AddReviewsScreen extends StatefulWidget {
 class _AddReviewsScreenState extends State<AddReviewsScreen> {
   FirestoreService firestoreService = FirestoreService();
   var form = GlobalKey<FormState>();
-
+  late final Reviews reviews;
   String? username;
+  String? id;
   String? description;
-
+  String? imageUrl;
   void addReview(ReviewsProvider reviewsList) {
     //to check whether the textfield is empty or not
     //when the text field is not empty, the values from all the text fields will be added into the reviews list
@@ -35,7 +38,17 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
         widget.recipeName,
         username,
         description,
+        imageUrl,
       );
+      // reviewsList.addReview(
+      //   Reviews(
+      //     id: id,
+      //     recipeName: widget.recipeName,
+      //     username: username,
+      //     description: description,
+      //     imageUrl: imageUrl,
+      //   ),
+      // );
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Reviews added successfully!'),
       ));
@@ -55,6 +68,7 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
         userList = provider.userList
             .where((element) => element.email == user.email)
             .toList();
+        imageUrl = userList[0].imageUrl;
         return Scaffold(
           appBar: AppBar(
             iconTheme: IconThemeData(color: Colors.blueGrey),

@@ -43,7 +43,11 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
       print(username);
       print(description);
       firestoreService.editReviews(
-          id, widget.recipeName, widget.reviewsUsername.username, description);
+          id,
+          widget.recipeName,
+          widget.reviewsUsername.username,
+          description,
+          widget.reviewsUsername.imageUrl);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Reviews added successfully!'),
       ));

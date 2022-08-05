@@ -28,9 +28,6 @@ class ReviewsScreen extends StatelessWidget {
     return StreamBuilder<List<Reviews>>(
         stream: firestoreService.getReviews(),
         builder: (context, snapshot) {
-          reviewList = snapshot.data!
-              .where((element) => element.recipeName == recipeName)
-              .toList();
           return Consumer2(
             builder: (BuildContext context, ReviewsProvider provider,
                 UserProvider userProvider, Widget? child) {
@@ -53,7 +50,7 @@ class ReviewsScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   //to set that when the reviews list is empty, itll show an image
                   //when there is something in the list, itll show the items in the list
-                  child: snapshot.data!.isNotEmpty
+                  child: reviewList.isNotEmpty
                       ? ListView.builder(
                           itemBuilder: (ctx, i) {
                             return ClipRect(
@@ -82,15 +79,15 @@ class ReviewsScreen extends StatelessWidget {
                                       }
                                     },
                                   ),
-                                  leading: const CircleAvatar(
+                                  leading: CircleAvatar(
                                     radius: 27,
                                     backgroundColor: Colors.black,
                                     child: CircleAvatar(
                                       backgroundColor: Colors.white,
                                       radius: 25,
-                                      child: Icon(
-                                        Icons.person,
-                                        color: Colors.black,
+                                      child: Image.network(
+                                        reviewList[i].imageUrl,
+                                        height: 40,
                                       ),
                                     ),
                                   ),

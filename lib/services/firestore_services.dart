@@ -87,19 +87,21 @@ class FirestoreService {
             .toList());
   }
 
-  addReview(recipeName, username, description) {
+  addReview(recipeName, username, description, imageUrl) {
     return FirebaseFirestore.instance.collection('reviews').add({
       'recipeName': recipeName,
       'username': username,
       'description': description,
+      'imageUrl': imageUrl,
     });
   }
 
-  editReviews(id, recipeName, username, description) {
+  editReviews(id, recipeName, username, description, imageUrl) {
     return FirebaseFirestore.instance.collection('reviews').doc(id).update({
       'recipeName': recipeName,
       'username': username,
       'description': description,
+      'imageUrl': imageUrl,
     });
   }
 
