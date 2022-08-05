@@ -17,15 +17,27 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final user = FirebaseAuth.instance.currentUser!;
+  List<Users> userList = [];
+  String imageLink =
+      "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-person-user-19.png";
+  double height = 80;
   @override
   Widget build(BuildContext context) {
     RecipeProvider recipeList = Provider.of<RecipeProvider>(context);
-    return Consumer(
+    return Consumer<UserProvider>(
       builder: (BuildContext context, UserProvider provider, Widget? child) {
-        List<Users> userList = provider.userList
+        userList = provider.userList
             .where((element) => element.email == user.email)
             .toList();
-        print(userList[0].username);
+        print(userList);
+        if (userList[0].imageUrl == "") {
+          imageLink =
+              "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-person-user-19.png";
+          height = 80;
+        } else {
+          imageLink = userList[0].imageUrl;
+          height = 100;
+        }
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -37,8 +49,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                  padding: EdgeInsets.only(top: 25.0),
-                  child: Image.asset("images/profile_icon.png")),
+                padding: EdgeInsets.only(top: 25.0),
+                child: CircleAvatar(
+                  radius: 70,
+                  backgroundColor: Colors.black,
+                  child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 65,
+                      child: Image.network(
+                        userList[0].imageUrl,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return ClipRRect(
+                            child: Card(
+                              color: Colors.blue,
+                            ),
+                          );
+                        },
+                        height: 79,
+                      )),
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
                 child: Text(
@@ -70,26 +101,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ],
                 ),
               ),
-              Padding(
-                  padding: EdgeInsets.only(top: 15.0),
-                  child: Directionality(
-                    //set so that the icon for the elevatedbutton.icon is set to the right
-                    textDirection: TextDirection.rtl,
-                    child: ElevatedButton.icon(
-                      onPressed: () {},
-                      label: Text(
-                        "Edit Profile",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      icon: Icon(Icons.chevron_left,
-                          color: Color.fromRGBO(251, 170, 28, 10)),
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: Size(500, 70),
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.black)),
-                          primary: Colors.white),
-                    ),
-                  )),
               Padding(
                   padding: EdgeInsets.only(top: 0.2),
                   child: Directionality(

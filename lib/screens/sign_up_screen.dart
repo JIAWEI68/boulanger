@@ -95,6 +95,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
+                          hintText: "Link to your image",
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true),
+                      validator: (value) {
+                        if (value == "") {
+                          return "Please enter a image link";
+                        } else {
+                          return null;
+                        }
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          imageUrl = value;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 25.0,
+                  ),
+                  child: SizedBox(
+                    width: 320,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
                           hintText: 'Username',
                           hintStyle: TextStyle(fontSize: 16),
                           border: OutlineInputBorder(

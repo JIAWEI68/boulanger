@@ -9,17 +9,17 @@ class ReviewsProvider with ChangeNotifier {
     return reviewsList;
   }
 
-  void addReviews(recipeName, username, description, id) {
-    reviewsList.insert(
-      0,
-      Reviews(
-          recipeName: recipeName,
-          username: username,
-          description: description,
-          id: id),
-    );
-    notifyListeners();
-  }
+  // void addReviews(recipeName, username, description, id) {
+  //   reviewsList.insert(
+  //     0,
+  //     Reviews(
+  //         recipeName: recipeName,
+  //         username: username,
+  //         description: description,
+  //         id: id),
+  //   );
+  //   notifyListeners();
+  // }
 
   //remove the reviews based on the index in the list
   void removeReviews(i) {

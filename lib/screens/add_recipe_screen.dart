@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/recipe_list.dart';
+import 'package:recipes_app/main.dart';
+import 'package:recipes_app/services/firestore_services.dart';
 
 class AddRecipesScreen extends StatefulWidget {
   const AddRecipesScreen({Key? key}) : super(key: key);
@@ -26,7 +28,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
   String? imageUrl;
   int? calories;
   String? id;
-
+  FirestoreService firestoreService = FirestoreService();
   //add the recipes into the list when the form is valid
   void addRecipe(RecipeProvider recipeList) {
     bool isValid = form.currentState!.validate();
@@ -38,12 +40,13 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
       if (kDebugMode) {
         print(description);
       }
-      recipeList.addRecipes(id, imageUrl, recipeName, description, vegetarian,
+      firestoreService.addRecipes(imageUrl, recipeName, description, vegetarian,
           difficulty, madeBy, category, steps, ingredients, calories);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Recipes added successfully!'),
       ));
-      Navigator.pop(context);
+      Navigator.pop(
+          context, MaterialPageRoute(builder: (context) => MainScreen()));
       form.currentState!.reset();
     }
     FocusScope.of(context).unfocus();
@@ -80,7 +83,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                          hintText: 'Recipe Name',
+                          labelText: 'Recipe Name',
                           hintStyle: TextStyle(fontSize: 16),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -106,7 +109,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                          hintText: 'Description',
+                          labelText: 'Description',
                           hintStyle: TextStyle(fontSize: 16),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -132,7 +135,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                          hintText: 'Difficulty',
+                          labelText: 'Difficulty',
                           hintStyle: TextStyle(fontSize: 16),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -158,7 +161,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                          hintText: 'Calories',
+                          labelText: 'Calories',
                           hintStyle: TextStyle(fontSize: 16),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),

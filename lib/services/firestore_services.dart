@@ -132,6 +132,16 @@ class FirestoreService {
     });
   }
 
+  editProfile(
+    id,
+    imageUrl,
+  ) {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .set({'imageUrl': imageUrl});
+  }
+
   Stream<List<Users>> getUsers() {
     return FirebaseFirestore.instance.collection('users').snapshots().map(
         (snapshot) => snapshot.docs
