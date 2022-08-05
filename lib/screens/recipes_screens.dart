@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ import 'package:recipes_app/screens/reviews_screen.dart';
 import 'package:recipes_app/services/firestore_services.dart';
 
 import '../lists/download_list.dart';
+import '../models/users.dart';
+import '../providers/users_providers.dart';
 
 class RecipesScreens extends StatefulWidget {
   const RecipesScreens({Key? key, required this.recipeToDisplay})
@@ -32,10 +35,14 @@ class RecipesScreens extends StatefulWidget {
 }
 
 class _RecipesScreensState extends State<RecipesScreens> {
+  final user = FirebaseAuth.instance.currentUser!;
   String downloadText = "Download";
   Color iconColor = Colors.black;
   final String routeName = '/recipes';
   bool chosen = false;
+  List<Users> userList = [];
+  List<Recipe> favouriteChecker = [];
+  List<Recipe> downloadChecker = [];
   @override
   Widget build(BuildContext context) {
     FirestoreService firestoreService = FirestoreService();
@@ -46,16 +53,28 @@ class _RecipesScreensState extends State<RecipesScreens> {
     if (!chosen) card = widget.recipeToDisplay.steps;
 
     var calories = widget.recipeToDisplay.calories.toString();
-    return Consumer2(
-      builder: (BuildContext context, DownloadProvider downloadProvider,
-          FavouriteProvider favouriteProvider, Widget? child) {
-        if (favouriteProvider.favourtieList.every((element) =>
+    return Consumer3(
+      builder: (BuildContext context,
+          DownloadProvider downloadProvider,
+          FavouriteProvider favouriteProvider,
+          UserProvider userProvider,
+          Widget? child) {
+        userList = userProvider.userList
+            .where((element) => element.email == user.email)
+            .toList();
+        favouriteChecker = favouriteProvider.favourtieList
+            .where((element) => element.username == userList[0].username)
+            .toList();
+        downloadChecker = downloadProvider.downloadList
+            .where((element) => element.username == userList[0].username)
+            .toList();
+        if (favouriteChecker.every((element) =>
             element.recipeName != widget.recipeToDisplay.recipeName)) {
           iconColor = Colors.black;
         } else {
           iconColor = Colors.red;
         }
-        if (downloadProvider.downloadList.every((element) =>
+        if (downloadChecker.every((element) =>
             element.recipeName != widget.recipeToDisplay.recipeName)) {
           downloadText = "Download";
         } else {
@@ -115,11 +134,9 @@ class _RecipesScreensState extends State<RecipesScreens> {
                                 CupertinoActionSheetAction(
                                   onPressed: () {
                                     //checks if the download list has the same name inside the list
-                                    if (downloadProvider.downloadList.every(
-                                        (element) =>
-                                            element.recipeName !=
-                                            widget
-                                                .recipeToDisplay.recipeName)) {
+                                    if (downloadChecker.every((element) =>
+                                        element.recipeName !=
+                                        widget.recipeToDisplay.recipeName)) {
                                       //add the recipe into the list based on the items name, and the parameters
                                       firestoreService.downloadItem(
                                           widget.recipeToDisplay.imageUrl,
@@ -128,7 +145,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                                           widget.recipeToDisplay.vegetarian,
                                           widget.recipeToDisplay.difficulty,
                                           widget.recipeToDisplay.madeBy,
-                                          widget.recipeToDisplay.category,
+                                          userList[0].username,
                                           widget.recipeToDisplay.steps,
                                           widget.recipeToDisplay.ingredients,
                                           widget.recipeToDisplay.calories);
@@ -194,7 +211,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                     ),
                     onPressed: () {
                       //check if there is duplicate item in the list
-                      if (favouriteList.getFavourtieList().every((element) =>
+                      if (favouriteChecker.every((element) =>
                           element.recipeName !=
                           widget.recipeToDisplay.recipeName)) {
                         firestoreService.favourite(
@@ -204,7 +221,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                             widget.recipeToDisplay.vegetarian,
                             widget.recipeToDisplay.difficulty,
                             widget.recipeToDisplay.madeBy,
-                            widget.recipeToDisplay.category,
+                            userList[0].username,
                             widget.recipeToDisplay.steps,
                             widget.recipeToDisplay.ingredients,
                             widget.recipeToDisplay.calories);

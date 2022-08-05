@@ -26,7 +26,7 @@ class FirestoreService {
   }
 
   downloadItem(imageUrl, recipeName, description, vegetarian, difficulty,
-      madeBy, category, steps, ingredients, calories) {
+      madeBy, username, steps, ingredients, calories) {
     return FirebaseFirestore.instance.collection('downloads').add({
       'imageUrl': imageUrl,
       'recipeName': recipeName,
@@ -34,7 +34,7 @@ class FirestoreService {
       'vegetarian': vegetarian,
       'difficulty': difficulty,
       'madeBy': madeBy,
-      'category': category,
+      'username': username,
       'steps': steps,
       'ingredients': ingredients,
       'calories': calories,
@@ -42,7 +42,7 @@ class FirestoreService {
   }
 
   favourite(imageUrl, recipeName, description, vegetarian, difficulty, madeBy,
-      category, steps, ingredients, calories) {
+      username, steps, ingredients, calories) {
     return FirebaseFirestore.instance.collection('favourites').add({
       'imageUrl': imageUrl,
       'recipeName': recipeName,
@@ -50,7 +50,7 @@ class FirestoreService {
       'vegetarian': vegetarian,
       'difficulty': difficulty,
       'madeBy': madeBy,
-      'category': category,
+      'username': username,
       'steps': steps,
       'ingredients': ingredients,
       'calories': calories,

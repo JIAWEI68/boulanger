@@ -21,7 +21,7 @@ class RecipeProvider with ChangeNotifier {
         vegetarian: true,
         difficulty: "Easy",
         madeBy: "Nagi",
-        category: "Cake",
+        username: "Cake",
         //this is to make it so that the text shows the string directly
         steps: '''FAST SOAKED FRUIT:
 Place dried fruit and juice/brandy in a large microwavable container. Microwave 1 1/2 minutes on high or until hot.
@@ -84,7 +84,7 @@ OTHER DECORATING OPTIONS (OPTIONAL)
         vegetarian: false,
         difficulty: "Medium",
         madeBy: "Land O Lakes",
-        category: "Cake",
+        username: "Cake",
         //this is to make it so that the text shows the string directly
         steps: '''STEP 1
 
@@ -150,7 +150,7 @@ FROSTING
         vegetarian: false,
         difficulty: "Medium",
         madeBy: "Land O Lakes",
-        category: "Cake",
+        username: "Cake",
         //this is to make it so that the text shows the string directly
         steps: '''
 1.Preheat oven to 350˚F with racks in the center of the oven. Grease two 9-inch round cake pans with butter and dust with flour, tapping out the excess.
@@ -196,7 +196,7 @@ FROSTING
   }
 
   void addRecipes(id, imageUrl, recipeName, description, vegetarian, difficulty,
-      madeBy, category, steps, ingredients, calories) {
+      madeBy, username, steps, ingredients, calories) {
     myRecipes.insert(
         0,
         Recipe(
@@ -207,7 +207,7 @@ FROSTING
             vegetarian: vegetarian,
             difficulty: difficulty,
             madeBy: madeBy,
-            category: category,
+            username: username,
             steps: steps,
             ingredients: ingredients,
             calories: calories));
