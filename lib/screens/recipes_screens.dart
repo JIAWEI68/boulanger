@@ -96,7 +96,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                   ),
                 ),
                 Positioned(
-                    top: 73,
+                    top: 30,
                     left: 4,
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
@@ -111,7 +111,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                       ),
                     )),
                 Positioned(
-                    top: 73,
+                    top: 30,
                     right: 4,
                     child: CircleAvatar(
                       backgroundColor: Colors.white,

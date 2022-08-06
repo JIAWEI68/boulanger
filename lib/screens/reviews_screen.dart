@@ -85,17 +85,18 @@ class ReviewsScreen extends StatelessWidget {
                                     child: CircleAvatar(
                                       backgroundColor: Colors.white,
                                       radius: 25,
-                                      child: Image.network(
-                                        reviewList[i].imageUrl,
-                                        height: 40,
-                                      ),
+                                      backgroundImage:
+                                          NetworkImage(reviewList[i].imageUrl),
                                     ),
                                   ),
                                   onTap: () {
                                     if (userList[0].username ==
                                         reviewList[i].username) {
                                       EditReviewsScreen.goToEditScreen(
-                                          context, reviewList[i], recipeName);
+                                          context,
+                                          reviewList[i],
+                                          recipeName,
+                                          userList[0]);
                                     } else {
                                       showDialog(
                                         context: context,
@@ -125,10 +126,11 @@ class ReviewsScreen extends StatelessWidget {
                         ),
                 ),
                 floatingActionButton: FloatingActionButton(
+                  backgroundColor: Color.fromRGBO(254, 238, 210, 10),
                   onPressed: () {
                     goToAddReviews(context);
                   },
-                  child: const Icon(Icons.add),
+                  child: const Icon(Icons.add, color: Colors.blueGrey),
                 ),
               );
             },

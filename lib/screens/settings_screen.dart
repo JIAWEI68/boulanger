@@ -2,12 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/recipe_list.dart';
+import 'package:recipes_app/lists/reviews_list.dart';
 import 'package:recipes_app/providers/users_providers.dart';
 import 'package:recipes_app/screens/add_recipe_screen.dart';
 import 'package:recipes_app/screens/edit_profile.dart';
 import 'package:recipes_app/screens/faq_screen.dart';
 import 'package:recipes_app/services/firestore_services.dart';
 
+import '../models/reviews.dart';
 import '../models/users.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -21,21 +23,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   FirestoreService firestoreService = FirestoreService();
   List<Users> userList = [];
+  List<Reviews> reviewsList = [];
   String imageLink =
       "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-person-user-19.png";
   double height = 80;
+  int index = 0;
   @override
   Widget build(BuildContext context) {
     RecipeProvider recipeList = Provider.of<RecipeProvider>(context);
     return StreamBuilder(
         stream: firestoreService.getUsers(),
         builder: (context, snapshot) {
-          return Consumer<UserProvider>(
-            builder:
-                (BuildContext context, UserProvider provider, Widget? child) {
+          return Consumer2<UserProvider, ReviewsProvider>(
+            builder: (BuildContext context, UserProvider provider,
+                ReviewsProvider reviewsProvider, Widget? child) {
               userList = provider.userList
                   .where((element) => element.email == user.email)
                   .toList();
+              reviewsList = reviewsProvider.reviewsList;
               print(userList);
               if (userList[0].imageUrl == "") {
                 imageLink =
@@ -59,22 +64,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       padding: EdgeInsets.only(top: 25.0),
                       child: CircleAvatar(
                         radius: 70,
-                        backgroundColor: Colors.black,
+                        backgroundColor: Color.fromRGBO(251, 170, 28, 10),
                         child: CircleAvatar(
                             backgroundColor: Colors.white,
                             radius: 65,
-                            child: Image.network(
-                              imageLink,
-                              errorBuilder: (BuildContext context,
-                                  Object exception, StackTrace? stackTrace) {
-                                return ClipRRect(
-                                  child: Card(
-                                    color: Colors.blue,
-                                  ),
-                                );
-                              },
-                              height: 79,
-                            )),
+                            backgroundImage: NetworkImage(imageLink)),
                       ),
                     ),
                     Padding(

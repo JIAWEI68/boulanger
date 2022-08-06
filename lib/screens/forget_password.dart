@@ -36,13 +36,20 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'Enter your email and we will send the reset link to you',
-            textAlign: TextAlign.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '''Enter your email and we will send 
+ the reset link to you''',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20),
+              ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(
-              top: 45.0,
+              top: 15.0,
             ),
             child: SizedBox(
               width: 320,
@@ -73,7 +80,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     primary: Colors.white,
-                    fixedSize: Size(200, 68),
+                    fixedSize: Size(200, 55),
                     side: BorderSide(color: Colors.black),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15))),
@@ -84,7 +91,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   "Reset Password",
                   style: TextStyle(
                     color: Color.fromRGBO(251, 170, 28, 10),
-                    fontSize: 23,
+                    fontSize: 18,
                   ),
                 ),
               ),

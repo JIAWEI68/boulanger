@@ -83,22 +83,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       padding: EdgeInsets.only(bottom: 0.0),
                       child: CircleAvatar(
                         radius: 70,
-                        backgroundColor: Colors.black,
+                        backgroundColor: Color.fromRGBO(251, 170, 28, 10),
                         child: CircleAvatar(
                             backgroundColor: Colors.white,
                             radius: 65,
-                            child: Image.network(
-                              imageLink,
-                              errorBuilder: (BuildContext context,
-                                  Object exception, StackTrace? stackTrace) {
-                                return ClipRRect(
-                                  child: Card(
-                                    color: Colors.blue,
-                                  ),
-                                );
-                              },
-                              height: 79,
-                            )),
+                            backgroundImage: NetworkImage(imageLink)),
                       ),
                     ),
                     Padding(
@@ -256,23 +245,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 20.0),
+                      padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                       child: GestureDetector(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               primary: Colors.white,
-                              fixedSize: Size(173, 68),
-                              side: BorderSide(color: Colors.black),
+                              fixedSize: Size(123, 46),
+                              side: BorderSide(
+                                  color: Color.fromRGBO(251, 170, 28, 10)),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15))),
+                                  borderRadius: BorderRadius.circular(7))),
                           onPressed: () {
                             editProfile(widget.users);
                           },
                           child: Text(
-                            "Upload",
+                            "SAVE",
                             style: TextStyle(
                               color: Color.fromRGBO(251, 170, 28, 10),
-                              fontSize: 23,
+                              fontSize: 18,
                             ),
                           ),
                         ),

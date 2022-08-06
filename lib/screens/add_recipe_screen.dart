@@ -67,7 +67,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
               children: const [
                 Text(
                   "Upload Recipe",
-                  style: TextStyle(fontSize: 20, fontFamily: "Segoe"),
+                  style: TextStyle(fontSize: 20, fontFamily: "Rockwell"),
                 ),
               ],
             ),
@@ -322,12 +322,21 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                       style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(254, 238, 210, 10),
                       ),
-                      child: Text("Upload")),
+                      child: Text(
+                        "Upload",
+                        style: TextStyle(color: Colors.blueGrey),
+                      )),
                   ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(254, 238, 210, 10),
+                      ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text("Cancel"))
+                      child: Text(
+                        "Cancel",
+                        style: TextStyle(color: Colors.blueGrey),
+                      ))
                 ],
               ),
             ),

@@ -4,21 +4,28 @@ import 'package:recipes_app/lists/reviews_list.dart';
 import 'package:recipes_app/models/reviews.dart';
 import 'package:recipes_app/services/firestore_services.dart';
 
+import '../models/users.dart';
+
 class EditReviewsScreen extends StatefulWidget {
   Reviews reviewsUsername;
   String recipeName;
+  final Users users;
   static String routeName = '/add-reviews';
   EditReviewsScreen(
-      {Key? key, required this.reviewsUsername, required this.recipeName})
+      {Key? key,
+      required this.reviewsUsername,
+      required this.recipeName,
+      required this.users})
       : super(key: key);
   static void goToEditScreen(
-      BuildContext context, Reviews reviews, String recipeName) {
+      BuildContext context, Reviews reviews, String recipeName, Users users) {
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => EditReviewsScreen(
                   reviewsUsername: reviews,
                   recipeName: recipeName,
+                  users: users,
                 )));
   }
 
@@ -42,12 +49,8 @@ class _EditReviewsScreenState extends State<EditReviewsScreen> {
       form.currentState!.save();
       print(username);
       print(description);
-      firestoreService.editReviews(
-          id,
-          widget.recipeName,
-          widget.reviewsUsername.username,
-          description,
-          widget.reviewsUsername.imageUrl);
+      firestoreService.editReviews(id, widget.recipeName,
+          widget.reviewsUsername.username, description, widget.users.imageUrl);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Reviews added successfully!'),
       ));

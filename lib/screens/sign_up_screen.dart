@@ -282,19 +282,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 0.5),
-                  child: GestureDetector(
-                    child: TextButton(
-                      child: Text("Login"),
-                      onPressed: () {
-                        widget.showLoginPage();
-                      },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Already have an account?"),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.5),
+                      child: GestureDetector(
+                        child: TextButton(
+                          child: Text("Login"),
+                          onPressed: () {
+                            widget.showLoginPage();
+                          },
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 20.0),
+                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                   child: GestureDetector(
                     onTap: signUp,
                     child: ElevatedButton(

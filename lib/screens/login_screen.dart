@@ -144,16 +144,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 0.5),
-                  child: GestureDetector(
-                    child: TextButton(
-                      child: Text("Register Now"),
-                      onPressed: () {
-                        widget.showRegisterPage();
-                      },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Need an account?"),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0.5),
+                      child: GestureDetector(
+                        child: TextButton(
+                          child: Text("Register Now"),
+                          onPressed: () {
+                            widget.showRegisterPage();
+                          },
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
