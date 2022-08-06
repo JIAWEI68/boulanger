@@ -136,12 +136,17 @@ class FirestoreService {
 
   editProfile(
     id,
+    username,
+    firstName,
+    lastName,
     imageUrl,
   ) {
-    return FirebaseFirestore.instance
-        .collection('users')
-        .doc(id)
-        .set({'imageUrl': imageUrl});
+    return FirebaseFirestore.instance.collection('users').doc(id).update({
+      'imageUrl': imageUrl,
+      'username': username,
+      'firstName': firstName,
+      'lastName': lastName
+    });
   }
 
   Stream<List<Users>> getUsers() {

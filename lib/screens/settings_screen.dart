@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/recipe_list.dart';
 import 'package:recipes_app/providers/users_providers.dart';
 import 'package:recipes_app/screens/add_recipe_screen.dart';
+import 'package:recipes_app/screens/edit_profile.dart';
 import 'package:recipes_app/screens/faq_screen.dart';
 import 'package:recipes_app/services/firestore_services.dart';
 
@@ -36,7 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   .where((element) => element.email == user.email)
                   .toList();
               print(userList);
-              if (userList[0].imageUrl == "") {
+              if (userList[0].imageUrl == null) {
                 imageLink =
                     "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-person-user-19.png";
                 height = 80;
@@ -109,6 +110,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
+                    Padding(
+                        padding: EdgeInsets.only(top: 0.2),
+                        child: Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              //this makes it so that when the button is pressed it goes to the FAQScreen
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditProfileScreen(
+                                          users: userList[0])));
+                            },
+                            icon: Icon(Icons.chevron_left,
+                                color: Color.fromRGBO(251, 170, 28, 10)),
+                            label: Text(
+                              "Edit Profile",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.white,
+                                minimumSize: Size(500, 70),
+                                shape: RoundedRectangleBorder(
+                                    side: BorderSide(color: Colors.black))),
+                          ),
+                        )),
                     Padding(
                         padding: EdgeInsets.only(top: 0.2),
                         child: Directionality(

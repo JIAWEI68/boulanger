@@ -7,7 +7,8 @@ import 'package:recipes_app/services/firestore_services.dart';
 import '../models/users.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+  final Users users;
+  EditProfileScreen({Key? key, required this.users}) : super(key: key);
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -22,6 +23,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String? imageUrl;
   String? firstName;
   String? lastName;
+  String? email;
+  void editProfile(Users users) {
+    //to check whether the textfield is empty or not
+    //when the text field is not empty, the values from all the text fields will be added into the users list
+    //which will be shown in the list view and the users screen
+    bool isValid = form.currentState!.validate();
+    if (isValid) {
+      form.currentState!.save();
+      firestoreService.editProfile(
+        widget.users.id,
+        username,
+        firstName,
+        lastName,
+        imageUrl,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Profile updated successfully!'),
+      ));
+      form.currentState!.reset();
+      Navigator.pop(context);
+    }
+    FocusScope.of(context).unfocus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +80,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       child: SizedBox(
                         width: 320,
                         child: TextFormField(
-                          initialValue: userList[0].imageUrl,
+                          initialValue: widget.users.imageUrl,
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
@@ -81,6 +105,129 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
                     Padding(
+                      padding: const EdgeInsets.only(
+                        top: 25.0,
+                      ),
+                      child: SizedBox(
+                        width: 320,
+                        child: TextFormField(
+                          initialValue: widget.users.username,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              hintStyle: TextStyle(fontSize: 16),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              filled: true),
+                          validator: (value) {
+                            if (value == "") {
+                              return "Please enter a image link";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onSaved: (value) {
+                            username = value;
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 25.0,
+                      ),
+                      child: SizedBox(
+                        width: 320,
+                        child: TextFormField(
+                          initialValue: widget.users.email,
+                          enabled: false,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              hintStyle: TextStyle(fontSize: 16),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              filled: true),
+                          validator: (value) {
+                            if (value == "") {
+                              return "Please enter a image link";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onSaved: (value) {
+                            setState(() {
+                              email = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 25.0,
+                      ),
+                      child: SizedBox(
+                        width: 320,
+                        child: TextFormField(
+                          initialValue: widget.users.firstName,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              hintStyle: TextStyle(fontSize: 16),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              filled: true),
+                          validator: (value) {
+                            if (value == "") {
+                              return "Please enter a image link";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onSaved: (value) {
+                            setState(() {
+                              firstName = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 25.0,
+                      ),
+                      child: SizedBox(
+                        width: 320,
+                        child: TextFormField(
+                          initialValue: widget.users.lastName,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              hintStyle: TextStyle(fontSize: 16),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              filled: true),
+                          validator: (value) {
+                            if (value == "") {
+                              return "Please enter a image link";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onSaved: (value) {
+                            setState(() {
+                              lastName = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
                       padding: EdgeInsets.only(top: 20.0),
                       child: GestureDetector(
                         child: ElevatedButton(
@@ -91,8 +238,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
                           onPressed: () {
-                            firestoreService.editProfile(
-                                userList[0].id, imageUrl);
+                            editProfile(widget.users);
                           },
                           child: Text(
                             "Upload",
