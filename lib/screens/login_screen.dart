@@ -105,8 +105,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintStyle: TextStyle(fontSize: 16),
                           suffixIcon: IconButton(
                             icon: Icon(passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off),
+                                ? Icons.visibility_off
+                                : Icons.visibility),
                             onPressed: () {
                               setState(() {
                                 if (passwordVisible == true) {

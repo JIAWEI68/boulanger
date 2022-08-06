@@ -16,6 +16,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  bool passwordVisible = true;
+  bool confirmPasswordVisible = true;
   FirestoreService firestoreService = FirestoreService();
   @override
   var form = GlobalKey<FormState>();
@@ -206,12 +208,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: 320,
                     child: TextFormField(
                       controller: passwordController,
-                      obscureText: true,
+                      obscureText: passwordVisible,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                           hintText: 'Password',
                           hintStyle: TextStyle(fontSize: 16),
+                          suffixIcon: IconButton(
+                            icon: Icon(passwordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                            onPressed: () {
+                              setState(() {
+                                if (passwordVisible == true) {
+                                  passwordVisible = false;
+                                } else {
+                                  passwordVisible = true;
+                                }
+                              });
+                            },
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -232,12 +248,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: 320,
                     child: TextFormField(
                       controller: confirmPasswordController,
-                      obscureText: true,
+                      obscureText: confirmPasswordVisible,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                           hintText: 'Confirm Password',
                           hintStyle: TextStyle(fontSize: 16),
+                          suffixIcon: IconButton(
+                            icon: Icon(confirmPasswordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                            onPressed: () {
+                              setState(() {
+                                if (confirmPasswordVisible == true) {
+                                  confirmPasswordVisible = false;
+                                } else {
+                                  confirmPasswordVisible = true;
+                                }
+                              });
+                            },
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
