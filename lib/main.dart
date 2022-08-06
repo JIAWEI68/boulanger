@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:recipes_app/lists/favourite_list.dart';
 import 'package:recipes_app/lists/recipe_list.dart';
@@ -134,25 +135,28 @@ class _MainScreenState extends State<MainScreen> {
                           data: Theme.of(context).copyWith(
                               canvasColor:
                                   const Color.fromRGBO(254, 238, 210, 10)),
-                          child: BottomNavigationBar(
-                            //remove all the labels and ensure that the icons are in the center of the bottom nav
-                            showSelectedLabels: false,
-                            showUnselectedLabels: false,
-                            items: const [
-                              BottomNavigationBarItem(
-                                  icon: Icon(Icons.download), label: ""),
-                              BottomNavigationBarItem(
-                                  icon: Icon(Icons.home), label: ""),
-                              BottomNavigationBarItem(
-                                  icon: Icon(Icons.favorite), label: "")
-                            ],
-                            currentIndex: selectedIndex,
-                            onTap: (index) {
+                          child: GNav(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 15),
+                            gap: 0,
+                            backgroundColor: Color.fromRGBO(254, 238, 210, 10),
+                            color: Colors.blueGrey,
+                            activeColor: Colors.blueGrey,
+                            tabBackgroundColor:
+                                Color.fromRGBO(255, 244, 224, 1),
+                            selectedIndex: 1,
+                            onTabChange: (index) {
+                              selectedIndex = 1;
                               //set the index based on the icon that is pressed
                               setState(() {
                                 selectedIndex = index;
                               });
                             },
+                            tabs: [
+                              GButton(icon: Icons.download, text: "Download"),
+                              GButton(icon: Icons.home, text: "Home"),
+                              GButton(icon: Icons.favorite, text: "Favourite")
+                            ],
                           )));
             },
           );

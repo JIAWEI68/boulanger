@@ -21,44 +21,37 @@ class _DownloadScreenState extends State<DownloadScreen> {
     return StreamBuilder<List<Recipe>>(
         stream: firestoreService.getDownloaded(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return Scaffold(
-                resizeToAvoidBottomInset: false,
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15.0),
-                      //create a text field to allow search
-                      child: TextField(
+          return Scaffold(
+              resizeToAvoidBottomInset: false,
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0),
+                    //create a text field to allow search
+                    child: TextField(
+                      controller: downloadSearchController,
+                      onChanged: (value) {
+                        setState(() {
+                          downloadedList.searchString = value;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                          labelText: "Search", suffixIcon: Icon(Icons.search)),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: SizedBox(
+                      height: 537.0009,
+                      width: 350,
+                      child: DownloadGridView(
                         controller: downloadSearchController,
-                        onChanged: (value) {
-                          setState(() {
-                            downloadedList.searchString = value;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                            labelText: "Search",
-                            suffixIcon: Icon(Icons.search)),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: SizedBox(
-                        height: 537.0009,
-                        width: 350,
-                        child: DownloadGridView(
-                          controller: downloadSearchController,
-                        ),
-                      ),
-                    ),
-                  ],
-                ));
-          }
+                  ),
+                ],
+              ));
         });
   }
 }

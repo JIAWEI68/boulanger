@@ -6,7 +6,7 @@ class Recipe {
   String vegetarian;
   String difficulty;
   String madeBy;
-  String username;
+  String userId;
   String steps;
   String ingredients;
   int calories;
@@ -19,7 +19,7 @@ class Recipe {
       required this.vegetarian,
       required this.difficulty,
       required this.madeBy,
-      required this.username,
+      required this.userId,
       required this.steps,
       required this.ingredients,
       required this.calories});
@@ -32,7 +32,7 @@ class Recipe {
         vegetarian: snapshot['vegetarian'] ?? '',
         difficulty: snapshot['difficulty'] ?? '',
         madeBy: snapshot['madeBy'] ?? '',
-        username: snapshot['username'] ?? '',
+        userId: snapshot['userId'] ?? '',
         steps: snapshot['steps'] ?? '',
         ingredients: snapshot['ingredients'] ?? '',
         calories: snapshot['calories'] ?? '',

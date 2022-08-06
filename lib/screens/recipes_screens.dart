@@ -63,10 +63,10 @@ class _RecipesScreensState extends State<RecipesScreens> {
             .where((element) => element.email == user.email)
             .toList();
         favouriteChecker = favouriteProvider.favourtieList
-            .where((element) => element.username == userList[0].username)
+            .where((element) => element.userId == userList[0].id)
             .toList();
         downloadChecker = downloadProvider.downloadList
-            .where((element) => element.username == userList[0].username)
+            .where((element) => element.userId == userList[0].id)
             .toList();
         if (favouriteChecker.every((element) =>
             element.recipeName != widget.recipeToDisplay.recipeName)) {
@@ -145,7 +145,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                                           widget.recipeToDisplay.vegetarian,
                                           widget.recipeToDisplay.difficulty,
                                           widget.recipeToDisplay.madeBy,
-                                          userList[0].username,
+                                          userList[0].id,
                                           widget.recipeToDisplay.steps,
                                           widget.recipeToDisplay.ingredients,
                                           widget.recipeToDisplay.calories);
@@ -221,7 +221,7 @@ class _RecipesScreensState extends State<RecipesScreens> {
                             widget.recipeToDisplay.vegetarian,
                             widget.recipeToDisplay.difficulty,
                             widget.recipeToDisplay.madeBy,
-                            userList[0].username,
+                            userList[0].id,
                             widget.recipeToDisplay.steps,
                             widget.recipeToDisplay.ingredients,
                             widget.recipeToDisplay.calories);
