@@ -87,12 +87,13 @@ class FirestoreService {
             .toList());
   }
 
-  addReview(recipeName, username, description, imageUrl) {
+  addReview(recipeName, username, description, imageUrl, userId) {
     return FirebaseFirestore.instance.collection('reviews').add({
       'recipeName': recipeName,
       'username': username,
       'description': description,
       'imageUrl': imageUrl,
+      'userId': userId,
     });
   }
 

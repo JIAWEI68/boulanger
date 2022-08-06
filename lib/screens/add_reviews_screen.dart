@@ -11,7 +11,9 @@ import '../models/reviews.dart';
 class AddReviewsScreen extends StatefulWidget {
   static String routeName = '/add-reviews';
   String recipeName;
-  AddReviewsScreen({Key? key, required this.recipeName}) : super(key: key);
+  String userId;
+  AddReviewsScreen({Key? key, required this.recipeName, required this.userId})
+      : super(key: key);
 
   @override
   State<AddReviewsScreen> createState() => _AddReviewsScreenState();
@@ -39,6 +41,7 @@ class _AddReviewsScreenState extends State<AddReviewsScreen> {
         username,
         description,
         imageUrl,
+        widget.userId,
       );
       // reviewsList.addReview(
       //   Reviews(

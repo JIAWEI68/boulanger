@@ -64,8 +64,8 @@ class ReviewsScreen extends StatelessWidget {
                                     icon:
                                         Icon(Icons.delete, color: Colors.black),
                                     onPressed: () {
-                                      if (userList[0].username ==
-                                          reviewList[i].username) {
+                                      if (userList[0].id ==
+                                          reviewList[i].userId) {
                                         firestoreService
                                             .deleteReviews(reviewList[i].id);
                                       } else {
@@ -90,8 +90,8 @@ class ReviewsScreen extends StatelessWidget {
                                     ),
                                   ),
                                   onTap: () {
-                                    if (userList[0].username ==
-                                        reviewList[i].username) {
+                                    if (userList[0].id ==
+                                        reviewList[i].userId) {
                                       EditReviewsScreen.goToEditScreen(
                                           context,
                                           reviewList[i],
@@ -128,7 +128,13 @@ class ReviewsScreen extends StatelessWidget {
                 floatingActionButton: FloatingActionButton(
                   backgroundColor: Color.fromRGBO(254, 238, 210, 10),
                   onPressed: () {
-                    goToAddReviews(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddReviewsScreen(
+                                  recipeName: recipeName,
+                                  userId: userList[0].id,
+                                )));
                   },
                   child: const Icon(Icons.add, color: Colors.blueGrey),
                 ),
@@ -136,14 +142,5 @@ class ReviewsScreen extends StatelessWidget {
             },
           );
         });
-  }
-
-  void goToAddReviews(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AddReviewsScreen(
-                  recipeName: recipeName,
-                )));
   }
 }

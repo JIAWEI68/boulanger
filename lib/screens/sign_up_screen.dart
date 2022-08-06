@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/services/firestore_services.dart';
 
-import '../login_main.dart';
-
 class SignUpScreen extends StatefulWidget {
   final VoidCallback showLoginPage;
   const SignUpScreen({Key? key, required this.showLoginPage}) : super(key: key);
@@ -31,8 +29,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (isValid) {
       form.currentState!.save();
       print(username);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginMainScreen()));
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Register Successful'),
       ));

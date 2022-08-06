@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:recipes_app/login_main.dart';
 import 'package:recipes_app/screens/forget_password.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -36,8 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
       form.currentState!.save();
       print(username);
       print(password);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginMainScreen()));
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Login Successful'),
       ));
