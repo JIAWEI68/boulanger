@@ -20,8 +20,7 @@ class _RecipesGridViewState extends State<RecipesGridView> {
   @override
   Widget build(BuildContext context) {
     FirestoreService firestoreService = FirestoreService();
-    //call the search string inside the recipe list class to allow search
-    String searchString = Provider.of<RecipeProvider>(context).searchString;
+    //set the list in the provider into this list
     List<Recipe> recipeList = [];
     //call the list based on the search string
     return StreamBuilder<Object>(

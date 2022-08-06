@@ -319,7 +319,10 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                       onPressed: () {
                         addRecipe(recipeList);
                       },
-                      child: const Text("Upload")),
+                      style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(254, 238, 210, 10),
+                      ),
+                      child: Text("Upload")),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);

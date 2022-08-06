@@ -46,6 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
     FocusScope.of(context).unfocus();
   }
 
+  bool passwordVisible = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,12 +97,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 320,
                     child: TextFormField(
                       controller: passwordController,
-                      obscureText: true,
+                      obscureText: passwordVisible,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                           hintText: 'Password',
                           hintStyle: TextStyle(fontSize: 16),
+                          suffixIcon: IconButton(
+                            icon: Icon(passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                if (passwordVisible == true) {
+                                  passwordVisible = false;
+                                } else {
+                                  passwordVisible = true;
+                                }
+                                print(passwordVisible);
+                              });
+                            },
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

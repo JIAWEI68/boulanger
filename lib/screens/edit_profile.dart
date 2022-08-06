@@ -47,11 +47,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     FocusScope.of(context).unfocus();
   }
 
+  String imageLink =
+      "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-person-user-19.png";
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     return Consumer(
       builder: (BuildContext context, UserProvider provider, Widget? child) {
+        if (widget.users.imageUrl == "") {
+          imageLink =
+              "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-person-user-19.png";
+        } else {
+          imageLink = widget.users.imageUrl;
+        }
         List<Users> userList = provider.userList
             .where((element) => element.email == user.email)
             .toList();
@@ -70,9 +79,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                        alignment: Alignment.center,
-                        child: Image.asset("images/profile_icon.png")),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 0.0),
+                      child: CircleAvatar(
+                        radius: 70,
+                        backgroundColor: Colors.black,
+                        child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 65,
+                            child: Image.network(
+                              imageLink,
+                              errorBuilder: (BuildContext context,
+                                  Object exception, StackTrace? stackTrace) {
+                                return ClipRRect(
+                                  child: Card(
+                                    color: Colors.blue,
+                                  ),
+                                );
+                              },
+                              height: 79,
+                            )),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 25.0,
