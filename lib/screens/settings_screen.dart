@@ -37,7 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   .where((element) => element.email == user.email)
                   .toList();
               print(userList);
-              if (userList[0].imageUrl == null) {
+              if (userList[0].imageUrl == "") {
                 imageLink =
                     "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-person-user-19.png";
                 height = 80;
@@ -64,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             backgroundColor: Colors.white,
                             radius: 65,
                             child: Image.network(
-                              userList[0].imageUrl,
+                              imageLink,
                               errorBuilder: (BuildContext context,
                                   Object exception, StackTrace? stackTrace) {
                                 return ClipRRect(
@@ -86,32 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 3.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Vegetarian",
-                            style:
-                                TextStyle(fontFamily: "Rockwell", fontSize: 20),
-                          ),
-                          Switch(
-                            activeColor: Color.fromRGBO(251, 170, 28, 10),
-                            inactiveThumbColor:
-                                Color.fromRGBO(251, 170, 28, 10),
-                            value: recipeList.checkVegetarian,
-                            onChanged: (bool value) {
-                              setState(() {
-                                recipeList.checkVegetarian = value;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(top: 0.2),
+                        padding: EdgeInsets.only(top: 30),
                         child: Directionality(
                           textDirection: TextDirection.rtl,
                           child: ElevatedButton.icon(

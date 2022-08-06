@@ -3,7 +3,7 @@ class Recipe {
   String imageUrl;
   String recipeName;
   String description;
-  bool vegetarian;
+  String vegetarian;
   String difficulty;
   String madeBy;
   String username;

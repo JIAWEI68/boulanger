@@ -20,7 +20,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
   String? recipeName;
   String? description;
   String? difficulty;
-  bool? vegetarian;
+  String? vegetarian;
   String? madeBy;
   String? category;
   String? steps;
@@ -204,7 +204,7 @@ class _AddRecipesScreenState extends State<AddRecipesScreen> {
                           )
                         ],
                         onChanged: (value) {
-                          vegetarian = value as bool;
+                          vegetarian = value as String;
                         },
                       )),
                   Padding(

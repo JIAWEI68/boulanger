@@ -15,14 +15,14 @@ class RecipesGridView extends StatefulWidget {
 }
 
 class _RecipesGridViewState extends State<RecipesGridView> {
+  String? checkBool;
   late TextEditingController searchController = widget.controller;
   @override
   Widget build(BuildContext context) {
     FirestoreService firestoreService = FirestoreService();
     //call the search string inside the recipe list class to allow search
     String searchString = Provider.of<RecipeProvider>(context).searchString;
-    List<Recipe> recipeList =
-        Provider.of<RecipeProvider>(context).getAllRecipe();
+    List<Recipe> recipeList = [];
     //call the list based on the search string
     return StreamBuilder<Object>(
         stream: firestoreService.getRecipes(),
@@ -30,7 +30,7 @@ class _RecipesGridViewState extends State<RecipesGridView> {
           return Consumer2<RecipeProvider, UserProvider>(builder:
               (BuildContext context, RecipeProvider provider,
                   UserProvider userProvider, Widget? child) {
-            print(recipeList);
+            print(checkBool);
             print(searchController.text);
             if (searchController.text.isEmpty) {
               recipeList = provider.recipeList;

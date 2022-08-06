@@ -18,7 +18,7 @@ class RecipeProvider with ChangeNotifier {
             "But no one turns away a slosh of custard! Usually Christmas Cakes need to be started the day before, with overnight soaking of dried fruit. "
             "But not mine! Terrific made on the day, keeps for ages, and it’s just as delicious made with or without alcohol. "
             "Go wild with the decorations – or keep it simple!",
-        vegetarian: true,
+        vegetarian: "true",
         difficulty: "Easy",
         madeBy: "Nagi",
         username: "Cake",
@@ -81,7 +81,7 @@ OTHER DECORATING OPTIONS (OPTIONAL)
         recipeName: "Birthday Cake",
         description:
             "This easy-to-prepare yellow cake recipe with buttercream frosting will be welcome at any birthday celebration. It's the perfect cake to eat with ice cream",
-        vegetarian: false,
+        vegetarian: "false",
         difficulty: "Medium",
         madeBy: "Land O Lakes",
         username: "Cake",
@@ -147,7 +147,7 @@ FROSTING
         recipeName: "Red Velvet Cake",
         description:
             "This easy-to-prepare yellow cake recipe with buttercream frosting will be welcome at any birthday celebration. It's the perfect cake to eat with ice cream",
-        vegetarian: false,
+        vegetarian: "false",
         difficulty: "Medium",
         madeBy: "Land O Lakes",
         username: "Cake",

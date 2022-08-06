@@ -52,13 +52,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-      firestoreService.addUser(
-          username,
-          firstName,
-          lastName,
-          emailController.text.trim(),
-          passwordController.text.trim(),
-          imageUrl);
+      firestoreService.addUser(username, firstName, lastName,
+          emailController.text.trim(), passwordController.text.trim());
     }
   }
 
@@ -85,37 +80,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Container(
                     alignment: Alignment.center,
                     child: Image.asset("images/profile_icon.png")),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 25.0,
-                  ),
-                  child: SizedBox(
-                    width: 320,
-                    child: TextFormField(
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          hintText: "Link to your image",
-                          hintStyle: TextStyle(fontSize: 16),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          filled: true),
-                      validator: (value) {
-                        if (value == "") {
-                          return "Please enter a image link";
-                        } else {
-                          return null;
-                        }
-                      },
-                      onChanged: (value) {
-                        setState(() {
-                          imageUrl = value;
-                        });
-                      },
-                    ),
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 25.0,
