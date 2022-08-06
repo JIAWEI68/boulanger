@@ -39,11 +39,11 @@ class _FavouriteGridViewState extends State<FavouriteGridView> {
                 .where((element) => element.email == user.email)
                 .toList();
             favouriteList = provider.favourtieList
-                .where((element) => element.username == userList[0].username)
+                .where((element) => element.userId == userList[0].id)
                 .toList();
             if (searchController.text.isEmpty) {
               favouriteList = provider.favourtieList
-                  .where((element) => element.username == userList[0].username)
+                  .where((element) => element.userId == userList[0].id)
                   .toList();
             } else {
               favouriteList = provider.favourtieList
@@ -51,7 +51,7 @@ class _FavouriteGridViewState extends State<FavouriteGridView> {
                       element.recipeName
                           .toLowerCase()
                           .contains(searchController.text.toLowerCase()) &&
-                      element.username == userList[0].username)
+                      element.userId == userList[0].id)
                   .toList();
             }
             print(searchController.text.toLowerCase());

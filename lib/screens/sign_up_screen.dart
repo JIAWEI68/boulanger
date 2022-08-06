@@ -46,12 +46,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Future signUp() async {
-    if (passwordConfirm()) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-      firestoreService.addUser(username, firstName, lastName,
-          emailController.text.trim(), passwordController.text.trim());
+    try {
+      if (passwordConfirm()) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim());
+        firestoreService.addUser(username, firstName, lastName,
+            emailController.text.trim(), passwordController.text.trim());
+      }
+    } on FirebaseAuthException catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
     }
   }
 

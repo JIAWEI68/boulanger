@@ -39,13 +39,12 @@ class _DownloadGridViewState extends State<DownloadGridView> {
                   .where((element) => element.email == user.email)
                   .toList();
               downloadList = provider.downloadList
-                  .where((element) => element.username == userList[0].username)
+                  .where((element) => element.userId == userList[0].id)
                   .toList();
               print(downloadSearchController.text);
               if (downloadSearchController.text.isEmpty) {
                 downloadList = provider.downloadList
-                    .where(
-                        (element) => element.username == userList[0].username)
+                    .where((element) => element.userId == userList[0].id)
                     .toList();
               } else {
                 downloadList = provider.downloadList
@@ -53,7 +52,7 @@ class _DownloadGridViewState extends State<DownloadGridView> {
                         element.recipeName
                             .toLowerCase()
                             .contains(downloadSearchController.text) &&
-                        element.username == userList[0].username)
+                        element.userId == userList[0].id)
                     .toList();
               }
               print(searchString.toLowerCase());
